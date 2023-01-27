@@ -1,12 +1,13 @@
 <div class="shadow-4 border-round">
-    <p-menubar [model]="items" class="center">        
+    <p-menubar [model]="items">
         <ng-template pTemplate="start">
-            <p-avatar label="{{avatar}}" styleClass="mr-2" [style]="{'background-color': '#9c27b0', 'color': '#ffffff'}" shape="circle"></p-avatar>
-               <span class="p-menuitem-text mr-5">{{usuarioLogado}}</span>
+            <p-avatar label="{{letraAvatar}}" styleClass="mr-2" [style]="{'background-color': '#9c27b0', 'color': '#ffffff'}"
+                shape="circle"></p-avatar>
+            <span class="p-menuitem-text mr-5">{{usuarioLogado}}</span>
         </ng-template>
         <ng-template pTemplate="end">
             <a role="menuitem" class="p-menuitem-link">
-                <span class="p-menuitem-icon pi pi-power-off" ></span>
+                <span class="p-menuitem-icon pi pi-power-off"></span>
                 <span class="p-menuitem-text">Sair</span>
             </a>
         </ng-template>

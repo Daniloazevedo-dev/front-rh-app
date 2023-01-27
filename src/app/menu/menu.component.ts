@@ -1,41 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import {MenuItem} from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css',]
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent {
 
   items: MenuItem[];
   usuarioLogado: String;
-  avatar: String;
+  letraAvatar: String;
 
   constructor() {
     this.usuarioLogado = 'usuario';
     this.items = this.menuItems();
-    this.avatar = this.usuarioLogado[0].toUpperCase()    
-}
-
-  ngOnInit(): void {
-    
+    this.letraAvatar = this.usuarioLogado[0].toUpperCase()
   }
 
   private menuItems() {
     return [
-      {      
-        visible: true,  
+      {
+        label: 'Home',
+        icon: 'pi pi-home'
+      },
+      {
+        visible: true,
         label: 'Cadastro',
-        icon:'pi pi-fw pi-plus',
+        icon: 'pi pi-fw pi-plus',
         items: [
-            {
-              label:'Usuário',
-              icon:'pi pi-user'
+          {
+            label: 'Usuário',
+            icon: 'pi pi-user',
+            routerLink: '/usuario'
           },
           {
-              label:'Colaborador',
-              icon:'pi pi-briefcase'
+            label: 'Colaborador',
+            icon: 'pi pi-briefcase'
           }
         ]
       },
