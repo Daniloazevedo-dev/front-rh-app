@@ -19,6 +19,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import { MultiSelectModule } from 'primeng/multiselect';
+import {ToastModule} from 'primeng/toast';
+import {PanelModule} from 'primeng/panel';
+import {TableModule} from 'primeng/table';
+import {ToolbarModule} from 'primeng/toolbar';
+import {DialogModule} from 'primeng/dialog';
 
 
 @NgModule({
@@ -44,7 +49,12 @@ import { MultiSelectModule } from 'primeng/multiselect';
     MessagesModule,
     MessageModule,
     CommonModule,
-    MultiSelectModule
+    MultiSelectModule,
+    ToastModule,
+    PanelModule,
+    TableModule,
+    ToolbarModule,
+    DialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

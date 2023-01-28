@@ -1,35 +1,84 @@
+<p-toast position="top-right" key="tr"></p-toast>
+<div class="card mt-4">
+  <button pButton pRipple label="Novo" (click)="abrirDialogUsuario()" icon="pi pi-plus" class="p-button-success mr-2" ></button>
 <div class="mt-3">
   <div class="p-fieldset shadow-4">
-    <div class="p-fieldset-content">
+    <div class="p-fieldset-content p-0" [style]="{'background-color': 'blue'}">
       <div class="card">
-        <p-messages [(value)]="msgs" ></p-messages>
-        <form [formGroup]="form">
-          <div class="field">
-            <label for="nome" class="" >Nome:</label>
-            <input type="text" name="nome" id="nome" class="w-full ng-dirty" formControlName="nome" pInputText placeholder="Informe o nome" />
-            <small id="nome-help" class="p-error block">{{getErrors('nome')}}</small>
-          </div>
-          <div class="field">
-            <label for="email" class="block" >Email:</label>
-            <input type="email" name="email" id="email" class="w-full ng-dirty" formControlName="email" pInputText placeholder="Informe o seu email" />
-            <small id="email-help" class="p-error block">{{getErrors('email')}}</small>
-          </div>
-          <div class="field">
-            <label for="senha" class="block" >Senha:</label>
-            <input type="password" name="senha" id="senha" formControlName="senha" class="w-full ng-dirty" pInputText placeholder="Informe a senha" />
-            <small id="senha-help" class="p-error block">{{getErrors('senha')}}</small>
-          </div>
-          <div class="field">
-            <label for="role" class="block" >Role:</label>
-            <p-multiSelect [style]="{'width': '100%'}" [options]="roles" formControlName="role" name="role" id="role" inputId="role" [(ngModel)]="role" optionLabel="roleName" class="ng-dirty" placeholder="Seleciona a role para o usuario"></p-multiSelect>
-            <small id="role-help" class="p-error block">{{getErrors('role')}}</small>
-          </div>
-          <div class="field">
-            <button pButton type="button" (click)="salvar()" class="m-1" label="Salvar"></button>
-            <button pButton pRipple type="reset" label="Limpar" class="p-button-secondary m-1"></button>
-          </div>
-        </form>
+        <ng-template pTemplate="header">
+          Usuários
+        </ng-template>
+            <p-table #dt [value]="usuarios" [rows]="10" [paginator]="true" [globalFilterFields]="['nome','email']" responsiveLayout="scroll"
+            [(selection)]="usuario" [rowHover]="true" dataKey="id"
+            currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} " [showCurrentPageReport]="true">
+            <ng-template pTemplate="caption">
+              <h2 class="text-center">Usuários</h2>
+          </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon></th>
+                    <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+                    <th pSortableColumn="roles">Role <p-sortIcon field="role"></p-sortIcon></th>
+                    <th class="text-right">
+                      <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text"  (input)="dt.filterGlobal(getEventValue($event), 'contains')" placeholder="Pesquisar..." />
+                      </span>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-usuario>
+                <tr>
+                    <td [style]="{'width': '30%'}">{{usuario.nome}}</td>
+                    <td [style]="{'width': '30%'}">{{usuario.email}}</td>
+                    <td [style]="{'width': '30%'}">{{usuario.roles[0].roleName}}</td>
+                    <td class="text-right" [style]="{'width': '10%'}">
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2" ></button>
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" ></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div class="flex align-items-center justify-content-between">
+                    Total: {{usuarios ? usuarios.length : 0 }}
+                </div>
+            </ng-template>
+        </p-table>
+      </div>
       </div>
     </div>
   </div>
-</div>
+  <p-dialog class="p-fieldset shadow-4 " [draggable]="false" [resizable]="false" [(visible)]="usuariotDialog" [closable]="false"  [style]="{'width': '600px', 'height': '76%'}" [modal]="true" styleClass="p-fluid">
+        <div class="p-fieldset-content">
+          <div class="card">
+            <form [formGroup]="form">
+              <div class="field">
+                <label for="nome" class="" >Nome:</label>
+                <input type="text" name="nome" id="nome" class="w-full ng-dirty" formControlName="nome" pInputText placeholder="Informe o nome" />
+                <small id="nome-help" class="p-error block">{{getErrors('nome')}}</small>
+              </div>
+              <div class="field">
+                <label for="email" class="block" >Email:</label>
+                <input type="email" name="email" id="email" class="w-full ng-dirty" formControlName="email" pInputText placeholder="Informe o seu email" />
+                <small id="email-help" class="p-error block">{{getErrors('email')}}</small>
+              </div>
+              <div class="field">
+                <label for="senha" class="block" >Senha:</label>
+                <input type="password" name="senha" id="senha" formControlName="senha" class="w-full ng-dirty" pInputText placeholder="Informe a senha" />
+                <small id="senha-help" class="p-error block">{{getErrors('senha')}}</small>
+              </div>
+              <div class="field">
+                <label for="role" class="block" >Role:</label>
+                <p-multiSelect [style]="{'width': '100%'}" [options]="roles" formControlName="role" name="role" id="role" inputId="role" [(ngModel)]="role" optionLabel="roleName" class="ng-dirty" placeholder="Seleciona a role para o usuario"></p-multiSelect>
+                <small id="role-help" class="p-error block">{{getErrors('role')}}</small>
+              </div>
+              <div class="field">
+                <button pButton type="button" (click)="salvar()" class="m-1" label="Salvar"></button>
+                <button pButton pRipple type="reset" label="Limpar" class="p-button-secondary m-1"></button>
+                <button pButton type="button" (click)="fecharDialogUsuario()" class=" p-button-danger m-1" label="Cancelar"></button>
+              </div>
+            </form>
+          </div>
+        </div>
+  </p-dialog>
+
