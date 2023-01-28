@@ -1,7 +1,6 @@
-import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
+import { FormGroup, FormControl } from "@angular/forms";
 import { BasicValidators } from "./basic-validators";
-import { Message, PrimeNGConfig } from 'primeng/api';
-import { AlertaComponent } from "./alerta/alerta.component";
+import { Message} from 'primeng/api';
 
 
 
@@ -13,7 +12,7 @@ export class FormBase {
   error: Message[] = [];
 
 
-  constructor(protected alerta: AlertaComponent) {
+  constructor() {
 
      this.pt = {
       firstDayOfWeek: 0,
@@ -130,19 +129,6 @@ export class FormBase {
       });
   }
 
-
-  handleErrorAlert(error: any) {
-    if (error.error.detalhe) {
-      this.alerta.showError('Erro Interno', error.error.detalhe);
-    } else if (error.error.erros) {
-      this.alerta.showError('Erro Interno', (error.error.erros.map((err: { mensagem: any; })=> {
-        return `${err.mensagem}`;
-      }) + '&nbsp;'));
-    } else {
-      this.alerta.showGeneric(this.genericAlertSeverity(error.status), this.genericErrorMessage(error.status));
-    }
-  }
-
   private genericErrorMessage(status: any) {
     let message;
     switch (status) {
@@ -224,12 +210,6 @@ export class FormBase {
           summary: 'Serviço indisponível.'
         }
       ];
-    }
-  }
-
-  handleErrorsAlert(err: any) {
-    if (err.error) {
-      this.alerta.showErrors(err.error.titulo, err.error.erros);
     }
   }
 

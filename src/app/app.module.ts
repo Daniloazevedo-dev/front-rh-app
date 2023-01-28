@@ -18,6 +18,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import {MessageModule} from 'primeng/message';
     ReactiveFormsModule,
     MessagesModule,
     MessageModule,
-    CommonModule
+    CommonModule,
+    MultiSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

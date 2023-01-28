@@ -1,35 +1,32 @@
-import { Component, OnInit, Injectable, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBase } from 'src/app/shared/FormBase';
 import { FormBuilder } from '@angular/forms';
-import { AlertaComponent } from 'src/app/shared/alerta/alerta.component';
 import { BasicValidators } from 'src/app/shared/basic-validators';
-import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-usuario',
   templateUrl: './usuario.component.html',
-  styleUrls: ['./usuario.component.css'],
-  providers: [AlertaComponent, MessageService]
+  styleUrls: ['./usuario.component.css']
 })
 export class UsuarioComponent extends FormBase implements OnInit {
 
-  roles: String[];
+  roles: any[];
+  role: any;
   msgs: any;
 
   constructor(
-    public formBuilder: FormBuilder,
-    protected override alerta: AlertaComponent,
+    public formBuilder: FormBuilder
   ) {
-    super(alerta);
+    super();
     this.roles = [
-      'ADMIN',
-      'COLABORADOR',
-      'FINANCEIRO'  ];
+      {id: '1',roleName: 'ADMIN'},
+      {id: '1',roleName:'COLABORADOR'},
+      {id: '1',roleName:'FINANCEIRO'}
+     ];
    }
 
   ngOnInit(): void {
     this.setForm();
-    this.alerta.showError('Erro');
   }
 
   private setForm() {
@@ -44,8 +41,7 @@ export class UsuarioComponent extends FormBase implements OnInit {
   salvar() {
     this.validateForm();
     if(this.form.valid) {
-      this.alerta.showSuccess('TESTE', 'TESTE')
-      console.log('fdsfs')
+      console.log(this.form.value)
     }
   }
 

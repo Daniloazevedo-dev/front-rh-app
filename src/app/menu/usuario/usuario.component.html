@@ -21,7 +21,7 @@
           </div>
           <div class="field">
             <label for="role" class="block" >Role:</label>
-            <p-dropdown class="ng-dirty" [style]="{'width': '100%'}" name="role" formControlName="role" id="role" [options]="roles"  [showClear]="true" placeholder="Seleciona a role para o usuario" ></p-dropdown>
+            <p-multiSelect [style]="{'width': '100%'}" [options]="roles" formControlName="role" name="role" id="role" inputId="role" [(ngModel)]="role" optionLabel="roleName" class="ng-dirty" placeholder="Seleciona a role para o usuario"></p-multiSelect>
             <small id="role-help" class="p-error block">{{getErrors('role')}}</small>
           </div>
           <div class="field">
