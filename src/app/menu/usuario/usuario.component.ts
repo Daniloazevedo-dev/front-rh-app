@@ -3,6 +3,8 @@ import { FormBase } from 'src/app/shared/FormBase';
 import { FormBuilder } from '@angular/forms';
 import { BasicValidators } from 'src/app/shared/basic-validators';
 import { MessageService } from 'primeng/api';
+import { RoleService } from 'src/app/service/role.service';
+import { UsuarioService } from 'src/app/service/usuario.service';
 
 @Component({
   selector: 'app-usuario',
@@ -12,43 +14,23 @@ import { MessageService } from 'primeng/api';
 })
 export class UsuarioComponent extends FormBase implements OnInit {
 
-  roles: any[];
+  roles: any;
   role: any;
   msgs: any;
-  usuarios: any[];
+  msgError: any;
+  usuarios: any;
   usuario: any;
   usuariotDialog: boolean = false;
 
   constructor(
     public formBuilder: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private roleService: RoleService,
+    private usuarioService: UsuarioService
   ) {
     super();
-
-    this.usuarios = [
-      {
-        nome: "Teste",
-        email: "teste@gmail.com",
-        roles: [
-          {id: '1',roleName: 'ADMIN'},
-          {id: '1',roleName:'COLABORADOR'}
-        ]
-      },
-      {
-        nome: "teste2",
-        email: "teste2@gmail.com",
-        roles: [
-          {id: '1',roleName:'COLABORADOR'}
-        ]
-      }
-    ];
-
-    this.roles = [
-      {id: '1',roleName: 'ADMIN'},
-      {id: '1',roleName:'COLABORADOR'},
-      {id: '1',roleName:'DIRETOR'},
-      {id: '1',roleName:'FINANCEIRO'}
-     ];
+    this.usuarios = this.buscarUsuarios();
+    this.buscarRoles();
    }
 
   ngOnInit(): void {
@@ -59,21 +41,19 @@ export class UsuarioComponent extends FormBase implements OnInit {
     this.form = this.formBuilder.group({
       nome: ['', BasicValidators.obrigatorio('O nome é obrigatório.')],
       email: [null, BasicValidators.obrigatorio('O email é obrigatório.')],
-      senha: [null, BasicValidators.obrigatorio('A senha é obrigatório.')],
-      role: [null, BasicValidators.obrigatorio('A role é obrigatório.')]
+      password: [null, BasicValidators.obrigatorio('A senha é obrigatório.')],
+      roles: [null, BasicValidators.obrigatorio('A role é obrigatório.')]
     });
   }
 
   salvar() {
     this.validateForm();
     if(this.form.valid) {
-      console.log(this.form.value)
-      this.messageService.add({key: 'tr',severity:'success', summary: 'Sucesso', detail: 'Usuário Salvo com sucesso!'});
+      this.salvarUsuarios(this.form.value);
     }
   }
 
   getEventValue($event:any) :string {
-    console.log($event.target.value);
     return $event.target.value;
   }
 
@@ -83,6 +63,42 @@ export class UsuarioComponent extends FormBase implements OnInit {
 
   fecharDialogUsuario() {
     this.usuariotDialog = false;
+  }
+
+  buscarRoles() {
+    this.roleService.listRoles().subscribe(roles => {
+      this.roles = roles;
+    },
+    error => {
+      console.log(error);
+    });
+  }
+
+  buscarUsuarios() {
+    this.usuarioService.listUsuarios().subscribe(usuarios => {
+     this.usuarios = usuarios;
+    },
+    error => {
+      console.log(error);
+    });
+  }
+
+ salvarUsuarios(usuario: any) {
+    this.usuarioService.salvarUsuario(usuario).subscribe(usuario => {
+      this.buscarUsuarios();
+      this.messageService.add({key: 'tr',severity:'success', summary: 'Sucesso', detail: 'Usuário Salvo com sucesso!'});
+      this.usuariotDialog = false;
+      this.form.reset();
+    },
+    error => {
+      console.log(error.error.message);
+      this.usuariotDialog = false;
+      this.msgError = [{severity:'error', summary:'Erro', detail: error.error.message}];
+    });
+  }
+
+  tratarRolesSepparaPorVirgula(listRoles: any) {
+    return listRoles.map((role: { roleName: any; }) => role.roleName).join(', ');
   }
 
 }
