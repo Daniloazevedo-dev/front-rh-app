@@ -5,12 +5,13 @@ import { BasicValidators } from 'src/app/shared/basic-validators';
 import { MessageService } from 'primeng/api';
 import { RoleService } from 'src/app/service/role.service';
 import { UsuarioService } from 'src/app/service/usuario.service';
+import {ConfirmationService} from 'primeng/api';
 
 @Component({
   selector: 'app-usuario',
   templateUrl: './usuario.component.html',
   styleUrls: ['./usuario.component.css'],
-  providers: [MessageService]
+  providers: [MessageService,ConfirmationService]
 })
 export class UsuarioComponent extends FormBase implements OnInit {
 
@@ -26,7 +27,8 @@ export class UsuarioComponent extends FormBase implements OnInit {
     public formBuilder: FormBuilder,
     private messageService: MessageService,
     private roleService: RoleService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private confirmationService: ConfirmationService
   ) {
     super();
     this.usuarios = this.buscarUsuarios();
@@ -58,6 +60,7 @@ export class UsuarioComponent extends FormBase implements OnInit {
   }
 
   abrirDialogUsuario() {
+    this.form.reset();
     this.usuariotDialog = true;
   }
 
@@ -70,7 +73,7 @@ export class UsuarioComponent extends FormBase implements OnInit {
       this.roles = roles;
     },
     error => {
-      console.log(error);
+      this.msgError = [{severity:'error', summary:'Erro', detail: error.error.message}];
     });
   }
 
@@ -79,7 +82,7 @@ export class UsuarioComponent extends FormBase implements OnInit {
      this.usuarios = usuarios;
     },
     error => {
-      console.log(error);
+      this.msgError = [{severity:'error', summary:'Erro', detail: error.error.message}];
     });
   }
 
@@ -88,13 +91,27 @@ export class UsuarioComponent extends FormBase implements OnInit {
       this.buscarUsuarios();
       this.messageService.add({key: 'tr',severity:'success', summary: 'Sucesso', detail: 'Usuário Salvo com sucesso!'});
       this.usuariotDialog = false;
-      this.form.reset();
     },
     error => {
-      console.log(error.error.message);
       this.usuariotDialog = false;
       this.msgError = [{severity:'error', summary:'Erro', detail: error.error.message}];
     });
+  }
+
+  deletarUsuario(id: Number) {
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir?',
+      accept: () => {
+        this.usuarioService.deleteUsuario(id).subscribe( res => {
+          this.messageService.add({key: 'tr',severity:'success', summary: 'Sucesso', detail: 'Usuário deletado com sucesso!'});
+          this.buscarUsuarios();
+
+        },
+        error => {
+          this.msgError = [{severity:'error', summary:'Erro', detail: error.error.message}];
+        });
+      }
+    })
   }
 
   tratarRolesSepparaPorVirgula(listRoles: any) {

@@ -25,6 +25,7 @@ import {TableModule} from 'primeng/table';
 import {ToolbarModule} from 'primeng/toolbar';
 import {DialogModule} from 'primeng/dialog';
 import { HttpClientModule } from '@angular/common/http';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { HttpClientModule } from '@angular/common/http';
     TableModule,
     ToolbarModule,
     DialogModule,
-    HttpClientModule
+    HttpClientModule,
+    ConfirmDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

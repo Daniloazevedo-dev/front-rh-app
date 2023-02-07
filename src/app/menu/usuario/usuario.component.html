@@ -1,4 +1,6 @@
 <p-toast position="top-right" key="tr"></p-toast>
+<p-confirmDialog [transitionOptions]="'0ms'" rejectLabel="Não" acceptLabel="Sim">
+</p-confirmDialog>
 <div class="card mt-4">
   <button pButton pRipple label="Novo" (click)="abrirDialogUsuario()" icon="pi pi-plus" class="p-button-success mr-2" ></button>
   <p-messages [(value)]="msgError" [enableService]="false"></p-messages>
@@ -35,7 +37,7 @@
                     <td [style]="{'width': '30%'}">{{tratarRolesSepparaPorVirgula(usuario.roles)}}</td>
                     <td class="text-right" [style]="{'width': '10%'}">
                         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2" ></button>
-                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" ></button>
+                        <button pButton pRipple icon="pi pi-trash" (click)="deletarUsuario(usuario.id)" class="p-button-rounded p-button-danger" ></button>
                     </td>
                 </tr>
             </ng-template>
