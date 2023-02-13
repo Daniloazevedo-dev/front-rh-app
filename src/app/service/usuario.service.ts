@@ -9,7 +9,7 @@ export class UsuarioService {
 
 constructor(private http: HttpClient) { }
 
-  private url = `${environment.url}usuario`
+  private url = `${environment.url}rh-usuario/usuario`
 
   listUsuarios() {
     return this.http.get(this.url);
@@ -23,3 +23,4 @@ constructor(private http: HttpClient) { }
     return this.http.delete(`${this.url}/${id}`)
   }
 }
+
