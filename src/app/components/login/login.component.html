@@ -1,0 +1,36 @@
+<div class="containerlogin">
+  <div *ngIf="isLoadingResults"></div>
+  <p *ngIf="isLoadingResults"></p>
+
+  <form class="formlogin shadow-8 " [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
+
+    <p class="h1login">RH - Buffet Fenix | Projeto Acelera Pleno Atos</p>
+
+    <img src="assets/img/login-image.svg" alt="RH - Buffet Fenix - Projeto Acelera Pleno Atos">
+
+    <div class="full-width ">
+      <label>E-mail</label>
+      <input class="full-width" pInputText placeholder="e-mail" formControlName="username" autocomplete="false"/>
+      <span
+        *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched"> <i
+        class="pi pi-envelope"></i></span>
+
+    </div>
+
+    <div class="full-width">
+      <label inlist="true">Senha</label>
+      <input class="full-width" pInputText type="password" placeholder="Senha" formControlName="password"
+             autocomplete="false"/>
+      <span icon="pi pi-lock"
+            *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched"> <i
+        class="pi pi-lock"></i></span>
+    </div>
+
+    <button pButton label="Login" type="submit" [disabled]="!loginForm.valid"
+            class="full-width p-button-text text-black-alpha-90 shadow-4">
+
+    </button>
+  </form>
+
+</div>
+

@@ -1,0 +1,31 @@
+<div *ngIf="isLoadingResults"></div>
+
+<div class=" cardhome shadow-8">
+  <header>
+    <title>RH- Buffet Fenix</title>
+    <p style="padding-left: 20px;">RH- Buffet Fenix</p>
+  </header>
+  <img src="assets/img/home-image.svg" alt="Image Home">
+  <div style="padding-left: 20px; padding-right: 10px; padding-bottom: 10px">
+    <p>
+      Olá! Seja bem vindo ao RH - Buffet Fenix - Projeto Acelera Pleno Atos, desenvolvido por Luiz Generoso, Danilo
+      Azevedo, Leonardo Salvador e Damaris Santana.<br/>
+      Esse é um sistema para gerenciamento de pagamentos, tendo como príncipio básico administrar o RH de forma simples,
+      fornecendo uma hagilidade ao efetuar o
+      pagamento aos colaboradores.<br/>
+      desenvolvido em Angular 12 e Spring Boot 2. <br/>
+      O sistema utiliza em seu Backend arquitetura de microserviços (Eureka Server, Discovery Server, Config Server,
+      Oauth Server)
+      implementado em sua segurança autenticação JWT Oauth 2.0<br/>
+      Em seu Frontend utilizamos biblioteca do framework PrimeNG.<br/>
+      O projeto tem como objetivo principal abordar os conceitos de aplicações SPAs, Autenticação e Autorização com
+      Tokens JWT e muito mais.<br/>
+      O código fonte do projeto pode ser acessado clicando no link Github no menu lateral.
+      <br/><br/> Fique a vontade para testar o sistema e deixar sua sugestão.
+      <br/> At: Equipe de desenvolvimento.
+      {{message}}
+      <a (click)="logout()">Sair</a>
+    </p>
+  </div>
+  </div>
+

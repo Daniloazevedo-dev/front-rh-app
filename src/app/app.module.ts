@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
+export declare function registerLocaleData(data: any, localeId?: string | any, extraData?: any): void;
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
@@ -24,15 +25,30 @@ import {PanelModule} from 'primeng/panel';
 import {TableModule} from 'primeng/table';
 import {ToolbarModule} from 'primeng/toolbar';
 import {DialogModule} from 'primeng/dialog';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {AuthInterceptor} from "./interceptors/auth.interceptor";
+import {HomeComponent} from "./components/home/home.component";
+import {NotFoundComponent} from "./components/not-found/not-found.component";
+import {
+  ListaColaboradorTotalPagarComponent
+} from "./components/relatorio/lista-colaborador-total-pagar/lista-colaborador-total-pagar.component";
+import {LoginComponent} from "./components/login/login.component";
+import {RegisterComponent} from "./components/register/register.component";
+import {CalendarModule} from "primeng/calendar";
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    UsuarioComponent
+    UsuarioComponent,
+    ListaColaboradorTotalPagarComponent,
+    LoginComponent,
+    RegisterComponent,
+    HomeComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,9 +74,17 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     ToolbarModule,
     DialogModule,
     HttpClientModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    CalendarModule,
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt' },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

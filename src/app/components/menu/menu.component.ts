@@ -22,7 +22,8 @@ export class MenuComponent {
     return [
       {
         label: 'Home',
-        icon: 'pi pi-home'
+        icon: 'pi pi-home',
+        routerLink: '/home'
       },
       {
         visible: true,
@@ -43,6 +44,19 @@ export class MenuComponent {
       {
         label: 'Pagamentos',
         icon: 'pi pi-money-bill'
+      },
+      {
+        visible: true,
+        label: 'Relatórios',
+        icon: 'pi pi-book',
+        items: [
+
+          {
+            label: 'Colaborador pagar',
+            icon: 'pi pi-print',
+            routerLink: '/lista-colaborador-total-pagar'
+          }
+        ]
       }
     ];
   }

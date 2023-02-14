@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
-  url:'http://localhost:8765/'
+  url:'http://localhost:8765/',
+  OAUTH_CLIENT:'myappname123',
+  OAUTH_SECRET:'myappsecret123'
+
 };
 
 /*
