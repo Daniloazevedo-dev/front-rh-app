@@ -1,29 +1,35 @@
-<div class="containerlogin">
+<div class="containerlogin" xmlns="http://www.w3.org/1999/html">
   <div *ngIf="isLoadingResults"></div>
   <p *ngIf="isLoadingResults"></p>
 
-  <form class="formlogin shadow-8 " [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
+  <form class="formlogin shadow-8 " [formGroup]="loginForm" (ngSubmit)="onFormSubmit()" autocomplete="off">
 
     <p class="h1login">RH - Buffet Fenix | Projeto Acelera Pleno Atos</p>
 
     <img src="assets/img/login-image.svg" alt="RH - Buffet Fenix - Projeto Acelera Pleno Atos">
 
-    <div class="full-width ">
+    <div class="full-width p-input-icon-right  p-float-label">
+
+      <i style="padding-right: 10px" class="pi pi-envelope"></i>
+      <input class="full-width" pInputText formControlName="username" autocomplete="off"/>
+      <input type="text" name="username" id="username_fake" class="hidden" autocomplete="off" style="display: none;"/>
+
       <label>E-mail</label>
-      <input class="full-width" pInputText placeholder="e-mail" formControlName="username" autocomplete="false"/>
       <span
-        *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched"> <i
-        class="pi pi-envelope"></i></span>
-
+        *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched"></span>
     </div>
+    <p style="height: 2px"></p>
 
-    <div class="full-width">
-      <label inlist="true">Senha</label>
-      <input class="full-width" pInputText type="password" placeholder="Senha" formControlName="password"
-             autocomplete="false"/>
-      <span icon="pi pi-lock"
-            *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched"> <i
-        class="pi pi-lock"></i></span>
+    <div class="full-width p-input-icon-right p-float-label ">
+
+      <i style="padding-right: 10px" class="pi pi-lock"></i>
+      <input class="full-width " pInputText type="password" formControlName="password"
+             autocomplete="off"/>
+      <input type="password" name="password" id="password_fake" class="hidden" autocomplete="off"
+             style="display: none;"/>
+      <label>Senha</label>
+      <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched"></span>
+
     </div>
 
     <button pButton label="Login" type="submit" [disabled]="!loginForm.valid"
@@ -33,4 +39,5 @@
   </form>
 
 </div>
+
 

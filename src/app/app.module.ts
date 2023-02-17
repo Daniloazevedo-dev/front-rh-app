@@ -78,7 +78,7 @@ import {CalendarModule} from "primeng/calendar";
     CalendarModule,
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'pt' },
+    { provide: LOCALE_ID, useValue: 'pt-br' },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

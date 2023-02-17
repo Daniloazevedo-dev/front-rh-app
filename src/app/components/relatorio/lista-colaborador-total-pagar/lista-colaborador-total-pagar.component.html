@@ -1,43 +1,40 @@
-<div class=" cardrel shadow-2">
-<p-divider align="left">
+<div class=" cardrel ">
+  <div style="background-color: rgb(246, 246, 246);">
+    <p-divider align="left">
 
-</p-divider>
-<p-divider align="center" type="">
-  <div class="inline-flex align-items-center">
+    </p-divider>
+    <div style="text-align: center; padding-bottom: 20px" >
+      <div class="inline-flex align-items-center" style="background-color: rgb(246, 246, 246);">
 
-    <i class="pi pi-wallet mr-2"></i>
-    <p>Relatório total a pagar</p>
+        <i class="pi pi-wallet mr-2"></i>
+        <p style="background-color: rgb(246, 246, 246);">Relatório total a pagar</p>
+      </div>
+
+    </div>
+
+    <div class=" shadow-4 ">
+      <table style="justify-content: center; width: auto; background-color: rgb(246, 246, 246);">
+        <tr>
+          <td>
+            <p-calendar [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon" placeholder="ínicio" [touchUI]="true"
+                        [readonlyInput]="true"> >
+            </p-calendar>
+          </td>
+
+          <td>
+            <p-calendar [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon" placeholder="final" [touchUI]="true"
+                        [readonlyInput]="true">>
+            </p-calendar>
+          </td>
+
+          <td>
+            <p-button label="Enviar"></p-button>
+          </td>
+
+        </tr>
+      </table>
+    </div>
   </div>
-
-</p-divider>
-
-
-<table style="justify-content: center; width: auto;">
-  <tr>
-    <td>
-      <p-calendar [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" placeholder="ínicio" ></p-calendar>
-    </td>
-
-    <td>
-      <p-calendar [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" placeholder="final"></p-calendar>
-    </td>
-
-    <td>
-      <p-button label="Enviar"></p-button>
-    </td>
-
-  </tr>
-</table>
-
-
-<p-divider align="center">
-  <span class=""></span>
-</p-divider>
-
-
-<p-divider align="left" type="">
-
-</p-divider>
 </div>
 
 

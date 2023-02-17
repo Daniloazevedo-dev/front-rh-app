@@ -1,10 +1,10 @@
 .cardrel {
   width: 100%;
   margin: 1rem auto;
- }
-
-img {
-  height: 15rem;
-  width: 100%;
-  margin: 1.5rem auto 1.5rem auto;
+  height: 35rem;
 }
+
+.p-divider.p-divider-horizontal .p-divider-content {
+  padding: 0 0rem!important;
+}
+
