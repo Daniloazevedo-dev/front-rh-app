@@ -87,11 +87,4 @@ export class AuthService {
     this.tokenService.removeRefreshToken();
   }
 
-  register(data: any): Observable<any> {
-    return this.http.post<any>(environment.url + 'rh-oauth/oauth/signup', data)
-      .pipe(
-        tap(_ => AuthService.log('register')),
-        catchError(AuthService.handleError)
-      );
-  }
 }

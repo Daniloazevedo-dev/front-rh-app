@@ -1,25 +1,24 @@
-import { NgModule, LOCALE_ID } from '@angular/core';
-export declare function registerLocaleData(data: any, localeId?: string | any, extraData?: any): void;
-import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
+import {LOCALE_ID, NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {CommonModule} from '@angular/common';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
-import { MenuComponent } from './components/menu/menu.component';
+import {MenuComponent} from './components/menu/menu.component';
 import {MenubarModule} from 'primeng/menubar';
-import { CardModule, } from 'primeng/card';
+import {CardModule,} from 'primeng/card';
 import {AvatarModule} from 'primeng/avatar';
 import {DividerModule} from 'primeng/divider';
-import { UsuarioComponent } from './components/usuario/usuario.component';
+import {UsuarioComponent} from './components/usuario/usuario.component';
 import {FieldsetModule} from 'primeng/fieldset';
 import {DropdownModule} from 'primeng/dropdown';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
-import { MultiSelectModule } from 'primeng/multiselect';
+import {MultiSelectModule} from 'primeng/multiselect';
 import {ToastModule} from 'primeng/toast';
 import {PanelModule} from 'primeng/panel';
 import {TableModule} from 'primeng/table';
@@ -34,10 +33,12 @@ import {
   ListaColaboradorTotalPagarComponent
 } from "./components/relatorio/lista-colaborador-total-pagar/lista-colaborador-total-pagar.component";
 import {LoginComponent} from "./components/login/login.component";
-import {RegisterComponent} from "./components/register/register.component";
 import {CalendarModule} from "primeng/calendar";
+import {SliderModule} from "primeng/slider";
+import {ContextMenuModule} from "primeng/contextmenu";
+import {ProgressBarModule} from "primeng/progressbar";
 
-
+export declare function registerLocaleData(data: any, localeId?: string | any, extraData?: any): void;
 
 @NgModule({
   declarations: [
@@ -46,9 +47,9 @@ import {CalendarModule} from "primeng/calendar";
     UsuarioComponent,
     ListaColaboradorTotalPagarComponent,
     LoginComponent,
-    RegisterComponent,
     HomeComponent,
     NotFoundComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -76,6 +77,10 @@ import {CalendarModule} from "primeng/calendar";
     HttpClientModule,
     ConfirmDialogModule,
     CalendarModule,
+    SliderModule,
+    ContextMenuModule,
+    ProgressBarModule,
+
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-br' },
