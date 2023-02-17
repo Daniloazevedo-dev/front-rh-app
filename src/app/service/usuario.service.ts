@@ -25,7 +25,7 @@ constructor(private http: HttpClient) { }
 
   buscarUsuarioEmail(email: string) {
     const params = new HttpParams().set('email', email);
-    return this.http.get(`${this.url}/buscar`, { params});
+    return this.http.get(`${this.url}/busca`, { params});
   }
 
 }
