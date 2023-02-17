@@ -52,6 +52,16 @@ export class MenuComponent {
     this.letraAvatar = this.usuarioLogado.charAt(0).toUpperCase();
   }
 
+  isAdmin() {
+    let isAdmin = false;
+    this.tokenService.getAuthorities().split(',').forEach(r => {
+      if(r === 'ROLE_ADMIN') {
+        isAdmin = true;
+      }
+    });
+    return isAdmin;
+  }
+
   private menuItems() {
     return [
       {
@@ -60,7 +70,7 @@ export class MenuComponent {
         routerLink: '/home',
       },
       {
-        visible: true,
+        visible: this.isAdmin(),
         label: 'Cadastro',
         icon: 'pi pi-fw pi-plus',
         items: [
