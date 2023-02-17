@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/service/auth.service';
 import { TokenService } from 'src/app/service/token.service';
 import { UsuarioService } from 'src/app/service/usuario.service';
 
+const ADMIN = 'ROLE_ADMIN';
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -55,7 +57,7 @@ export class MenuComponent {
   isAdmin() {
     let isAdmin = false;
     this.tokenService.getAuthorities().split(',').forEach(r => {
-      if(r === 'ROLE_ADMIN') {
+      if(r === ADMIN) {
         isAdmin = true;
       }
     });
