@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -22,5 +22,11 @@ constructor(private http: HttpClient) { }
   deleteUsuario(id: Number) {
     return this.http.delete(`${this.url}/${id}`)
   }
+
+  buscarUsuarioEmail(email: string) {
+    const params = new HttpParams().set('email', email);
+    return this.http.get(`${this.url}/buscar`, { params});
+  }
+
 }
 

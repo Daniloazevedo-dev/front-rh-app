@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TokenService } from './service/token.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'front-rh-app';
+
+  constructor(private tokenService: TokenService) {}
+
+  mostraMenu() {
+    return this.tokenService.getToken() !== null;
+  }
 }
