@@ -37,6 +37,7 @@ import {CalendarModule} from "primeng/calendar";
 import {SliderModule} from "primeng/slider";
 import {ContextMenuModule} from "primeng/contextmenu";
 import {ProgressBarModule} from "primeng/progressbar";
+import { FooterComponent } from './components/footer/footer.component';
 
 export declare function registerLocaleData(data: any, localeId?: string | any, extraData?: any): void;
 
@@ -49,6 +50,7 @@ export declare function registerLocaleData(data: any, localeId?: string | any, e
     LoginComponent,
     HomeComponent,
     NotFoundComponent,
+    FooterComponent,
 
   ],
   imports: [
