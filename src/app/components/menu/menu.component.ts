@@ -4,6 +4,7 @@ import { MenuItem } from 'primeng/api';
 import { AuthService } from 'src/app/service/auth.service';
 import { TokenService } from 'src/app/service/token.service';
 import { UsuarioService } from 'src/app/service/usuario.service';
+import {ToastrService} from "ngx-toastr";
 
 const ADMIN = 'ROLE_ADMIN';
 
@@ -21,7 +22,8 @@ export class MenuComponent {
     private authService: AuthService,
     private tokenService: TokenService,
     private usuarioService: UsuarioService,
-    public router: Router
+    public router: Router,
+    private toast: ToastrService
   ) {
     this.buscaUsuarioEmail();
     this.items = this.menuItems();
@@ -29,7 +31,7 @@ export class MenuComponent {
 
   sair() {
     this.authService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login']).then(_ => this.toast.info('Logout efetuado com sucesso!'));
   }
 
   buscaUsuarioEmail() {

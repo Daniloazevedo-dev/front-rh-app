@@ -2,11 +2,7 @@
   "name": "front-rh-app",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "start": "ng serve --host 0.0.0.0 --disable-host-check"
   },
   "private": true,
   "dependencies": {
@@ -21,6 +17,7 @@
     "@angular/router": "~13.3.0",
     "angular-locale-pt-br": "^1.3.16",
     "moment": "^2.29.4",
+    "ngx-toastr": "^13.2.1",
     "primeflex": "^3.3.0",
     "primeicons": "^5.0.0",
     "primeng": "^13.4.1",
@@ -41,10 +38,5 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
     "typescript": "^4.6.4"
-  },
-
-  "scripts": {
-
-    "start": "ng serve --host 0.0.0.0 --disable-host-check"
   }
 }

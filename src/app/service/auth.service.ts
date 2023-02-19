@@ -21,14 +21,14 @@ export class AuthService {
 
   private static handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
+      console.error('Um erro ocorreu:', error.error.message);
     } else {
       console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
+        `Código retornado do back-end ${error.status}, ` +
+        `body: ${error.error}`);
     }
     return throwError(
-      'Something bad happened; please try again later.');
+      'Algo ruím aconteceu, por favor, tente novamente mais tarde.');
   }
 
   private static log(message: string): any {

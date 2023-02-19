@@ -1,5 +1,12 @@
 import {Injectable} from '@angular/core';
-import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpResponse
+} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {throwError} from 'rxjs';
 import {TokenService} from '../service/token.service';
@@ -56,7 +63,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 location.reload();
               });
           } else {
-            this.router.navigate(['login']).then(_ => console.log('redirect to login'));
+            this.router.navigate(['login']).then(_ => console.log('redirecionar para login'));
           }
         }
         return throwError(error);
