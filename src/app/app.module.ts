@@ -42,6 +42,8 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {LoadingComponent} from './components/loading/loading.component';
 import {LoadingInterceptor} from './interceptors/loading.interceptor';
 import {ToastrModule} from "ngx-toastr";
+import {DynamicDialogModule} from 'primeng/dynamicdialog';
+import { IframeListaColaboradorTotalPagarComponent } from './components/iframe/lista-colaborador-total-pagar/iframe-lista-colaborador-total-pagar.component';
 
 export declare function registerLocaleData(
   data: any,
@@ -59,7 +61,8 @@ export declare function registerLocaleData(
     HomeComponent,
     NotFoundComponent,
     FooterComponent,
-    LoadingComponent
+    LoadingComponent,
+    IframeListaColaboradorTotalPagarComponent
   ],
   imports: [
     BrowserModule,
@@ -91,6 +94,7 @@ export declare function registerLocaleData(
     ContextMenuModule,
     ProgressBarModule,
     ProgressSpinnerModule,
+    DynamicDialogModule,
     ToastrModule.forRoot({
         timeOut: 4000,
         closeButton: true,

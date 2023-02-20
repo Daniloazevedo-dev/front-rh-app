@@ -28,7 +28,7 @@ export class AuthService {
         `body: ${error.error}`);
     }
     return throwError(
-      'Algo ruím aconteceu, por favor, tente novamente mais tarde.');
+      'Algo ruím aconteceu; por favor, tente novamente mais tarde.');
   }
 
   private static log(message: string): any {

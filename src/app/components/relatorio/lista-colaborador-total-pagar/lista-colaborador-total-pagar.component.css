@@ -3,8 +3,7 @@
   margin: 1rem auto;
   height: 33rem;
 }
-
-.p-divider.p-divider-horizontal .p-divider-content {
-  padding: 0 0rem!important;
+.p-dialog-header {
+  padding: 0rem!important;
 }
 

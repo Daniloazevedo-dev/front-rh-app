@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {environment} from 'src/environments/environment';
 
 
 @Injectable({
@@ -8,14 +8,15 @@ import { environment } from 'src/environments/environment';
 })
 export class RelatorioService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  private url = `${environment.url}rh-pagamento/relatorio`
+  private url = `${environment.url}rh-pagamento/relatorio/lista-colaborador-total-pagar`
 
 
-  listaColaboradorTotalPagar(inicio: string, ) {
+  listaColaboradorTotalPagar(inicio: string, fim: string) {
     const params = new HttpParams().set('inicio', inicio);
-    return this.http.get(`${this.url}`, { params});
+    return this.http.get(`${this.url}?inicio=${inicio}&fim=${fim}`, {responseType: 'blob'});
 
   }
 
