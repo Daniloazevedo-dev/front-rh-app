@@ -17,15 +17,16 @@ export class ListaColaboradorTotalPagarComponent extends FormBase implements OnI
   inicio: string;
   fim: string;
 
+
   constructor(
     private relatorioService: RelatorioService,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
   ) {
-
 
     super();
     this.setFormListaColaboradorTotalPagar()
   }
+
 
   ngOnInit(): void {
   }

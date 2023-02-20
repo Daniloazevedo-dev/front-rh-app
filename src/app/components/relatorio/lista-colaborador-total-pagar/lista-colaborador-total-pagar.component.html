@@ -3,15 +3,15 @@
 
   </div>
   <p-dialog header="Relatório"
-            [(visible)]="displayPosition" [position]="position" [maximizable]="true" [closeOnEscape] ="true"
+            [(visible)]="displayPosition" [position]="position" [maximizable]="true" [closeOnEscape]="true"
             [style]="{width: '80vw', height:'auto'}"
-            [draggable]="true" [resizable]="true" [blockScroll] = "false">
-    <app-iframe-lista-colaborador-total-pagar *ngIf="displayPosition && inicio && fim" [inicio]="inicio" [fim]="fim"></app-iframe-lista-colaborador-total-pagar>
+            [draggable]="true" [resizable]="true" [blockScroll]="false">
+    <app-iframe-lista-colaborador-total-pagar *ngIf="displayPosition && inicio && fim" [inicio]="inicio"
+                                              [fim]="fim"></app-iframe-lista-colaborador-total-pagar>
     <ng-template pTemplate="footer">
       <p-button icon="pi pi-check" (click)="displayPosition=false" label="Ok" styleClass="p-button-text"></p-button>
     </ng-template>
   </p-dialog>
-
 
   <div style="background-color: rgb(246, 246, 246);">
     <p-divider align="left">
