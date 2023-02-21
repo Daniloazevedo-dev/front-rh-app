@@ -44,6 +44,7 @@ import {LoadingInterceptor} from './interceptors/loading.interceptor';
 import {ToastrModule} from "ngx-toastr";
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import { IframeListaColaboradorTotalPagarComponent } from './components/iframe/lista-colaborador-total-pagar/iframe-lista-colaborador-total-pagar.component';
+import {RadioButtonModule} from 'primeng/radiobutton';
 
 export declare function registerLocaleData(
   data: any,
@@ -95,6 +96,7 @@ export declare function registerLocaleData(
     ProgressBarModule,
     ProgressSpinnerModule,
     DynamicDialogModule,
+    RadioButtonModule,
     ToastrModule.forRoot({
         timeOut: 4000,
         closeButton: true,
