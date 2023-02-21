@@ -1,5 +1,5 @@
 <p-toast position="top-right" key="tr"></p-toast>
-<p-confirmDialog [transitionOptions]="'0ms'" rejectLabel="Não" acceptLabel="Sim">
+<p-confirmDialog class="w-full" [transitionOptions]="'0ms'" rejectLabel="Não" acceptLabel="Sim">
 </p-confirmDialog>
 <div class="card mt-4" style="padding-top: 3rem;">
   <button pButton pRipple label="Novo" (click)="abrirDialogUsuario()" icon="pi pi-plus" class="p-button-success mr-2" ></button>
@@ -11,7 +11,7 @@
         <ng-template pTemplate="header">
           Usuários
         </ng-template>
-            <p-table #dt [value]="usuarios" [rows]="10" [paginator]="true" [globalFilterFields]="['nome','email']" responsiveLayout="scroll"
+            <p-table #dt [value]="usuarios" [rows]="10" [paginator]="true" [globalFilterFields]="['id','nome','email']" responsiveLayout="scroll"
             [(selection)]="usuario" [rowHover]="true" dataKey="id"
             currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} " [showCurrentPageReport]="true">
             <ng-template pTemplate="caption">
@@ -19,7 +19,9 @@
           </ng-template>
             <ng-template pTemplate="header">
                 <tr>
+                  <th pSortableColumn="nome">Id <p-sortIcon field="id"></p-sortIcon></th>
                     <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon></th>
+                    <th pSortableColumn="nome">Colaborador <p-sortIcon field="nome"></p-sortIcon></th>
                     <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
                     <th pSortableColumn="roles">Role <p-sortIcon field="role"></p-sortIcon></th>
                     <th class="text-right">
@@ -32,12 +34,14 @@
             </ng-template>
             <ng-template pTemplate="body" let-usuario>
                 <tr>
-                    <td [style]="{'width': '30%'}">{{usuario.nome}}</td>
-                    <td [style]="{'width': '30%'}">{{usuario.email}}</td>
-                    <td [style]="{'width': '30%'}">{{tratarRolesSepparaPorVirgula(usuario.roles)}}</td>
+                  <td [style]="{'width': '20%'}">{{usuario.id}}</td>
+                    <td [style]="{'width': '20%'}">{{usuario.nome}}</td>
+                    <td [style]="{'width': '20%'}">{{trataColaborador(usuario.colaborador)}}</td>
+                    <td [style]="{'width': '20%'}">{{usuario.email}}</td>
+                    <td [style]="{'width': '20%'}">{{tratarRolesSepparaPorVirgula(usuario.roles)}}</td>
                     <td class="text-right" [style]="{'width': '10%'}">
-                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2" ></button>
-                        <button pButton pRipple icon="pi pi-trash" (click)="deletarUsuario(usuario.id)" class="p-button-rounded p-button-danger" ></button>
+                        <button pButton pRipple icon="pi pi-pencil"  (click)="editar(usuario.id)" class="p-button-rounded p-button-warning mr-2" ></button>
+                        <button pButton pRipple icon="pi pi-trash" [disabled]="validaUsuarioLogado(usuario.email)" (click)="deletarUsuario(usuario.id)" class="p-button-rounded p-button-danger" ></button>
                     </td>
                 </tr>
             </ng-template>
@@ -55,10 +59,31 @@
         <div class="p-fieldset-content">
           <div class="card">
             <form [formGroup]="form">
+              <div class="field" hidden>
+                <label for="id" class="" >ID:</label>
+                <div class="col">
+                  <input readonly type="number" name="id" id="id" class="w-1 ng-dirty" formControlName="id" pInputText placeholder="" />
+                </div>
+                <small id="nome-help" class="p-error block">{{getErrors('id')}}</small>
+              </div>
               <div class="field">
                 <label for="nome" class="" >Nome:</label>
                 <input type="text" name="nome" id="nome" class="w-full ng-dirty" formControlName="nome" pInputText placeholder="Informe o nome" />
                 <small id="nome-help" class="p-error block">{{getErrors('nome')}}</small>
+              </div>
+              <div class="field">
+                <label for="nome" class="" >Colaborador:</label>
+                <div class="field-radiobutton">
+                  <div class="m-1">
+                    <p-radioButton class="ng-dirty" name="colaborador" formControlName="colaborador" value="1"  inputId="colaborador1"></p-radioButton>
+                    <label class="m-1" for="colaboradorSim">Sim</label>
+                  </div>
+                  <div class="m-1">
+                    <p-radioButton name="colaborador" class="ng-dirty" formControlName="colaborador" value="0" inputId="colaborador2"></p-radioButton>
+                    <label class="m-1" for="colaboradorNao">Não</label>
+                  </div>
+                </div>
+                <small id="nome-help" class="p-error block">{{getErrors('colaborador')}}</small>
               </div>
               <div class="field">
                 <label for="email" class="block" >Email:</label>
@@ -67,7 +92,7 @@
               </div>
               <div class="field">
                 <label for="password" class="block" >Senha:</label>
-                <input type="password" name="password" id="password" formControlName="password" class="w-full ng-dirty" pInputText placeholder="Informe a senha" />
+                <input type="password" name="password" id="password" formControlName="password" class="w-full ng-dirty" pInputText  placeholder="{{placeholderSenha}}" />
                 <small id="password-help" class="p-error block">{{getErrors('password')}}</small>
               </div>
               <div class="field">
@@ -76,8 +101,8 @@
                 <small id="role-help" class="p-error block">{{getErrors('roles')}}</small>
               </div>
               <div class="field">
-                <button pButton type="button" (click)="salvar()" class="m-1" label="Salvar"></button>
-                <button pButton pRipple type="reset" label="Limpar" class="p-button-secondary m-1"></button>
+                <button pButton type="button" (click)="salvar()" class="m-1" label="{{labelSalvar}}"></button>
+                <button pButton pRipple type="reset" *ngIf="!edicao" label="Limpar" class="p-button-secondary m-1"></button>
                 <button pButton type="button" (click)="fecharDialogUsuario()" class=" p-button-danger m-1" label="Cancelar"></button>
               </div>
             </form>

@@ -48,12 +48,15 @@ export class MenuComponent {
   }
 
   private setUsuarioMenuEAvatar(nome: String) {
-    const primeiroNomeUsuario = nome.split(' ')[0];
-    const primeiraLetraMariuscula = primeiroNomeUsuario.charAt(0).toUpperCase();
-    const outrasLetrasMinusculas = primeiroNomeUsuario.slice(1);
 
-    this.usuarioLogado = `${primeiraLetraMariuscula}${outrasLetrasMinusculas}`;
-    this.letraAvatar = this.usuarioLogado.charAt(0).toUpperCase();
+    if(nome != null) {
+      const primeiroNomeUsuario = nome.split(' ')[0];
+      const primeiraLetraMariuscula = primeiroNomeUsuario.charAt(0).toUpperCase();
+      const outrasLetrasMinusculas = primeiroNomeUsuario.slice(1);
+
+      this.usuarioLogado = `${primeiraLetraMariuscula}${outrasLetrasMinusculas}`;
+      this.letraAvatar = this.usuarioLogado.charAt(0).toUpperCase();
+    }
   }
 
   isAdmin() {

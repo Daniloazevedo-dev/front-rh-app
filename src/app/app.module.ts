@@ -19,7 +19,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {MultiSelectModule} from 'primeng/multiselect';
-import {ToastModule} from 'primeng/toast';
+import {Toast, ToastModule} from 'primeng/toast';
 import {PanelModule} from 'primeng/panel';
 import {TableModule} from 'primeng/table';
 import {ToolbarModule} from 'primeng/toolbar';
@@ -43,9 +43,8 @@ import {LoadingComponent} from './components/loading/loading.component';
 import {LoadingInterceptor} from './interceptors/loading.interceptor';
 import {ToastrModule} from "ngx-toastr";
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
-import {
-  IframeListaColaboradorTotalPagarComponent
-} from './components/iframe/lista-colaborador-total-pagar/iframe-lista-colaborador-total-pagar.component';
+import { IframeListaColaboradorTotalPagarComponent } from './components/iframe/lista-colaborador-total-pagar/iframe-lista-colaborador-total-pagar.component';
+import {RadioButtonModule} from 'primeng/radiobutton';
 
 export declare function registerLocaleData(
   data: any,
@@ -64,8 +63,7 @@ export declare function registerLocaleData(
     NotFoundComponent,
     FooterComponent,
     LoadingComponent,
-    IframeListaColaboradorTotalPagarComponent,
-
+    IframeListaColaboradorTotalPagarComponent
   ],
   imports: [
     BrowserModule,
@@ -98,6 +96,7 @@ export declare function registerLocaleData(
     ProgressBarModule,
     ProgressSpinnerModule,
     DynamicDialogModule,
+    RadioButtonModule,
     ToastrModule.forRoot({
         timeOut: 4000,
         closeButton: true,
