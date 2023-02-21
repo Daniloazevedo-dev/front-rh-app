@@ -19,17 +19,15 @@ export class IframeListaColaboradorTotalPagarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-     this.listaColaboradorTotalPagar(this.inicio, this.fim)
-    console.log(this.inicio)
+    this.listaColaboradorTotalPagar(this.inicio, this.fim)
+    // console.log(this.inicio)
   }
 
   listaColaboradorTotalPagar(inicio: string, fim: string) {
-    this.relatorioService.listaColaboradorTotalPagar(inicio,fim).subscribe(data => {
+    this.relatorioService.listaColaboradorTotalPagar(inicio, fim).subscribe(data => {
       var html = '';
       var blob = new Blob([data], {type: 'application/pdf'})
       var iframe = document.querySelector("iframe");
-
-
       console.log(iframe)
       iframe.src = URL.createObjectURL(blob);
 
@@ -38,5 +36,4 @@ export class IframeListaColaboradorTotalPagarComponent implements OnInit {
   }
 }
 
-export class ModalComponent {
-}
+

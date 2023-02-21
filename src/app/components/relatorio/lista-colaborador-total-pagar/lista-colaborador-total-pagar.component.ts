@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {RelatorioService} from "../../../service/relatorio.service";
 import {FormBase} from "../../../shared/FormBase";
-import {FormBuilder} from "@angular/forms";
-import {BasicValidators} from "../../../shared/basic-validators";
+import {FormBuilder, Validators} from "@angular/forms";
+import {ToastrService} from "ngx-toastr";
 
 
 @Component({
@@ -17,10 +16,9 @@ export class ListaColaboradorTotalPagarComponent extends FormBase implements OnI
   inicio: string;
   fim: string;
 
-
   constructor(
-    private relatorioService: RelatorioService,
     public formBuilder: FormBuilder,
+    private toast: ToastrService,
   ) {
 
     super();
@@ -29,6 +27,7 @@ export class ListaColaboradorTotalPagarComponent extends FormBase implements OnI
 
 
   ngOnInit(): void {
+
   }
 
   listaColaboradorTotalPagar(position: string) {
@@ -39,11 +38,12 @@ export class ListaColaboradorTotalPagarComponent extends FormBase implements OnI
 
   private setFormListaColaboradorTotalPagar() {
     this.form = this.formBuilder.group({
-      inicio: ['', BasicValidators.obrigatorio('O data inicial é obrigatória.')],
-      fim: ['']
+      inicio: [null, Validators.required],
+      fim: [null, Validators.required]
 
     });
   }
+
 
   printListaColaboradorTotalPagar() {
     this.validateForm();
@@ -51,6 +51,9 @@ export class ListaColaboradorTotalPagarComponent extends FormBase implements OnI
       this.inicio = this.form.value.inicio.toLocaleDateString()
       this.fim = this.form.value.fim.toLocaleDateString()
       this.listaColaboradorTotalPagar('top')
+      this.toast.success('Relatório criado com sucesso!')
+      this.form.reset()
+
     }
   }
 

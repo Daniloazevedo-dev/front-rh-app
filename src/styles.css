@@ -16,3 +16,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .p-dialog {
   max-height: 100%;
 }
+.p-datepicker-touch-ui{
+  min-width: 10vw!important;
+}
