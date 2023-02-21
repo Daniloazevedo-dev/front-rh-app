@@ -19,6 +19,10 @@ constructor(private http: HttpClient) { }
     return this.http.post(this.url, usuario);
   }
 
+  atualizarUsuario(usuario: any) {
+    return this.http.put(this.url, usuario);
+  }
+
   deleteUsuario(id: Number) {
     return this.http.delete(`${this.url}/${id}`)
   }
@@ -26,6 +30,10 @@ constructor(private http: HttpClient) { }
   buscarUsuarioEmail(email: string) {
     const params = new HttpParams().set('email', email);
     return this.http.get(`${this.url}/busca`, { params});
+  }
+
+  buscaPorId(id: Number) {
+    return this.http.get(`${this.url}/${id}`);
   }
 
 }
