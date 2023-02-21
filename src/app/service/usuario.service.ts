@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core'
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import {Injectable} from '@angular/core'
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
 
-constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   private url = `${environment.url}rh-usuario/usuario`
 
@@ -29,12 +30,13 @@ constructor(private http: HttpClient) { }
 
   buscarUsuarioEmail(email: string) {
     const params = new HttpParams().set('email', email);
-    return this.http.get(`${this.url}/busca/nome`, { params});
+    return this.http.get(`${this.url}/busca/nome`, {params});
   }
 
   buscaPorId(id: Number) {
     return this.http.get(`${this.url}/${id}`);
   }
+
 
 }
 
