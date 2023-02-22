@@ -30,8 +30,8 @@ import {AuthInterceptor} from './interceptors/auth.interceptor';
 import {HomeComponent} from './components/home/home.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {
-  ListaColaboradorTotalPagarComponent
-} from './components/relatorio/lista-colaborador-total-pagar/lista-colaborador-total-pagar.component';
+  RelatorioComponent
+} from './components/pagamento/relatorio/relatorio.component';
 import {LoginComponent} from './components/login/login.component';
 import {CalendarModule} from 'primeng/calendar';
 import {SliderModule} from 'primeng/slider';
@@ -45,6 +45,8 @@ import {ToastrModule} from "ngx-toastr";
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import { IframeListaColaboradorTotalPagarComponent } from './components/iframe/lista-colaborador-total-pagar/iframe-lista-colaborador-total-pagar.component';
 import {RadioButtonModule} from 'primeng/radiobutton';
+import {AccordionModule} from "primeng/accordion";
+import { IframeColaboradorTotalPagarComponent } from './components/iframe/colaborador-total-pagar/iframe-colaborador-total-pagar.component';
 
 export declare function registerLocaleData(
   data: any,
@@ -57,13 +59,14 @@ export declare function registerLocaleData(
     AppComponent,
     MenuComponent,
     UsuarioComponent,
-    ListaColaboradorTotalPagarComponent,
+    RelatorioComponent,
     LoginComponent,
     HomeComponent,
     NotFoundComponent,
     FooterComponent,
     LoadingComponent,
-    IframeListaColaboradorTotalPagarComponent
+    IframeListaColaboradorTotalPagarComponent,
+    IframeColaboradorTotalPagarComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +105,8 @@ export declare function registerLocaleData(
         closeButton: true,
         progressBar: true
       }
-    )
+    ),
+    AccordionModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt-br'},

@@ -8,8 +8,8 @@ import {RelatorioService} from "../../../service/relatorio.service";
 })
 export class IframeListaColaboradorTotalPagarComponent implements OnInit {
 
-  @Input() inicio: string;
-  @Input() fim: string;
+  @Input() inicioRelA: string;
+  @Input() fimRelA: string;
 
   constructor(
     private relatorioService: RelatorioService
@@ -19,12 +19,12 @@ export class IframeListaColaboradorTotalPagarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listaColaboradorTotalPagar(this.inicio, this.fim)
+    this.listaColaboradorTotalPagar(this.inicioRelA, this.fimRelA)
     // console.log(this.inicio)
   }
 
-  listaColaboradorTotalPagar(inicio: string, fim: string) {
-    this.relatorioService.listaColaboradorTotalPagar(inicio, fim).subscribe(data => {
+  listaColaboradorTotalPagar(inicioRelA: string, fimRelA: string) {
+    this.relatorioService.listaColaboradorTotalPagar(inicioRelA, fimRelA).subscribe(data => {
       var html = '';
       var blob = new Blob([data], {type: 'application/pdf'})
       var iframe = document.querySelector("iframe");

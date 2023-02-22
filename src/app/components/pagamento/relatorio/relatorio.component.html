@@ -1,0 +1,109 @@
+<div class=" cardrel" style="padding-top: 1.5rem;">
+
+  <p-dialog header="Relatório"
+            [(visible)]="displayPosition" [position]="position" [maximizable]="true" [closeOnEscape]="true"
+            [style]="{width: '80vw', height:'auto'}" [modal]="true" [closable]="false"
+            [draggable]="true" [resizable]="true" [blockScroll]="true"  [className]="relAForm">
+    <app-iframe-lista-colaborador-total-pagar *ngIf="displayPosition && inicioRelA && fimRelA"
+                                              [inicioRelA]="inicioRelA" [fimRelA]="fimRelA"></app-iframe-lista-colaborador-total-pagar>
+    <app-iframe-colaborador-total-pagar *ngIf="displayPosition && idRelB && inicioRelB && fimRelB"
+                                        [idRelB]="idRelB" [inicioRelB]="inicioRelB" [fimRelB]="fimRelB"></app-iframe-colaborador-total-pagar>
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-check" (click)="refresh()"  label="Fechar"
+                styleClass="p-button-text"></p-button>
+    </ng-template>
+  </p-dialog>
+
+  <div class="col-12 md:col-12">
+    <div class="card">
+      <div style="text-align: center; padding-bottom: 10px;padding-top: 20px; background-color: rgb(246, 246, 246);">
+        <div class="inline-flex align-items-center" style="background-color: rgb(246, 246, 246);">
+
+          <i class="pi pi-folder-open mr-2"></i>
+          <p style="background-color: rgb(246, 246, 246);">Gerador de relatório</p>
+        </div>
+
+      </div>
+      <p-accordion>
+        <p-accordionTab header="Extrato a pagar de todos os colaboradores agrupado"
+                        [selected]="false" class="line-height-3 m-0">
+          <div style="background-color: rgb(246, 246, 246);">
+
+            <div class=" shadow-1">
+              <form [formGroup]="relAForm">
+                <table style="justify-content: center; width: auto; background-color: rgb(246, 246, 246);">
+                  <tr>
+                    <td>
+                      <p-calendar formControlName="inicioRelA" [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"
+                                  placeholder="ínicio" [touchUI]="true"
+                                  [readonlyInput]="true" [required]>
+                      </p-calendar>
+                    </td>
+
+                    <td>
+                      <p-calendar formControlName="fimRelA" [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"
+                                  placeholder="final" [touchUI]="true"
+                                  [readonlyInput]="true" [required]>
+                      </p-calendar>
+                    </td>
+
+                    <td>
+                      <button (click)="printListaColaboradorTotalPagar()" pButton type="button" label="Gerar"
+                              icon="pi pi-folder-open" class="p-button-sprimary mr-2"></button>
+                    </td>
+
+                  </tr>
+                </table>
+              </form>
+            </div>
+          </div>
+        </p-accordionTab>
+
+        <p-accordionTab header="Extrato a pagar por colaborador detalhado" class="line-height-3 m-0"  [selected]="true">
+
+          <div style="background-color: rgb(246, 246, 246);">
+
+            <div class=" shadow-1 ">
+              <form [formGroup]="relBForm">
+                <table style="justify-content: center; width: auto; background-color: rgb(246, 246, 246);">
+                  <tr>
+                    <td>
+                      <input formControlName="idRelB" type="text" pInputText placeholder="codigo" class="p-inputtext-sm">
+                    </td>
+                    <td>
+                      <p-calendar formControlName="inicioRelB" [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"
+                                  placeholder="ínicio" [touchUI]="true"
+                                  [readonlyInput]="true" [required]>
+                      </p-calendar>
+                    </td>
+
+                    <td>
+                      <p-calendar formControlName="fimRelB" [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"
+                                  placeholder="final" [touchUI]="true"
+                                  [readonlyInput]="true" [required]>
+                      </p-calendar>
+                    </td>
+
+                    <td>
+                      <button (click)="printColaboradorTotalPagar()" pButton type="button" label="Gerar"
+                              icon="pi pi-folder-open" class="p-button-sprimary mr-2"></button>
+                    </td>
+
+                  </tr>
+                </table>
+              </form>
+            </div>
+          </div>
+
+        </p-accordionTab>
+        <p-accordionTab header="Extrato" class="line-height-3 m-0"  [selected]="true">
+
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+
+
+  </div>
+</div>
+
+
