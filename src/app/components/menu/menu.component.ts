@@ -94,11 +94,11 @@ export class MenuComponent {
         ],
       },
       {
-        label: 'Pagamentos',
+        label: 'Pagamento',
         icon: 'pi pi-money-bill',
         items: [
           {
-            label: 'Usuário',
+            label: 'Relatório',
             icon: 'pi pi-book',
             routerLink: '/pagamento/relatorio',
           },
