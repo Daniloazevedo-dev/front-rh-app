@@ -11,7 +11,7 @@
         <ng-template pTemplate="header">
           Usuários
         </ng-template>
-            <p-table #dt [value]="usuarios" [rows]="10" [paginator]="true" [globalFilterFields]="['id','nome','email']" responsiveLayout="scroll"
+            <p-table #dt [value]="usuarios" [rows]="5" [paginator]="true" [globalFilterFields]="['id','nome','colaborador','email']" responsiveLayout="scroll"
             [(selection)]="usuario" [rowHover]="true" dataKey="id"
             currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} " [showCurrentPageReport]="true">
             <ng-template pTemplate="caption">
@@ -19,9 +19,9 @@
           </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                  <th pSortableColumn="nome">Id <p-sortIcon field="id"></p-sortIcon></th>
+                  <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
                     <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon></th>
-                    <th pSortableColumn="nome">Colaborador <p-sortIcon field="nome"></p-sortIcon></th>
+                    <th pSortableColumn="colaborador">Colaborador <p-sortIcon field="colaborador"></p-sortIcon></th>
                     <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
                     <th pSortableColumn="roles">Role <p-sortIcon field="role"></p-sortIcon></th>
                     <th class="text-right">

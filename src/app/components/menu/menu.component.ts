@@ -39,7 +39,11 @@ export class MenuComponent {
       .buscarUsuarioEmail(this.tokenService.getUserName())
       .subscribe(
         (data) => {
-          this.setUsuarioMenuEAvatar(data['nome']);
+          if(data !== null) {
+            this.setUsuarioMenuEAvatar(data['nome']);
+          } else {
+            this.setUsuarioMenuEAvatar('usuário');
+          }
         },
         (error) => {
           this.setUsuarioMenuEAvatar('usuário');
@@ -48,15 +52,12 @@ export class MenuComponent {
   }
 
   private setUsuarioMenuEAvatar(nome: String) {
-
-    if(nome != null) {
       const primeiroNomeUsuario = nome.split(' ')[0];
       const primeiraLetraMariuscula = primeiroNomeUsuario.charAt(0).toUpperCase();
       const outrasLetrasMinusculas = primeiroNomeUsuario.slice(1);
 
       this.usuarioLogado = `${primeiraLetraMariuscula}${outrasLetrasMinusculas}`;
       this.letraAvatar = this.usuarioLogado.charAt(0).toUpperCase();
-    }
   }
 
   isAdmin() {

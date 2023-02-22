@@ -7,6 +7,7 @@ import { RoleService } from 'src/app/service/role.service';
 import { UsuarioService } from 'src/app/service/usuario.service';
 import { ConfirmationService } from 'primeng/api';
 import { TokenService } from 'src/app/service/token.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-usuario',
@@ -33,7 +34,8 @@ export class UsuarioComponent extends FormBase implements OnInit {
     private roleService: RoleService,
     private usuarioService: UsuarioService,
     private confirmationService: ConfirmationService,
-    private tokentService: TokenService
+    private tokentService: TokenService,
+    private toast: ToastrService
   ) {
     super();
     this.usuarios = this.buscarUsuarios();
@@ -119,12 +121,7 @@ export class UsuarioComponent extends FormBase implements OnInit {
     this.usuarioService.salvarUsuario(usuario).subscribe(
       (usuario) => {
         this.buscarUsuarios();
-        this.messageService.add({
-          key: 'tr',
-          severity: 'success',
-          summary: 'Sucesso',
-          detail: 'Usuário Salvo com sucesso!',
-        });
+        this.toast.success('Usuário Salvo com sucesso!');
         this.usuariotDialog = false;
       },
       (error) => {
@@ -141,12 +138,7 @@ export class UsuarioComponent extends FormBase implements OnInit {
     this.usuarioService.atualizarUsuario(usuario).subscribe(
       (usuario) => {
         this.buscarUsuarios();
-        this.messageService.add({
-          key: 'tr',
-          severity: 'success',
-          summary: 'Sucesso',
-          detail: 'Usuário atualizado com sucesso!',
-        });
+        this.toast.success('Usuário atualizado com sucesso!');
         this.usuariotDialog = false;
       },
       (error) => {
@@ -164,12 +156,7 @@ export class UsuarioComponent extends FormBase implements OnInit {
       accept: () => {
         this.usuarioService.deleteUsuario(id).subscribe(
           (res) => {
-            this.messageService.add({
-              key: 'tr',
-              severity: 'success',
-              summary: 'Sucesso',
-              detail: 'Usuário deletado com sucesso!',
-            });
+            this.toast.success('Usuário deletado com sucesso!');
             this.buscarUsuarios();
           },
           (error) => {
@@ -195,7 +182,7 @@ export class UsuarioComponent extends FormBase implements OnInit {
         this.setForm();
         this.form.get('id').setValue(data['id']);
         this.form.get('nome').setValue(data['nome']);
-        this.form.get('colaborador').setValue(data['colaborador'] != '1' ? '0' : data['colaborador']);
+        this.form.get('colaborador').setValue(data['colaborador'] != '1' ? '0' : '1');
         this.form.get('email').setValue(data['email']);
         this.form.get('roles').setValue(data['roles']);
         this.usuariotDialog = true;
