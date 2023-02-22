@@ -102,7 +102,6 @@ export class MenuComponent {
             icon: 'pi pi-book',
             routerLink: '/pagamento/relatorio',
           },
-
         ],
       },
     ];
