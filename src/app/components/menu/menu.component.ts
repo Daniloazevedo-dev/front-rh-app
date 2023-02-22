@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
-import { AuthService } from 'src/app/service/auth.service';
-import { TokenService } from 'src/app/service/token.service';
-import { UsuarioService } from 'src/app/service/usuario.service';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {MenuItem} from 'primeng/api';
+import {AuthService} from 'src/app/service/auth.service';
+import {TokenService} from 'src/app/service/token.service';
+import {UsuarioService} from 'src/app/service/usuario.service';
 import {ToastrService} from "ngx-toastr";
 
 const ADMIN = 'ROLE_ADMIN';
@@ -39,7 +39,7 @@ export class MenuComponent {
       .buscarUsuarioEmail(this.tokenService.getUserName())
       .subscribe(
         (data) => {
-          if(data !== null) {
+          if (data !== null) {
             this.setUsuarioMenuEAvatar(data['nome']);
           } else {
             this.setUsuarioMenuEAvatar('usuário');
@@ -52,18 +52,18 @@ export class MenuComponent {
   }
 
   private setUsuarioMenuEAvatar(nome: String) {
-      const primeiroNomeUsuario = nome.split(' ')[0];
-      const primeiraLetraMariuscula = primeiroNomeUsuario.charAt(0).toUpperCase();
-      const outrasLetrasMinusculas = primeiroNomeUsuario.slice(1);
+    const primeiroNomeUsuario = nome.split(' ')[0];
+    const primeiraLetraMariuscula = primeiroNomeUsuario.charAt(0).toUpperCase();
+    const outrasLetrasMinusculas = primeiroNomeUsuario.slice(1);
 
-      this.usuarioLogado = `${primeiraLetraMariuscula}${outrasLetrasMinusculas}`;
-      this.letraAvatar = this.usuarioLogado.charAt(0).toUpperCase();
+    this.usuarioLogado = `${primeiraLetraMariuscula}${outrasLetrasMinusculas}`;
+    this.letraAvatar = this.usuarioLogado.charAt(0).toUpperCase();
   }
 
   isAdmin() {
     let isAdmin = false;
     this.tokenService.getAuthorities().split(',').forEach(r => {
-      if(r === ADMIN) {
+      if (r === ADMIN) {
         isAdmin = true;
       }
     });
@@ -96,17 +96,13 @@ export class MenuComponent {
       {
         label: 'Pagamentos',
         icon: 'pi pi-money-bill',
-      },
-      {
-        visible: true,
-        label: 'Relatórios',
-        icon: 'pi pi-book',
         items: [
           {
-            label: 'Colaborador pagar',
-            icon: 'pi pi-print',
-            routerLink: '/lista-colaborador-total-pagar',
+            label: 'Usuário',
+            icon: 'pi pi-book',
+            routerLink: '/pagamento/relatorio',
           },
+
         ],
       },
     ];
