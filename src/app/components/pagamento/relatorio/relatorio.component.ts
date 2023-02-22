@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBase} from "../../../shared/FormBase";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
-
+import {UsuarioService} from "../../../service/usuario.service";
 
 
 @Component({
@@ -21,23 +21,39 @@ export class RelatorioComponent extends FormBase implements OnInit {
   inicioRelB: string;
   fimRelB: string;
   idRelB: string;
-
+  usuarios: any;
+  msgError: any;
 
   constructor(
     public formBuilderRelA: FormBuilder,
     public formBuilderRelB: FormBuilder,
     private toast: ToastrService,
+    private usuarioService: UsuarioService,
   ) {
 
     super();
     this.setFormListaColaboradorTotalPagar()
-
-      this.setFormColaboradorTotalPagar();
+    this.setFormColaboradorTotalPagar()
+    this.usuarios = this.buscarUsuarios()
   }
 
 
   ngOnInit(): void {
 
+  }
+
+  buscarUsuarios() {
+    this.usuarioService.listUsuarios().subscribe(
+      (usuarios) => {
+        this.usuarios = usuarios;
+        console.log(this.usuarios);
+      },
+      (error) => {
+        this.msgError = [
+          {severity: 'error', summary: 'Erro', detail: error.error.message},
+        ];
+      }
+    );
   }
 
 
@@ -97,6 +113,7 @@ export class RelatorioComponent extends FormBase implements OnInit {
 
     }
   }
+
   refresh(): void {
     window.location.reload();
   }

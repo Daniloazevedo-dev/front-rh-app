@@ -30,7 +30,7 @@ export class UsuarioService {
 
   buscarUsuarioEmail(email: string) {
     const params = new HttpParams().set('email', email);
-    return this.http.get(`${this.url}/busca/nome`, {params});
+    return this.http.get(`${this.url}/busca`, {params});
   }
 
   buscaPorId(id: Number) {

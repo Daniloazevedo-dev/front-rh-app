@@ -47,6 +47,7 @@ import { IframeListaColaboradorTotalPagarComponent } from './components/iframe/l
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {AccordionModule} from "primeng/accordion";
 import { IframeColaboradorTotalPagarComponent } from './components/iframe/colaborador-total-pagar/iframe-colaborador-total-pagar.component';
+import {AutoCompleteModule} from "primeng/autocomplete";
 
 export declare function registerLocaleData(
   data: any,
@@ -68,46 +69,47 @@ export declare function registerLocaleData(
     IframeListaColaboradorTotalPagarComponent,
     IframeColaboradorTotalPagarComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    ButtonModule,
-    InputTextModule,
-    MenubarModule,
-    CardModule,
-    AvatarModule,
-    DividerModule,
-    FieldsetModule,
-    DropdownModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MessagesModule,
-    MessageModule,
-    CommonModule,
-    MultiSelectModule,
-    ToastModule,
-    PanelModule,
-    TableModule,
-    ToolbarModule,
-    DialogModule,
-    HttpClientModule,
-    ConfirmDialogModule,
-    CalendarModule,
-    SliderModule,
-    ContextMenuModule,
-    ProgressBarModule,
-    ProgressSpinnerModule,
-    DynamicDialogModule,
-    RadioButtonModule,
-    ToastrModule.forRoot({
-        timeOut: 4000,
-        closeButton: true,
-        progressBar: true
-      }
-    ),
-    AccordionModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        ButtonModule,
+        InputTextModule,
+        MenubarModule,
+        CardModule,
+        AvatarModule,
+        DividerModule,
+        FieldsetModule,
+        DropdownModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MessagesModule,
+        MessageModule,
+        CommonModule,
+        MultiSelectModule,
+        ToastModule,
+        PanelModule,
+        TableModule,
+        ToolbarModule,
+        DialogModule,
+        HttpClientModule,
+        ConfirmDialogModule,
+        CalendarModule,
+        SliderModule,
+        ContextMenuModule,
+        ProgressBarModule,
+        ProgressSpinnerModule,
+        DynamicDialogModule,
+        RadioButtonModule,
+        ToastrModule.forRoot({
+                timeOut: 4000,
+                closeButton: true,
+                progressBar: true
+            }
+        ),
+        AccordionModule,
+        AutoCompleteModule
+    ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt-br'},
     {

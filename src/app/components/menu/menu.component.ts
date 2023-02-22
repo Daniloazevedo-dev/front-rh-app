@@ -87,11 +87,11 @@ export class MenuComponent {
             icon: 'pi pi-user',
             routerLink: '/usuario',
           },
-          {
-            label: 'Colaborador',
-            icon: 'pi pi-briefcase',
-          },
         ],
+      },
+      {
+        label: 'Colaborador',
+        icon: 'pi pi-briefcase',
       },
       {
         label: 'Pagamento',
