@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url:'http://192.168.0.155:8765/',
+  url:'http://localhost:8765/',
   OAUTH_CLIENT:'myappname123',
   OAUTH_SECRET:'myappsecret123'
 
