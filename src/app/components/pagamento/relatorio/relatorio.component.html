@@ -1,11 +1,10 @@
-<div class="grid" style="padding-top: 4.2rem; width: 100%; padding-left: 0.5rem;">
-  <div class="col-12 shadow-1 shadow-2"
-       style="background-color: rgb(244, 244, 244); border-radius: 1rem;">
-    <div class="card">
-      <h5 style="text-align: center"><i class="pi pi-folder-open mr-2"> Gerador de relatório</i></h5>
-    </div>
-  </div>
-  <p-dialog header="Relatório"
+<div style="padding-top: 3rem;"></div>
+<p-divider align="center" >
+  <span class="p-tag" >Gerador de Relatório</span>
+</p-divider>
+<div class="gridRel" style=" width: 100%; padding-left: 0.5rem; padding-right: 0.5rem;">
+
+  <p-dialog header="Relatório gerado"
             [(visible)]="displayPosition" [position]="position" [maximizable]="true" [closeOnEscape]="true"
             [style]="{width: '80vw', height:'auto'}" [modal]="true" [closable]="false"
             [draggable]="true" [resizable]="true" [blockScroll]="true" [className]="relAForm">
@@ -22,11 +21,18 @@
   </p-dialog>
   <div class="col-12 md:col-6">
     <div class="card">
-      <div  class="shadow-2" style="background-color: rgb(246, 246, 246);">
+      <div class="shadow-2" style="background-color: rgb(246, 246, 246);">
 
-        <div style="height: 14rem">
+        <div style="height: 15.4rem">
           <form [formGroup]="relAForm" class="">
-            <table style="justify-content: center; width: auto; background-color: rgb(246, 246, 246);">
+            <table
+              style="justify-content: center; width: 100%; background-color: rgb(246, 246, 246);text-align: right;">
+              <tr>
+                <td class="shadow-3" colspan="2"
+                    style="text-align: center; padding-top: 0.5rem; background-color: rgb(225, 225, 225);height: 2.3rem;">
+                  Extrato total para pagamento
+                </td>
+              </tr>
               <tr>
                 <td>
                   <p></p>
@@ -36,7 +42,7 @@
                   </p-calendar>
                 </td>
 
-                <td>
+                <td style="text-align: left">
                   <p></p>
                   <p-calendar formControlName="fimRelA" [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"
                               placeholder="final" [touchUI]="true"
@@ -45,7 +51,7 @@
                 </td>
               </tr>
               <tr>
-                <td>
+                <td colspan="2" style="text-align: right;height: 8.2rem;padding-top: 4.1rem">
                   <p></p>
                   <button (click)="printListaColaboradorTotalPagar()" pButton type="button" label="Gerar"
                           icon="pi pi-folder-open" class="p-button-sprimary mr-2"></button>
@@ -59,18 +65,39 @@
     </div>
 
     <div class="card">
-      <p-tabView orientation="left">
-
-      </p-tabView>
+      <p-divider align="center" >
+        <span>Tecnologia utilizada</span>
+      </p-divider>
+      <p-panel header="Jasper Reports" [toggleable]="true" [collapsed]="false" class="line-height-3 m-0">
+        JasperReports é uma ferramenta de relatório Java de código aberto que pode gravar em uma variedade de destinos,
+        como: tela, impressora, em PDF, HTML, Microsoft Excel, RTF, ODT, valores separados por vírgula ou arquivos XML.
+        Ele pode ser usado em aplicativos habilitados para Java, incluindo Java EE ou aplicativos da web,
+        para gerar conteúdo dinâmico.
+      </p-panel>
+      <!--      <p-tabView orientation="left">-->
+      <!--        <p-autoComplete [(ngModel)]="selectedColaborador"-->
+      <!--         [suggestions]="listColaborador"-->
+      <!--         (completeMethod)="buscaColaboradorNome($event)"-->
+      <!--         field="nome" (onSelect)="selectID($event)"-->
+      <!--         [delay]="300" [minLength]="1" [dropdown]="true"-->
+      <!--         [forceSelection]="true" placeholder="Colaborador"-->
+      <!--         [showEmptyMessage]="true" dataKey="id"  formControlName="idRelB"-->
+      <!--        ></p-autoComplete>-->
+      <!--      </p-tabView>-->
     </div>
   </div>
 
-  <div class="col-12 md:col-6 ">
+  <div class="col-12 md:col-6">
     <div style="background-color: rgb(246, 246, 246);" class="shadow-2">
-
-      <div style="height: 14rem;">
+      <div style="height: 15.4rem;">
         <form [formGroup]="relBForm">
-          <table style="justify-content: center; width: auto; background-color: rgb(246, 246, 246);">
+          <table style="justify-content: center; width: 100%; background-color: rgb(246, 246, 246);text-align: right;">
+            <tr>
+              <td class="shadow-3" colspan="2"
+                  style="text-align: center; padding-top: 0.5rem; background-color: rgb(225, 225, 225);height: 2.3rem;">
+                Extrato para pagamento
+              </td>
+            </tr>
             <tr>
               <td style="text-align: right">
                 <p></p>
@@ -79,7 +106,7 @@
               <td>
                 <p></p>
 
-                <select class="p-inputtext p-float-label" style="height: 2.8rem; width: 100%"
+                <select class="p-inputtext p-float-label" style="height: 2.8rem; width: 98%;"
                         formControlName="idRelB">
                   <option *ngFor="let usuario of usuarios" value="{{usuario.id}}"> {{usuario.nome}}</option>
                 </select>
@@ -94,7 +121,7 @@
                             [readonlyInput]="true" [required]>
                 </p-calendar>
               </td>
-              <td>
+              <td style="text-align: left">
                 <p></p>
                 <p-calendar formControlName="fimRelB" [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"
                             placeholder="final" [touchUI]="true"
@@ -103,7 +130,7 @@
               </td>
             </tr>
             <tr>
-              <td>
+              <td colspan="2" style="text-align: right">
                 <p></p>
                 <button (click)="printColaboradorTotalPagar()" pButton type="button" label="Gerar"
                         icon="pi pi-folder-open" class="p-button-sprimary mr-2"></button>
@@ -116,7 +143,30 @@
     </div>
 
     <div class="card">
-
+      <p-divider align="center" >
+        <span>Detalhes técnicos</span>
+      </p-divider>
+      <p-tabView orientation="left">
+        <p-tabPanel header="Compile" class="line-height-3 m-0">
+          Classe (JasperCompileManager) utilizada para compilar designs de relatório no formulário pronto para preenchimento e para
+          obter a representação XML de objetos de design de relatório para armazenamento ou transferência de rede.
+          Essa classe expõe toda a funcionalidade de compilação de relatórios da biblioteca.
+        </p-tabPanel>
+        <p-tabPanel header="Fill" class="line-height-3 m-0">
+          Classe (JasperFillManager) utilizada para preencher projetos de relatórios compilados com dados de fontes de dados de relatórios,
+          a fim de produzir documentos orientados a páginas, prontos para impressão.
+          Ele expõe uma variedade de métodos que recebem um modelo de relatório na forma de um objeto,
+          arquivo ou fluxo de entrada e também produz um documento em vários formatos de saída
+          (objeto, arquivo ou fluxo de saída).
+        </p-tabPanel>
+        <p-tabPanel header="Export" class="line-height-3 m-0">
+          Classe (JasperExportManager) utilizada para exportar relatórios gerados em formatos mais populares, como PDF, HTML e XML.
+          Esses métodos podem processar dados que vêm de diferentes fontes e vão para diferentes destinos
+          (arquivos, fluxos de entrada e saída, etc.).
+          Para exportar para o formato XLS e CSV ou para usar parâmetros especiais do exportador,
+          a classe específica do exportador deve ser usada diretamente.
+        </p-tabPanel>
+      </p-tabView>
     </div>
 
   </div>

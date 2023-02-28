@@ -1,0 +1,98 @@
+<!--<div style="padding-top: 3rem;"></div>-->
+<!--<p-divider align="center" >-->
+<!--  <span class="p-tag" >Lançamento de dias</span>-->
+<!--</p-divider>-->
+<!--<div class="gridLan" style=" width: 100%; padding-left: 0.5rem; padding-right: 0.5rem;">-->
+<!--    <div class="col-12 md:col-4">-->
+<!--    <div class="card">-->
+
+<!--    </div>-->
+
+<!--    <div class="card">-->
+
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="col-12 md:col-4">-->
+<!--    <div style="background-color: rgb(246, 246, 246);" class="shadow-2">-->
+<!--      <div style="height: 13rem;">-->
+<!--        <form >-->
+<!--          <table style="justify-content: center; width: 100%; background-color: rgb(246, 246, 246);text-align: right;">-->
+<!--            <tr>-->
+<!--              <td style="text-align: right">-->
+<!--                <p></p>-->
+<!--                Colaborador:-->
+<!--              </td>-->
+<!--              <td>-->
+<!--                <p></p>-->
+
+<!--                <select class="p-inputtext p-float-label" style="height: 2.8rem; width: 98%;">-->
+<!--                  <option> teste</option>-->
+<!--                </select>-->
+
+<!--              </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td>-->
+<!--                <p></p>-->
+
+<!--              </td>-->
+<!--              <td style="text-align: left">-->
+<!--                <p></p>-->
+<!--                <p-calendar  [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"-->
+<!--                            placeholder="data" [touchUI]="true"-->
+<!--                            [readonlyInput]="true" [required]>-->
+<!--                </p-calendar>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td colspan="2" style="text-align: right">-->
+<!--                <p></p>-->
+<!--                <button pButton type="button" label="Gerar"-->
+<!--                        icon="pi pi-folder-open" class="p-button-sprimary mr-2"></button>-->
+<!--              </td>-->
+
+<!--            </tr>-->
+<!--          </table>-->
+<!--        </form>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="card">-->
+
+<!--    </div>-->
+
+<!--  </div>-->
+<!--</div>-->
+
+<div style="padding-top: 3rem;"></div>
+<p-divider align="center" >
+  <span class="p-tag" >Gerador de Relatório</span>
+</p-divider>
+<div class="gridRel" style=" width: 100%; padding-left: 0.5rem; padding-right: 0.5rem;padding-bottom: 2.4em">
+  <p-table [value]="pagamento" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
+           currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} registros" [rowsPerPageOptions]="[10,25,50]">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Código</th>
+        <th>ID</th>
+        <th>Data</th>
+        <th>Valor</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pagamento>
+      <tr style="line-height: 0.5rem">
+        <td>{{pagamento.id}}</td>
+        <td>{{pagamento.colaboradorId}}</td>
+        <td>{{pagamento.data}}</td>
+        <td>{{pagamento.valorDia}}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+      <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+    </ng-template>
+    <ng-template pTemplate="paginatorright">
+      <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+    </ng-template>
+  </p-table>
+</div>

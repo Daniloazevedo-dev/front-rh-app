@@ -13,7 +13,8 @@ export class IframeColaboradorTotalPagarComponent implements OnInit {
   @Input() fimRelB: string;
 
   constructor(
-    private relatorioService: RelatorioService
+    private relatorioService: RelatorioService,
+
   ) {
 
   }

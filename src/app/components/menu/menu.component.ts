@@ -98,6 +98,11 @@ export class MenuComponent {
         icon: 'pi pi-money-bill',
         items: [
           {
+            label: 'Lançamento',
+            icon: 'pi pi-calendar-plus',
+            routerLink: '/pagamento/lancamento',
+          },
+          {
             label: 'Relatório',
             icon: 'pi pi-book',
             routerLink: '/pagamento/relatorio',

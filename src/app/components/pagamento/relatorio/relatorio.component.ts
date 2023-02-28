@@ -6,7 +6,7 @@ import {UsuarioService} from "../../../service/usuario.service";
 
 
 @Component({
-  selector: 'app-lista-colaborador-total-pagar',
+  selector: 'app-relatorio',
   templateUrl: './relatorio.component.html',
   styleUrls: ['./relatorio.component.css']
 })
@@ -23,6 +23,27 @@ export class RelatorioComponent extends FormBase implements OnInit {
   idRelB: string;
   usuarios: any;
   msgError: any;
+
+  listColaborador ;
+  selectedColaborador: any;
+
+  buscaColaboradorNome($event: any){
+    this.usuarioService.listColaboradorNome($event.query).subscribe(
+      (usuarios) => {
+        this.listColaborador = usuarios;
+        console.log(this.listColaborador);
+      },
+      (error) => {
+        this.msgError = [
+          {severity: 'error', summary: 'Erro', detail: error.error.message},
+        ];
+      }
+    );
+  }
+
+  selectID(value: any){
+    console.log(value);
+  }
 
   constructor(
     public formBuilderRelA: FormBuilder,
@@ -43,7 +64,7 @@ export class RelatorioComponent extends FormBase implements OnInit {
   }
 
   buscarUsuarios() {
-    this.usuarioService.listUsuarios().subscribe(
+    this.usuarioService.listColaborador().subscribe(
       (usuarios) => {
         this.usuarios = usuarios;
         console.log(this.usuarios);

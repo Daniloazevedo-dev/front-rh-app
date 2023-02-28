@@ -19,7 +19,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import {MultiSelectModule} from 'primeng/multiselect';
-import {Toast, ToastModule} from 'primeng/toast';
+import {ToastModule} from 'primeng/toast';
 import {PanelModule} from 'primeng/panel';
 import {TableModule} from 'primeng/table';
 import {ToolbarModule} from 'primeng/toolbar';
@@ -52,6 +52,8 @@ import {SplitButtonModule} from "primeng/splitbutton";
 import {TabViewModule} from "primeng/tabview";
 import {MenuModule} from "primeng/menu";
 import {SplitterModule} from "primeng/splitter";
+import { LancamentoComponent } from './components/pagamento/lancamento/lancamento.component';
+
 
 export declare function registerLocaleData(
   data: any,
@@ -71,7 +73,8 @@ export declare function registerLocaleData(
     FooterComponent,
     LoadingComponent,
     IframeListaColaboradorTotalPagarComponent,
-    IframeColaboradorTotalPagarComponent
+    IframeColaboradorTotalPagarComponent,
+    LancamentoComponent,
   ],
   imports: [
     BrowserModule,
@@ -116,7 +119,7 @@ export declare function registerLocaleData(
     SplitButtonModule,
     TabViewModule,
     MenuModule,
-    SplitterModule
+    SplitterModule,
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt-br'},
