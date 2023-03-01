@@ -65,17 +65,21 @@
 <!--  </div>-->
 <!--</div>-->
 
-<div style="padding-top: 3rem;"></div>
-<p-divider align="center" >
-  <span class="p-tag" >Gerador de Relatório</span>
-</p-divider>
+<div style="padding-top: 4.2rem;"></div>
 <div class="gridRel" style=" width: 100%; padding-left: 0.5rem; padding-right: 0.5rem;padding-bottom: 2.4em">
-  <p-table [value]="pagamento" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
+  <p-table #dt [value]="pagamento" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
+           [globalFilterFields]="['id','nomeColaborador','data','valorDia']"  [(selection)]="pagamento" [rowHover]="true" dataKey="id"
            currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} registros" [rowsPerPageOptions]="[10,25,50]">
-    <ng-template pTemplate="header">
+        <ng-template pTemplate="header">
+          <div>
+            <span class="p-input-icon-left mb-2">
+            <input pInputText type="text"  #filter (input)="onGlobalFilter(dt, $event)" placeholder="Pesquisar..." />
+            </span>
+            <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash" (click)="clear(dt)"></button>
+          </div>
       <tr>
         <th>Código</th>
-        <th>ID</th>
+        <th>Nome</th>
         <th>Data</th>
         <th>Valor</th>
       </tr>
@@ -83,7 +87,7 @@
     <ng-template pTemplate="body" let-pagamento>
       <tr style="line-height: 0.5rem">
         <td>{{pagamento.id}}</td>
-        <td>{{pagamento.colaboradorId}}</td>
+        <td>{{pagamento.nomeColaborador}}</td>
         <td>{{pagamento.data}}</td>
         <td>{{pagamento.valorDia}}</td>
       </tr>

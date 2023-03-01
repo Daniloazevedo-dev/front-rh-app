@@ -38,7 +38,7 @@ export class UsuarioService {
   }
 
   listColaboradorNome(query: string) {
-    return this.http.get(`${this.url}/busca/nome/?nome=${query}`);
+    return this.http.get(`${this.url}/colaborador/nome/?nome=${query}`);
   }
 
   listColaborador() {
