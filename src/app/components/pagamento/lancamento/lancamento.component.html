@@ -1,102 +1,50 @@
-<!--<div style="padding-top: 3rem;"></div>-->
-<!--<p-divider align="center" >-->
-<!--  <span class="p-tag" >Lançamento de dias</span>-->
-<!--</p-divider>-->
-<!--<div class="gridLan" style=" width: 100%; padding-left: 0.5rem; padding-right: 0.5rem;">-->
-<!--    <div class="col-12 md:col-4">-->
-<!--    <div class="card">-->
+<div class="col-12 md:col-6 gridLan">
+      <input class="p-button-outlined mb-2" pInputText type="text" #filter (input)="onGlobalFilter(dt, $event)"
+           placeholder="Pesquisar..."/>
+    <button style="margin-left: 1rem;" pButton label="Limpar" class="p-button-outlined mb-2" icon="pi pi-filter-slash"
+            (click)="clear(dt)"></button>
+  </div>
 
-<!--    </div>-->
+<div class="card"></div>
 
-<!--    <div class="card">-->
+<div class="col-12 md:col-6"></div>
 
-<!--    </div>-->
-<!--  </div>-->
+<div class="card"></div>
 
-<!--  <div class="col-12 md:col-4">-->
-<!--    <div style="background-color: rgb(246, 246, 246);" class="shadow-2">-->
-<!--      <div style="height: 13rem;">-->
-<!--        <form >-->
-<!--          <table style="justify-content: center; width: 100%; background-color: rgb(246, 246, 246);text-align: right;">-->
-<!--            <tr>-->
-<!--              <td style="text-align: right">-->
-<!--                <p></p>-->
-<!--                Colaborador:-->
-<!--              </td>-->
-<!--              <td>-->
-<!--                <p></p>-->
+<div class="gridTab">
 
-<!--                <select class="p-inputtext p-float-label" style="height: 2.8rem; width: 98%;">-->
-<!--                  <option> teste</option>-->
-<!--                </select>-->
-
-<!--              </td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--              <td>-->
-<!--                <p></p>-->
-
-<!--              </td>-->
-<!--              <td style="text-align: left">-->
-<!--                <p></p>-->
-<!--                <p-calendar  [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"-->
-<!--                            placeholder="data" [touchUI]="true"-->
-<!--                            [readonlyInput]="true" [required]>-->
-<!--                </p-calendar>-->
-<!--              </td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--              <td colspan="2" style="text-align: right">-->
-<!--                <p></p>-->
-<!--                <button pButton type="button" label="Gerar"-->
-<!--                        icon="pi pi-folder-open" class="p-button-sprimary mr-2"></button>-->
-<!--              </td>-->
-
-<!--            </tr>-->
-<!--          </table>-->
-<!--        </form>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    <div class="card">-->
-
-<!--    </div>-->
-
-<!--  </div>-->
-<!--</div>-->
-
-<div style="padding-top: 4.2rem;"></div>
-<div class="gridRel" style=" width: 100%; padding-left: 0.5rem; padding-right: 0.5rem;padding-bottom: 2.4em">
-  <p-table #dt [value]="pagamento" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" responsiveLayout="scroll"
-           [globalFilterFields]="['id','nomeColaborador','data','valorDia']"  [(selection)]="pagamento" [rowHover]="true" dataKey="id"
-           currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} registros" [rowsPerPageOptions]="[10,25,50]">
-        <ng-template pTemplate="header">
-          <div>
-            <span class="p-input-icon-left mb-2">
-            <input pInputText type="text"  #filter (input)="onGlobalFilter(dt, $event)" placeholder="Pesquisar..." />
-            </span>
-            <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash" (click)="clear(dt)"></button>
-          </div>
-      <tr>
-        <th>Código</th>
-        <th>Nome</th>
-        <th>Data</th>
-        <th>Valor</th>
+  <p-table #dt styleClass="p-datatable-striped" [value]="pagamento" [paginator]="true" [rows]="10"
+           [showCurrentPageReport]="true" responsiveLayout="scroll"
+           [globalFilterFields]="['id','nomeColaborador','data','valorDia']" [(selection)]="pagamento" [rowHover]="true"
+           dataKey="id" currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} registros"
+           [rowsPerPageOptions]="[10,25,50]">
+    <ng-template pTemplate="header">
+      <tr style="line-height: 0.3rem;">
+        <th pSortableColumn="id">Código
+          <p-sortIcon field="Código"></p-sortIcon>
+        </th>
+        <th pSortableColumn="nomeColaborador">Nome
+          <p-sortIcon field="Nome"></p-sortIcon>
+        </th>
+        <th pSortableColumn="data">Data
+          <p-sortIcon field="Data"></p-sortIcon>
+        </th>
+        <th pSortableColumn="valorDia">Valor
+          <p-sortIcon field="Valor"></p-sortIcon>
+        </th>
+        <th><button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success" ></button></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-pagamento>
-      <tr style="line-height: 0.5rem">
+      <tr style="line-height: 0.2rem">
         <td>{{pagamento.id}}</td>
         <td>{{pagamento.nomeColaborador}}</td>
         <td>{{pagamento.data}}</td>
-        <td>{{pagamento.valorDia}}</td>
+        <td>{{formatarPreco(pagamento.valorDia)}}</td>
+        <td></td>
       </tr>
-    </ng-template>
-    <ng-template pTemplate="paginatorleft">
-      <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
-    </ng-template>
-    <ng-template pTemplate="paginatorright">
-      <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
     </ng-template>
   </p-table>
 </div>
+
+

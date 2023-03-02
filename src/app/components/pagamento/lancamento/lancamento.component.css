@@ -1,10 +1,20 @@
 .gridLan{
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -0rem;
-  margin-left: 0rem;
-  margin-top: -0rem;
+  width: 100%;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 4.2rem;
+
+
 }
+
+.gridTab{
+  width: 100%;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-bottom: 2.4em;
+  margin-top: -1.5rem;
+}
+
 
 
 
