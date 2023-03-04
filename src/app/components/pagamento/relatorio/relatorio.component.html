@@ -53,6 +53,8 @@
               <tr>
                 <td colspan="2" style="text-align: right;height: 8.2rem;padding-top: 4.1rem">
                   <p></p>
+                  <button style="margin-right: 0.5rem" pButton label="Limpar" class="p-button-outlined" icon="pi pi-filter-slash"
+                          (click)="relAForm.reset(true)"></button>
                   <button (click)="printListaColaboradorTotalPagar()" pButton type="button" label="Gerar"
                           icon="pi pi-folder-open" class="p-button-sprimary mr-2"></button>
                 </td>
@@ -132,6 +134,8 @@
             <tr>
               <td colspan="2" style="text-align: right">
                 <p></p>
+                <button style="margin-right: 0.5rem" pButton label="Limpar" class="p-button-outlined" icon="pi pi-filter-slash"
+                        (click)="relBForm.reset(true)"></button>
                 <button (click)="printColaboradorTotalPagar()" pButton type="button" label="Gerar"
                         icon="pi pi-folder-open" class="p-button-sprimary mr-2"></button>
               </td>
