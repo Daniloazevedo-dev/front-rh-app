@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ProfissaoService} from "../service/profissao.service";
+import {ProfissaoService} from "../../../service/profissao.service";
 import {Table} from "primeng/table";
 
 @Component({

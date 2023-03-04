@@ -12,7 +12,7 @@ import {MenubarModule} from 'primeng/menubar';
 import {CardModule} from 'primeng/card';
 import {AvatarModule} from 'primeng/avatar';
 import {DividerModule} from 'primeng/divider';
-import {UsuarioComponent} from './components/usuario/usuario.component';
+import {UsuarioComponent} from './components/cadastro/usuario/usuario.component';
 import {FieldsetModule} from 'primeng/fieldset';
 import {DropdownModule} from 'primeng/dropdown';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -58,7 +58,7 @@ import {SortByPipe} from "./shared/sort-by.pipe";
 
 
 
-import { ProfissaoComponent } from './profissao/profissao.component';
+import { ProfissaoComponent } from './components/cadastro/profissao/profissao.component';
 
 export declare function registerLocaleData(
   data: any,

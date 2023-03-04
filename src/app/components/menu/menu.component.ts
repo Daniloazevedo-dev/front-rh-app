@@ -85,7 +85,12 @@ export class MenuComponent {
           {
             label: 'Usuário',
             icon: 'pi pi-user',
-            routerLink: '/usuario',
+            routerLink: '/cadastro/usuario',
+          },
+          {
+            label: 'Profissão',
+            icon: 'pi pi-wallet',
+            routerLink: '/cadastro/usuario',
           },
         ],
       },
