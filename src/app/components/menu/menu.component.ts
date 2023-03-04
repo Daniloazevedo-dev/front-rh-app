@@ -90,7 +90,7 @@ export class MenuComponent {
           {
             label: 'Profissão',
             icon: 'pi pi-wallet',
-            routerLink: '/cadastro/usuario',
+            routerLink: '/cadastro/profissao',
           },
         ],
       },
