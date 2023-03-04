@@ -37,7 +37,7 @@
                 <td>
                   <p></p>
                   <p-calendar formControlName="inicioRelA" [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"
-                              placeholder="ínicio" [touchUI]="true"
+                              placeholder="ínicio" [touchUI]="true"  [maxDate]="dataMaxima" [minDate]="dataMinima"
                               [readonlyInput]="true" [required]>
                   </p-calendar>
                 </td>
@@ -45,7 +45,7 @@
                 <td style="text-align: left">
                   <p></p>
                   <p-calendar formControlName="fimRelA" [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"
-                              placeholder="final" [touchUI]="true"
+                              placeholder="final" [touchUI]="true" [maxDate]="dataMaxima" [minDate]="dataMinima"
                               [readonlyInput]="true" [required]>
                   </p-calendar>
                 </td>
@@ -117,14 +117,14 @@
               <td>
                 <p></p>
                 <p-calendar formControlName="inicioRelB" [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"
-                            placeholder="ínicio" [touchUI]="true"
+                            placeholder="ínicio" [touchUI]="true" [maxDate]="dataMaxima" [minDate]="dataMinima"
                             [readonlyInput]="true" [required]>
                 </p-calendar>
               </td>
               <td style="text-align: left">
                 <p></p>
                 <p-calendar formControlName="fimRelB" [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"
-                            placeholder="final" [touchUI]="true"
+                            placeholder="final" [touchUI]="true" [maxDate]="dataMaxima" [minDate]="dataMinima"
                             [readonlyInput]="true" [required]>
                 </p-calendar>
               </td>

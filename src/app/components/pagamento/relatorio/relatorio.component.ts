@@ -23,6 +23,8 @@ export class RelatorioComponent extends FormBase implements OnInit {
   idRelB: string;
   usuarios: any;
   msgError: any;
+  dataMaxima = new Date();
+  dataMinima = new Date("12/01/2022");
 
   listColaborador ;
   selectedColaborador: any;
@@ -56,6 +58,7 @@ export class RelatorioComponent extends FormBase implements OnInit {
     this.setFormListaColaboradorTotalPagar()
     this.setFormColaboradorTotalPagar()
     this.usuarios = this.buscarUsuarios()
+    this.dataMaxima.setDate(this.dataMaxima.getDate());
   }
 
 
