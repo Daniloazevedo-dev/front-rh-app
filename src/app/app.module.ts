@@ -55,6 +55,9 @@ import {SplitterModule} from "primeng/splitter";
 import { LancamentoComponent } from './components/pagamento/lancamento/lancamento.component';
 
 
+
+import { ProfissaoComponent } from './profissao/profissao.component';
+
 export declare function registerLocaleData(
   data: any,
   localeId?: string | any,
@@ -74,6 +77,7 @@ export declare function registerLocaleData(
     LoadingComponent,
     IframeListaColaboradorTotalPagarComponent,
     IframeColaboradorTotalPagarComponent,
+    ProfissaoComponent,
     LancamentoComponent,
   ],
   imports: [
@@ -120,6 +124,8 @@ export declare function registerLocaleData(
     TabViewModule,
     MenuModule,
     SplitterModule,
+
+
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt-br'},
