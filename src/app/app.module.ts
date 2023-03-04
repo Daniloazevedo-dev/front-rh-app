@@ -53,6 +53,8 @@ import {TabViewModule} from "primeng/tabview";
 import {MenuModule} from "primeng/menu";
 import {SplitterModule} from "primeng/splitter";
 import { LancamentoComponent } from './components/pagamento/lancamento/lancamento.component';
+import {SortByPipe} from "./shared/sort-by.pipe";
+
 
 
 
@@ -79,6 +81,7 @@ export declare function registerLocaleData(
     IframeColaboradorTotalPagarComponent,
     ProfissaoComponent,
     LancamentoComponent,
+    SortByPipe,
   ],
   imports: [
     BrowserModule,

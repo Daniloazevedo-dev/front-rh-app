@@ -12,6 +12,7 @@ import {throwError} from 'rxjs';
 import {TokenService} from '../service/token.service';
 import {catchError, map} from 'rxjs/operators';
 import {AuthService} from '../service/auth.service';
+import {ToastrService} from "ngx-toastr";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -19,7 +20,9 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private router: Router,
     private tokenService: TokenService,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private toast: ToastrService,
+  ) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): any {
@@ -63,7 +66,27 @@ export class AuthInterceptor implements HttpInterceptor {
                 location.reload();
               });
           } else {
-            this.router.navigate(['login']).then(_ => console.log('redirecionar para login'));
+            this.router.navigate(['login']).then(_ => this.toast.error('Sua sessão expirou!'));
+          }
+        }
+        if (error.status === 500) {
+          if (error.error.error === 'invalid_token') {
+            this.authService.refreshToken({refresh_token: refreshToken})
+              .subscribe(() => {
+                location.reload();
+              });
+          } else {
+            this.router.navigate(['login']).then(_ => this.toast.error('Entre em contato com seu Administrador!'));
+          }
+        }
+        if (error.status === 400) {
+          if (error.error.error === 'invalid_token') {
+            this.authService.refreshToken({refresh_token: refreshToken})
+              .subscribe(() => {
+                location.reload();
+              });
+          } else {
+            this.router.navigate(['login']).then(_ => this.toast.error('Usuário e/ou senha inválidos!'));
           }
         }
         return throwError(error);

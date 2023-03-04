@@ -1,9 +1,12 @@
 <div class="col-12 md:col-6 gridLan">
-      <input class="p-button-outlined" pInputText type="text" #filter (input)="onGlobalFilter(dt, $event)"
-           placeholder="Pesquisar..."/>
-    <button style="margin-left: 1rem;" pButton label="Limpar" class="p-button-outlined" icon="pi pi-filter-slash"
-            (click)="clear(dt)"></button>
-  </div>
+  <p-divider align="right">
+    <span class="p-tag">Lançamento de dárias</span>
+  </p-divider>
+  <input class="p-button-outlined" pInputText type="text" #filter (input)="onGlobalFilter(dt, $event)"
+         placeholder="Pesquisar..."/>
+  <button style="margin-left: 1rem;" pButton label="Limpar" class="p-button-outlined" icon="pi pi-filter-slash"
+          (click)="clear(dt)"></button>
+</div>
 
 <div class="card"></div>
 
@@ -32,7 +35,9 @@
         <th pSortableColumn="valorDia">Valor
           <p-sortIcon field="Valor"></p-sortIcon>
         </th>
-        <th><button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success" ></button></th>
+        <th colspan="2">
+          <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success"></button>
+        </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-pagamento>
@@ -41,8 +46,12 @@
         <td>{{pagamento.nomeColaborador}}</td>
         <td>{{pagamento.data}}</td>
         <td>{{formatarPreco(pagamento.valorDia)}}</td>
-        <td> <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-warning mr-2" ></button>
-          <button pButton pRipple icon="pi pi-trash"  class="p-button-rounded p-button-danger" ></button></td>
+        <td style="width: 0.2rem">
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning"></button>
+        </td>
+        <td style="width: 0.2rem">
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"></button>
+        </td>
       </tr>
     </ng-template>
   </p-table>
