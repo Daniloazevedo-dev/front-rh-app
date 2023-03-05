@@ -68,15 +68,6 @@
       <form [formGroup]="form">
 
         <div class="field">
-          <label for="data" class="block">Data:</label>
-          <p-calendar appendTo="body"  formControlName="data" [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"
-                      placeholder="data" [touchUI]="true" name="data" id="data" *ngIf="pagamentotDialog"
-                      [readonlyInput]="true" [required]>
-          </p-calendar>
-          <small id="data-help" class="p-error block">{{getErrors('data')}}</small>
-        </div>
-
-        <div class="field">
           <label for="colaborador" class="block">Colaborador:</label>
           <select class="p-inputtext p-float-label" style="height: 2.8rem; width: 98%;"  formControlName="colaborador"
                   name="colaboraodr" id="colaborador">
@@ -85,6 +76,15 @@
                     value="{{usuario.id}}"> {{usuario.nome}}</option>
           </select>
           <small id="colaborador-help" class="p-error block">{{getErrors('colaborador')}}</small>
+        </div>
+
+        <div class="field">
+          <label for="data" class="block">Data:</label>
+          <p-calendar appendTo="body"  formControlName="data" [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"
+                      placeholder="data" [touchUI]="true" name="data" id="data" *ngIf="pagamentotDialog"
+                      [readonlyInput]="true" [required]  [maxDate]="dataMaxima" [minDate]="dataMinima">
+          </p-calendar>
+          <small id="data-help" class="p-error block">{{getErrors('data')}}</small>
         </div>
 
         <div class="field">

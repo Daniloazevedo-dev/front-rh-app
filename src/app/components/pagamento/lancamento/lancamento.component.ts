@@ -18,6 +18,8 @@ export class LancamentoComponent extends FormBase implements OnInit {
   nomeColaborador: String;
   pagamentotDialog: boolean = false;
   usuarios: any;
+  dataMaxima = new Date();
+  dataMinima = new Date();
 
   @ViewChild('filter') filter!: ElementRef;
 
@@ -26,11 +28,13 @@ export class LancamentoComponent extends FormBase implements OnInit {
     private toast: ToastrService,
     private usuarioService: UsuarioService,
     public formBuilder: FormBuilder,
+
   ) {
 
     super();
     this.pagamento = this.buscarPagamento();
     this.buscarUsuarios();
+    this.dataMinima.setDate(this.dataMinima.getDate() - 30);
   }
 
   ngOnInit(): void {
@@ -122,8 +126,6 @@ export class LancamentoComponent extends FormBase implements OnInit {
   }
 
   salvarPagamento() {
-    // console.log()
-    this.validateForm();
     if (this.form.valid) {
       let colaboradorId = this.form.get('colaborador').value
       let pagamento = {
