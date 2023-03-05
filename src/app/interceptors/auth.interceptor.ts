@@ -69,26 +69,6 @@ export class AuthInterceptor implements HttpInterceptor {
             this.router.navigate(['login']).then(_ => this.toast.error('Sua sessão expirou!'));
           }
         }
-        if (error.status === 500) {
-          if (error.error.error === 'invalid_token') {
-            this.authService.refreshToken({refresh_token: refreshToken})
-              .subscribe(() => {
-                location.reload();
-              });
-          } else {
-            this.router.navigate(['login']).then(_ => this.toast.error('Entre em contato com seu Administrador!'));
-          }
-        }
-        if (error.status === 400) {
-          if (error.error.error === 'invalid_token') {
-            this.authService.refreshToken({refresh_token: refreshToken})
-              .subscribe(() => {
-                location.reload();
-              });
-          } else {
-            this.router.navigate(['login']).then(_ => this.toast.error('Usuário e/ou senha inválidos!'));
-          }
-        }
         return throwError(error);
       }));
   }

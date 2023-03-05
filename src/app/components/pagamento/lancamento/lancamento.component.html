@@ -16,6 +16,8 @@
 
 <div class="gridTab">
 
+  <p-messages [(value)]="msgError" [enableService]="false"></p-messages>
+
   <p-table #dt styleClass="p-datatable-striped" [value]="pagamento" [paginator]="true" [rows]="10"
            [showCurrentPageReport]="true" responsiveLayout="scroll"
            [globalFilterFields]="['id','nomeColaborador','data','valorDia']" [(selection)]="pagamento" [rowHover]="true"
@@ -36,7 +38,8 @@
           <p-sortIcon field="Valor"></p-sortIcon>
         </th>
         <th colspan="2">
-          <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success"></button>
+          <button pButton (click)="abrirDialogPagamento()" pRipple label="Novo" icon="pi pi-plus"
+                  class="p-button-success"></button>
         </th>
       </tr>
     </ng-template>
@@ -57,4 +60,41 @@
   </p-table>
 </div>
 
+
+<p-dialog class="p-fieldset shadow-4 " [draggable]="false" [resizable]="false" [(visible)]="pagamentotDialog"
+          [closable]="true" [style]="{'width': '600px', 'height': '76%'}" [modal]="true" styleClass="p-fluid">
+  <div class="p-fieldset-content">
+    <div class="card">
+      <form [formGroup]="form">
+
+        <div class="field">
+          <label for="data" class="block">Data:</label>
+          <p-calendar appendTo="body"  formControlName="data" [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"
+                      placeholder="data" [touchUI]="true" name="data" id="data" *ngIf="pagamentotDialog"
+                      [readonlyInput]="true" [required]>
+          </p-calendar>
+          <small id="data-help" class="p-error block">{{getErrors('data')}}</small>
+        </div>
+
+        <div class="field">
+          <label for="colaborador" class="block">Colaborador:</label>
+          <select class="p-inputtext p-float-label" style="height: 2.8rem; width: 98%;"  formControlName="colaborador"
+                  name="colaboraodr" id="colaborador">
+            <option [ngValue]="null" [disabled]="true" >Selecione...</option>
+            <option [selected]="false" *ngFor="let usuario of usuarios |sortBy:'asc':'{{usuario.nome}}'"
+                    value="{{usuario.id}}"> {{usuario.nome}}</option>
+          </select>
+          <small id="colaborador-help" class="p-error block">{{getErrors('colaborador')}}</small>
+        </div>
+
+        <div class="field">
+          <button pButton type="button" (click)="salvarPagamento()" class="m-1" label="salvar"></button>
+          <button pButton pRipple type="button" (click)="limpar()" label="Limpar" class="p-button-secondary m-1"></button>
+          <button pButton type="button" (click)="fecharDialogPagamento()" class=" p-button-danger m-1"
+                  label="Cancelar"></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</p-dialog>
 
