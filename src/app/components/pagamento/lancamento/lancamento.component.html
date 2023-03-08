@@ -95,10 +95,9 @@
         </div>
 
         <div class="field" >
-          <label for="valorDia" class="" >Valor:</label>
-          <div class="col">
-            <input currencyMask  type="text" name="valorDia" id="valorDia" class="p-inputtext" style="height: 2.8rem; width: 100%;"  formControlName="valorDia" pInputText placeholder="" />
-          </div>
+          <label for="valorDia" class="block" >Valor:</label>
+            <input currencyMask  type="text" name="valorDia" id="valorDia" class="p-inputtext p-float-label" style="height: 2.8rem; width: 100%;"  formControlName="valorDia"/>
+          <small id="data-help" class="p-error block">{{getErrors('valorDia')}}</small>
         </div>
         <div class="field hidden" >
           <label for="situacao" class="" >Situação:</label>
