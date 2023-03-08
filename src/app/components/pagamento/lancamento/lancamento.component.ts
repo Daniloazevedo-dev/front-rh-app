@@ -6,6 +6,7 @@ import {UsuarioService} from "../../../service/usuario.service";
 import {FormBase} from "../../../shared/FormBase";
 import {FormBuilder} from "@angular/forms";
 import {BasicValidators} from "../../../shared/basic-validators";
+import {ProfissaoService} from "../../../service/profissao.service";
 
 @Component({
   selector: 'app-lancamento',
@@ -20,6 +21,9 @@ export class LancamentoComponent extends FormBase implements OnInit {
   usuarios: any;
   dataMaxima = new Date();
   dataMinima = new Date();
+  edicao: boolean = false;
+  data: any;
+
 
   @ViewChild('filter') filter!: ElementRef;
 
@@ -28,7 +32,7 @@ export class LancamentoComponent extends FormBase implements OnInit {
     private toast: ToastrService,
     private usuarioService: UsuarioService,
     public formBuilder: FormBuilder,
-
+    private profissaoService: ProfissaoService,
   ) {
 
     super();
@@ -44,7 +48,10 @@ export class LancamentoComponent extends FormBase implements OnInit {
   private setForm() {
     this.form = this.formBuilder.group({
       data: [null, BasicValidators.obrigatorio('A data é obrigatória.')],
-      colaborador: [null, BasicValidators.obrigatorio('O Colaborador é obrigatório.')],
+      colaboradorId: [null, BasicValidators.obrigatorio('O Colaborador é obrigatório.')],
+      id: [null],
+      valorDia: [null],
+      situacao: [null]
     });
   }
 
@@ -75,7 +82,6 @@ export class LancamentoComponent extends FormBase implements OnInit {
     this.pagamentoService.listPagamento().subscribe(
       (pagamento) => {
         this.pagamento = pagamento;
-        console.log(this.pagamento)
       },
       (error) => {
         this.msgError = [
@@ -89,7 +95,6 @@ export class LancamentoComponent extends FormBase implements OnInit {
     this.usuarioService.listColaborador().subscribe(
       (usuarios) => {
         this.usuarios = usuarios;
-        console.log(this.usuarios);
       },
       (error) => {
         this.msgError = [
@@ -126,10 +131,12 @@ export class LancamentoComponent extends FormBase implements OnInit {
   }
 
   salvarPagamento() {
+    this.edicao = false;
     if (this.form.valid) {
-      let colaboradorId = this.form.get('colaborador').value
+      let colaboradorId = this.form.get('colaboradorId').value
       let pagamento = {
-        data: this.form.get('data').value.toLocaleDateString()
+        data: this.form.get('data').value.toLocaleDateString(),
+        valorDia: this.form.get('valorDia').value
       }
       this.pagamentoService.salvarPagamento(colaboradorId, pagamento).subscribe(
         (pagamento) => {
@@ -151,6 +158,68 @@ export class LancamentoComponent extends FormBase implements OnInit {
           }
         }
       );
+    }
+  }
+
+
+  editar(id: number) {
+    this.pagamentoService.buscaPorId(id).subscribe(pagamento => {
+        this.edicao = true;
+        this.form.get('data').setValue(pagamento['data']);
+        this.data = pagamento['data'];
+        this.form.get('colaboradorId').setValue(pagamento['colaboradorId']);
+        this.form.get('id').setValue(pagamento['id']);
+        this.form.get('valorDia').setValue(pagamento['valorDia']);
+        this.form.get('situacao').setValue(pagamento['situacao']);
+        this.pagamentotDialog = true;
+      }
+    )
+  }
+
+  atualizarLancamento(pagamento: any) {
+    if (this.data !== pagamento.data) {
+      pagamento.data = pagamento.data.toLocaleDateString()
+    }
+    this.pagamentoService.editarPagamento(pagamento).subscribe(pagamento => {
+        this.buscarPagamento();
+        this.toast.success('Lançamento alterado com sucesso!');
+        this.pagamentotDialog = false;
+        this.edicao = false;
+      },
+      (error) => {
+        this.pagamentotDialog = false;
+        this.edicao = false;
+        if (error.status === 500) {
+          this.msgError = [
+            {severity: 'error', summary: 'Erro', detail: 'Entre em contato com seu administrador!'},
+          ];
+        } else {
+          this.msgError = [
+            {severity: 'error', summary: 'Erro', detail: error.error.message},
+          ];
+        }
+      }
+    );
+
+  }
+
+  buscaValorProfissao() {
+    this.usuarioService.buscaPorId(this.form.get('colaboradorId').value).subscribe(usuario => {
+      this.profissaoService.listProfissaoIdPro(usuario['profissaoId']).subscribe(profissao => {
+        this.form.get('valorDia').setValue(profissao['valorDia']);
+      })
+
+    })
+  }
+
+  salvar() {
+    this.validateForm();
+    if (this.form.valid) {
+      if (this.edicao) {
+        this.atualizarLancamento(this.form.value);
+      } else {
+        this.salvarPagamento();
+      }
     }
   }
 }

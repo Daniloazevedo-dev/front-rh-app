@@ -136,6 +136,7 @@ export class RelatorioComponent extends FormBase implements OnInit {
 
 
     }
+
   }
 
   refresh(): void {

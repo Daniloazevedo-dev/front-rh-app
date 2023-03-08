@@ -19,4 +19,9 @@ export class ProfissaoService {
 
   }
 
+  listProfissaoIdPro(id: number){
+    return this.http.get(`${this.url}/${id}`);
+
+  }
+
   }

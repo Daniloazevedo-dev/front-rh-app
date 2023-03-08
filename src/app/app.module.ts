@@ -1,7 +1,6 @@
 import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {CommonModule} from '@angular/common';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -54,12 +53,17 @@ import {MenuModule} from "primeng/menu";
 import {SplitterModule} from "primeng/splitter";
 import { LancamentoComponent } from './components/pagamento/lancamento/lancamento.component';
 import {SortByPipe} from "./shared/sort-by.pipe";
-
-
-
-
+export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
+  align: "left",
+  allowNegative: true,
+  decimal: ",",
+  precision: 2,
+  prefix: "R$ ",
+  suffix: "",
+  thousands: "."
+};
 import { ProfissaoComponent } from './components/cadastro/profissao/profissao.component';
-
+import {CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule} from "ng2-currency-mask";
 export declare function registerLocaleData(
   data: any,
   localeId?: string | any,
@@ -127,6 +131,7 @@ export declare function registerLocaleData(
     TabViewModule,
     MenuModule,
     SplitterModule,
+    CurrencyMaskModule,
 
 
   ],
@@ -141,8 +146,10 @@ export declare function registerLocaleData(
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,
       multi: true,
-    }
+    },
+    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
   ],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {
