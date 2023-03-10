@@ -1,6 +1,6 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/luiz2383/public_html/
+    - export DEPLOYPATH=/home/luiz2383/repositories/front-rh-app/
     - /bin/cp index.html $DEPLOYPATH
     - /bin/cp style.css $DEPLOYPATH
