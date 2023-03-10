@@ -25,8 +25,8 @@ export class PagamentoService {
     return this.http.get(`${this.url}/lancamento/${id}`);
   }
 
-  deletar(pagamento: any) {
-    return this.http.put(this.url, pagamento);
+  editarSituacao(id: number, situacao: string) {
+    return this.http.patch(`${this.url}/id/${id}/situacao/${situacao}`,null);
   }
 
   editarPagamento( pagamento: any) {

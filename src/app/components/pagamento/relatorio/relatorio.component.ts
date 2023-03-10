@@ -3,6 +3,7 @@ import {FormBase} from "../../../shared/FormBase";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {UsuarioService} from "../../../service/usuario.service";
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 
 @Component({
@@ -25,9 +26,9 @@ export class RelatorioComponent extends FormBase implements OnInit {
   msgError: any;
   dataMaxima = new Date();
   dataMinima = new Date("12/01/2022");
-
   listColaborador ;
   selectedColaborador: any;
+  dispositivoInfo = null;
 
   buscaColaboradorNome($event: any){
     this.usuarioService.listColaboradorNome($event.query).subscribe(
@@ -52,19 +53,33 @@ export class RelatorioComponent extends FormBase implements OnInit {
     public formBuilderRelB: FormBuilder,
     private toast: ToastrService,
     private usuarioService: UsuarioService,
+    private deviceService: DeviceDetectorService
   ) {
 
     super();
-    this.setFormListaColaboradorTotalPagar()
-    this.setFormColaboradorTotalPagar()
-    this.usuarios = this.buscarUsuarios()
+    this.setFormListaColaboradorTotalPagar();
+    this.setFormColaboradorTotalPagar();
+    this.usuarios = this.buscarUsuarios();
     this.dataMaxima.setDate(this.dataMaxima.getDate());
+    this.verificaDispositivo();
+  }
+
+  verificaDispositivo() {
+    this.dispositivoInfo = this.deviceService.getDeviceInfo();
+    const celular = this.deviceService.isMobile();
+    const tablet = this.deviceService.isTablet();
+    const computador = this.deviceService.isDesktop();
+    console.log(this.dispositivoInfo);
+    console.log(celular);
+    console.log(tablet);
+    console.log(computador);
   }
 
 
   ngOnInit(): void {
 
   }
+
 
   buscarUsuarios() {
     this.usuarioService.listColaborador().subscribe(

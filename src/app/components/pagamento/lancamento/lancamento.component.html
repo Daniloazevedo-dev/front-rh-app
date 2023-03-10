@@ -2,10 +2,13 @@
   <p-divider align="right">
     <span class="p-tag">Lançamento de dária</span>
   </p-divider>
-  <input class="p-button-outlined" pInputText type="text" #filter (input)="onGlobalFilter(dt, $event)"
-         placeholder="Pesquisar..."/>
-  <button style="margin-left: 1rem;" pButton label="Limpar" class="p-button-outlined" icon="pi pi-filter-slash"
-          (click)="clear(dt)"></button>
+  <div style="margin-top: -0.6rem">
+    <input class="p-button-outlined" pInputText type="text" #filter (input)="onGlobalFilter(dt, $event)"
+           placeholder="Pesquisar..."/>
+    <button style="margin-left: 1rem;" pButton label="Limpar" class="p-button-outlined" icon="pi pi-filter-slash"
+            (click)="clear(dt)"></button>
+  </div>
+
 </div>
 
 <div class="card"></div>
@@ -17,6 +20,14 @@
 <div class="gridTab">
 
   <p-messages [(value)]="msgError" [enableService]="false"></p-messages>
+  <div>
+    <p-divider align="right" type="border-0">
+      <p-selectButton (click)="pagamentoFiltro(this.value1)" [options]="statusOptions" [(ngModel)]="value1" optionLabel="label"
+                      optionValue="value"></p-selectButton>
+    </p-divider>
+
+  </div>
+
 
   <p-table #dt styleClass="p-datatable-striped" [value]="pagamento" [paginator]="true" [rows]="10"
            [showCurrentPageReport]="true" responsiveLayout="scroll"
@@ -37,6 +48,7 @@
         <th pSortableColumn="valorDia">Valor
           <p-sortIcon field="Valor"></p-sortIcon>
         </th>
+        <th>Situação</th>
         <th colspan="2">
           <button pButton (click)="abrirDialogPagamento()" pRipple label="Novo" icon="pi pi-plus"
                   class="p-button-success"></button>
@@ -49,11 +61,13 @@
         <td>{{pagamento.nomeColaborador}}</td>
         <td>{{pagamento.data}}</td>
         <td>{{formatarPreco(pagamento.valorDia)}}</td>
+        <td>{{pagamento.situacao}}</td>
         <td style="width: 0.2rem">
-          <button pButton pRipple icon="pi pi-pencil" (click)="editar(pagamento.id)" class="p-button-rounded p-button-warning"></button>
+          <button *ngIf="botaoSituacao" pButton pRipple icon="pi pi-pencil" (click)="editar(pagamento.id)"
+                  class="p-button-rounded p-button-warning"></button>
         </td>
         <td style="width: 0.2rem">
-          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"></button>
+          <button  (click)="editaSituacao(pagamento.id,botaoLabel === 'Ativar'? 'ATIVO': 'INATIVO')" pButton pRipple label="{{botaoLabel}}" class="p-button-rounded p-button-sm {{botaoEstilo}}"></button>
         </td>
       </tr>
     </ng-template>
@@ -69,9 +83,10 @@
 
         <div class="field">
           <label for="colaboradorId" class="block">Colaborador:</label>
-          <select (change)="buscaValorProfissao()" class="p-inputtext p-float-label" style="height: 2.8rem; width: 100%;"  formControlName="colaboradorId"
+          <select (change)="buscaValorProfissao()" class="p-inputtext p-float-label"
+                  style="height: 2.8rem; width: 100%;" formControlName="colaboradorId"
                   name="colaboradorId" id="colaboradorId">
-            <option [ngValue]="null" [disabled]="true" >Selecione...</option>
+            <option [ngValue]="null" [disabled]="true">Selecione...</option>
             <option [selected]="false" *ngFor="let usuario of usuarios |sortBy:'asc':'{{usuario.nome}}'"
                     value="{{usuario.id}}"> {{usuario.nome}}</option>
           </select>
@@ -80,35 +95,39 @@
 
         <div class="field">
           <label for="data" class="block">Data:</label>
-          <p-calendar appendTo="body"  formControlName="data" [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"
+          <p-calendar appendTo="body" formControlName="data" [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"
                       placeholder="data" [touchUI]="true" name="data" id="data" *ngIf="pagamentotDialog"
-                      [readonlyInput]="true" [required]  [maxDate]="dataMaxima" [minDate]="dataMinima">
+                      [readonlyInput]="true" [required] [maxDate]="dataMaxima" [minDate]="dataMinima">
           </p-calendar>
           <small id="data-help" class="p-error block">{{getErrors('data')}}</small>
         </div>
 
-        <div class="field hidden" >
-          <label for="id" class="" >ID:</label>
+        <div class="field hidden">
+          <label for="id" class="">ID:</label>
           <div class="col">
-            <input readonly type="number" name="id" id="id" class="w-1 ng-dirty" formControlName="id" pInputText placeholder="" />
+            <input readonly type="number" name="id" id="id" class="w-1 ng-dirty" formControlName="id" pInputText
+                   placeholder=""/>
           </div>
         </div>
 
-        <div class="field" >
-          <label for="valorDia" class="block" >Valor:</label>
-            <input currencyMask  type="text" name="valorDia" id="valorDia" class="p-inputtext p-float-label" style="height: 2.8rem; width: 100%;"  formControlName="valorDia"/>
-          <small id="data-help" class="p-error block">{{getErrors('valorDia')}}</small>
+        <div class="field">
+          <label for="valorDia" class="block">Valor:</label>
+          <input currencyMask type="text" name="valorDia" id="valorDia" class="p-inputtext p-float-label"
+                 style="height: 2.8rem; width: 100%;" formControlName="valorDia"/>
+          <small id="valorDia-help" class="p-error block">{{getErrors('valorDia')}}</small>
         </div>
-        <div class="field hidden" >
-          <label for="situacao" class="" >Situação:</label>
+        <div class="field hidden">
+          <label for="situacao" class="">Situação:</label>
           <div class="col">
-            <input readonly type="text" name="situacao" id="situacao" class="w-1 ng-dirty" formControlName="situacao" pInputText placeholder="" />
+            <input readonly type="text" name="situacao" id="situacao" class="w-1 ng-dirty" formControlName="situacao"
+                   pInputText placeholder=""/>
           </div>
         </div>
 
         <div class="field">
           <button pButton type="button" (click)="salvar()" class="m-1" label="salvar"></button>
-          <button pButton pRipple type="button" (click)="limpar()" label="Limpar" class="p-button-secondary m-1"></button>
+          <button *ngIf="!edicao" pButton pRipple type="button" (click)="limpar()" label="Limpar"
+                  class="p-button-secondary m-1"></button>
           <button pButton type="button" (click)="fecharDialogPagamento()" class=" p-button-danger m-1"
                   label="Cancelar"></button>
         </div>

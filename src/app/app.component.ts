@@ -14,4 +14,5 @@ export class AppComponent {
   mostraMenu() {
     return this.tokenService.getToken() !== null;
   }
+
 }

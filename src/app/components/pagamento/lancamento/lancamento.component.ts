@@ -7,6 +7,7 @@ import {FormBase} from "../../../shared/FormBase";
 import {FormBuilder} from "@angular/forms";
 import {BasicValidators} from "../../../shared/basic-validators";
 import {ProfissaoService} from "../../../service/profissao.service";
+import {ConfirmationService} from "primeng/api";
 
 @Component({
   selector: 'app-lancamento',
@@ -23,6 +24,14 @@ export class LancamentoComponent extends FormBase implements OnInit {
   dataMinima = new Date();
   edicao: boolean = false;
   data: any;
+  statusOptions: any[];
+  value1: string = "ATIVO";
+  value2: number;
+  pagamentoAtivo: any;
+  pagamentoInativo: any;
+  botaoSituacao: boolean;
+  botaoLabel: string;
+  botaoEstilo: string;
 
 
   @ViewChild('filter') filter!: ElementRef;
@@ -33,12 +42,15 @@ export class LancamentoComponent extends FormBase implements OnInit {
     private usuarioService: UsuarioService,
     public formBuilder: FormBuilder,
     private profissaoService: ProfissaoService,
+
   ) {
 
     super();
     this.pagamento = this.buscarPagamento();
     this.buscarUsuarios();
     this.dataMinima.setDate(this.dataMinima.getDate() - 30);
+
+    this.statusOptions = [{label: 'Ativo', value: 'ATIVO'}, {label: 'Inativo', value: 'INATIVO'}];
   }
 
   ngOnInit(): void {
@@ -64,6 +76,7 @@ export class LancamentoComponent extends FormBase implements OnInit {
 
   abrirDialogPagamento() {
     this.form.reset()
+    this.edicao = false;
     this.setForm()
     this.pagamentotDialog = true;
 
@@ -78,10 +91,18 @@ export class LancamentoComponent extends FormBase implements OnInit {
     return $event.target.value;
   }
 
-  buscarPagamento() {
+  buscarPagamento(situacao: string = 'INATIVO') {
+    const boleanSituacao = situacao === 'INATIVO' ? true : false
     this.pagamentoService.listPagamento().subscribe(
       (pagamento) => {
         this.pagamento = pagamento;
+        this.pagamentoAtivo = this.pagamento.filter(p => p.situacao === 'ATIVO')
+        this.pagamentoInativo = this.pagamento.filter(p => p.situacao === 'INATIVO')
+        this.botaoLabel = boleanSituacao === true ? 'Desativar' : 'Ativar';
+        this.botaoEstilo = boleanSituacao === true ? 'p-button-secondary' : 'p-button-info';
+        this.pagamento = boleanSituacao === true ? this.pagamentoAtivo : this.pagamentoInativo;
+        this.botaoSituacao = boleanSituacao;
+
       },
       (error) => {
         this.msgError = [
@@ -90,6 +111,7 @@ export class LancamentoComponent extends FormBase implements OnInit {
       }
     );
   }
+
 
   buscarUsuarios() {
     this.usuarioService.listColaborador().subscribe(
@@ -222,6 +244,45 @@ export class LancamentoComponent extends FormBase implements OnInit {
       }
     }
   }
+
+  pagamentoFiltro(situacao) {
+    if (situacao === 'ATIVO') {
+      this.botaoLabel = 'Desativar';
+      this.botaoEstilo = 'p-button-secondary';
+      this.botaoSituacao = true;
+      this.pagamento = this.pagamentoAtivo
+    } else {
+      this.botaoLabel = 'Ativar';
+      this.botaoEstilo = 'p-button-info';
+      this.botaoSituacao = false;
+      this.pagamento = this.pagamentoInativo
+    }
+  }
+
+  alterarSituacao(id: number, situacao: string) {
+    this.pagamentoService.editarSituacao(id, situacao).subscribe(pagamento => {
+      this.buscarPagamento(situacao);
+      this.toast.success('Situacao alterada com sucesso!');
+    }, (error) => {
+      this.pagamentotDialog = false;
+      this.edicao = false;
+      if (error.status === 500) {
+        this.msgError = [
+          {severity: 'error', summary: 'Erro', detail: 'Entre em contato com seu administrador!'},
+        ];
+      } else {
+        this.msgError = [
+          {severity: 'error', summary: 'Erro', detail: error.error.message},
+        ];
+      }
+    })
+
+  }
+
+  editaSituacao(id: number, situacao: string) {
+    this.alterarSituacao(id, situacao.toUpperCase())
+  }
+
 }
 
 

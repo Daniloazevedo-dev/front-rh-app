@@ -28,9 +28,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {AuthInterceptor} from './interceptors/auth.interceptor';
 import {HomeComponent} from './components/home/home.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
-import {
-  RelatorioComponent
-} from './components/pagamento/relatorio/relatorio.component';
+import {RelatorioComponent} from './components/pagamento/relatorio/relatorio.component';
 import {LoginComponent} from './components/login/login.component';
 import {CalendarModule} from 'primeng/calendar';
 import {SliderModule} from 'primeng/slider';
@@ -42,17 +40,25 @@ import {LoadingComponent} from './components/loading/loading.component';
 import {LoadingInterceptor} from './interceptors/loading.interceptor';
 import {ToastrModule} from "ngx-toastr";
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
-import { IframeListaColaboradorTotalPagarComponent } from './components/iframe/lista-colaborador-total-pagar/iframe-lista-colaborador-total-pagar.component';
+import {
+  IframeListaColaboradorTotalPagarComponent
+} from './components/iframe/lista-colaborador-total-pagar/iframe-lista-colaborador-total-pagar.component';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {AccordionModule} from "primeng/accordion";
-import { IframeColaboradorTotalPagarComponent } from './components/iframe/colaborador-total-pagar/iframe-colaborador-total-pagar.component';
+import {
+  IframeColaboradorTotalPagarComponent
+} from './components/iframe/colaborador-total-pagar/iframe-colaborador-total-pagar.component';
 import {AutoCompleteModule} from "primeng/autocomplete";
 import {SplitButtonModule} from "primeng/splitbutton";
 import {TabViewModule} from "primeng/tabview";
 import {MenuModule} from "primeng/menu";
 import {SplitterModule} from "primeng/splitter";
-import { LancamentoComponent } from './components/pagamento/lancamento/lancamento.component';
+import {LancamentoComponent} from './components/pagamento/lancamento/lancamento.component';
 import {SortByPipe} from "./shared/sort-by.pipe";
+import {ProfissaoComponent} from './components/cadastro/profissao/profissao.component';
+import {CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule} from "ng2-currency-mask";
+import {SelectButtonModule} from "primeng/selectbutton";
+
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "left",
   allowNegative: true,
@@ -62,8 +68,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   suffix: "",
   thousands: "."
 };
-import { ProfissaoComponent } from './components/cadastro/profissao/profissao.component';
-import {CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule} from "ng2-currency-mask";
+
 export declare function registerLocaleData(
   data: any,
   localeId?: string | any,
@@ -132,6 +137,7 @@ export declare function registerLocaleData(
     MenuModule,
     SplitterModule,
     CurrencyMaskModule,
+    SelectButtonModule,
 
 
   ],
