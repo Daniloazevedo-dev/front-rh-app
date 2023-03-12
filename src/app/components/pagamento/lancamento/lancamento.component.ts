@@ -7,12 +7,13 @@ import {FormBase} from "../../../shared/FormBase";
 import {FormBuilder} from "@angular/forms";
 import {BasicValidators} from "../../../shared/basic-validators";
 import {ProfissaoService} from "../../../service/profissao.service";
-import {ConfirmationService} from "primeng/api";
+import {ConfirmationService, MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-lancamento',
   templateUrl: './lancamento.component.html',
-  styleUrls: ['./lancamento.component.css']
+  styleUrls: ['./lancamento.component.css'],
+  providers: [MessageService, ConfirmationService],
 })
 export class LancamentoComponent extends FormBase implements OnInit {
   pagamento: any;
@@ -42,7 +43,7 @@ export class LancamentoComponent extends FormBase implements OnInit {
     private usuarioService: UsuarioService,
     public formBuilder: FormBuilder,
     private profissaoService: ProfissaoService,
-
+    private confirmationService: ConfirmationService,
   ) {
 
     super();
@@ -280,9 +281,13 @@ export class LancamentoComponent extends FormBase implements OnInit {
   }
 
   editaSituacao(id: number, situacao: string) {
-    this.alterarSituacao(id, situacao.toUpperCase())
+    this.confirmationService.confirm({
+      message: 'Alterar a Situção?',
+      accept: () => {
+        this.alterarSituacao(id, situacao.toUpperCase())
+      }
+    });
   }
-
 }
 
 
