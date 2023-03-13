@@ -97,6 +97,18 @@ export class MenuComponent {
       {
         label: 'Colaborador',
         icon: 'pi pi-briefcase',
+        items: [
+          {
+            label: 'Lançamento',
+            icon: 'pi pi-calendar-plus',
+            routerLink: '/colaborador/lancamento',
+          },
+          {
+            label: 'Relatório',
+            icon: 'pi pi-book',
+            routerLink: '/colaborador/relatorio',
+          },
+        ],
       },
       {
         label: 'Pagamento',

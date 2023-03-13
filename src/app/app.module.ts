@@ -29,6 +29,7 @@ import {AuthInterceptor} from './interceptors/auth.interceptor';
 import {HomeComponent} from './components/home/home.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {RelatorioComponent} from './components/pagamento/relatorio/relatorio.component';
+import {RelatorioColComponent} from './components/colaborador/relatorio/relatorio.component';
 import {LoginComponent} from './components/login/login.component';
 import {CalendarModule} from 'primeng/calendar';
 import {SliderModule} from 'primeng/slider';
@@ -54,6 +55,7 @@ import {TabViewModule} from "primeng/tabview";
 import {MenuModule} from "primeng/menu";
 import {SplitterModule} from "primeng/splitter";
 import {LancamentoComponent} from './components/pagamento/lancamento/lancamento.component';
+import {LancamentoColComponent} from './components/colaborador/lancamento/lancamento.component';
 import {SortByPipe} from "./shared/sort-by.pipe";
 import {ProfissaoComponent} from './components/cadastro/profissao/profissao.component';
 import {CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule} from "ng2-currency-mask";
@@ -81,6 +83,7 @@ export declare function registerLocaleData(
     MenuComponent,
     UsuarioComponent,
     RelatorioComponent,
+    RelatorioColComponent,
     LoginComponent,
     HomeComponent,
     NotFoundComponent,
@@ -90,6 +93,7 @@ export declare function registerLocaleData(
     IframeColaboradorTotalPagarComponent,
     ProfissaoComponent,
     LancamentoComponent,
+    LancamentoColComponent,
     SortByPipe,
   ],
   imports: [
