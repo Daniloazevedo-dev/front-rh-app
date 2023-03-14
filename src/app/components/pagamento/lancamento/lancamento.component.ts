@@ -49,7 +49,7 @@ export class LancamentoComponent extends FormBase implements OnInit {
     super();
     this.pagamento = this.buscarPagamento();
     this.buscarUsuarios();
-    this.dataMinima.setDate(this.dataMinima.getDate() - 30);
+    this.dataMinima.setDate(this.dataMinima.getDate() - 31);
 
     this.statusOptions = [{label: 'Ativo', value: 'ATIVO'}, {label: 'Inativo', value: 'INATIVO'}];
   }

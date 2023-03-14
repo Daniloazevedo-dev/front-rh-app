@@ -99,8 +99,6 @@ export class RelatorioComponent extends FormBase implements OnInit {
   listaColaboradorTotalPagar(position: string) {
     this.position = position;
     this.displayPosition = true;
-
-
   }
 
   colaboradorTotalPagar(position: string) {

@@ -44,6 +44,7 @@ export class MenuComponent {
           } else {
             this.setUsuarioMenuEAvatar('usuário');
           }
+
         },
         (error) => {
           this.setUsuarioMenuEAvatar('usuário');

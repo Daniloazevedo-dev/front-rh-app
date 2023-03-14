@@ -60,6 +60,7 @@ import {SortByPipe} from "./shared/sort-by.pipe";
 import {ProfissaoComponent} from './components/cadastro/profissao/profissao.component';
 import {CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule} from "ng2-currency-mask";
 import {SelectButtonModule} from "primeng/selectbutton";
+import { ColaboradorTotalPagarColIdComponent } from './components/iframe/colaborador-total-pagar-col-id/colaborador-total-pagar-col-id.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "left",
@@ -95,6 +96,7 @@ export declare function registerLocaleData(
     LancamentoComponent,
     LancamentoColComponent,
     SortByPipe,
+    ColaboradorTotalPagarColIdComponent,
   ],
   imports: [
     BrowserModule,
