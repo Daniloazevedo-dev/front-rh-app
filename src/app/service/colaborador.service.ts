@@ -12,10 +12,16 @@ export class ColaboradorService {
 
   }
 
-  private url = `${environment.url}rh-colaborador/usuario`
+  private urlCol = `${environment.url}rh-colaborador/usuario`
+
+  private urlPag = `${environment.url}rh-pagamento/pagamento`
 
   buscarColaboradorEmail(email: string) {
     const params = new HttpParams().set('email', email);
-    return this.http.get(`${this.url}/busca`, {params});
+    return this.http.get(`${this.urlCol}/busca`, {params});
+  }
+
+  listaPagamentoIdCol(id: Number) {
+    return this.http.get(`${this.urlPag}/busca/${id}`);
   }
 }

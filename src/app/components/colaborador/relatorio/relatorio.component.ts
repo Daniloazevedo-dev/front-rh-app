@@ -46,7 +46,6 @@ export class RelatorioColComponent extends FormBase implements OnInit {
           this.coloborador = (data['colaborador']);
           if (this.coloborador != '0') {
             this.idRelC = (data['id']);
-
           }
         },
         (error) => {
