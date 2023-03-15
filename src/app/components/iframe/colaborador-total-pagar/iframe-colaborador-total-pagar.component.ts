@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {RelatorioService} from "../../../service/relatorio.service";
+import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
   selector: 'app-iframe-colaborador-total-pagar',
@@ -14,7 +15,7 @@ export class IframeColaboradorTotalPagarComponent implements OnInit {
 
   constructor(
     private relatorioService: RelatorioService,
-
+    private deviceService: DeviceDetectorService
   ) {
 
   }
@@ -27,12 +28,16 @@ export class IframeColaboradorTotalPagarComponent implements OnInit {
 
   colaboradorTotalPagar(idRelB: string, inicioRelB: string, fimRelB: string) {
     this.relatorioService.colaboradorTotalPagar(idRelB, inicioRelB, fimRelB).subscribe(data => {
-      var html = '';
-      var blob = new Blob([data], {type: 'application/pdf'})
-      var iframe = document.querySelector("iframe");
-      console.log(iframe)
-      iframe.src = URL.createObjectURL(blob);
 
+      var blob = new Blob([data], {type: 'application/pdf'})
+      var fileURL = URL.createObjectURL(blob);
+      if (this.deviceService.isDesktop()) {
+        var iframe = document.querySelector("iframe");
+        iframe.src = fileURL;
+      } else {
+        window.location.reload();
+        window.open(fileURL);
+      }
     })
 
   }

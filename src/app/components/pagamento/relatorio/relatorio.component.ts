@@ -3,7 +3,7 @@ import {FormBase} from "../../../shared/FormBase";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {UsuarioService} from "../../../service/usuario.service";
-import { DeviceDetectorService } from 'ngx-device-detector';
+import {DeviceDetectorService} from 'ngx-device-detector';
 
 
 @Component({
@@ -26,11 +26,11 @@ export class RelatorioComponent extends FormBase implements OnInit {
   msgError: any;
   dataMaxima = new Date();
   dataMinima = new Date("12/01/2022");
-  listColaborador ;
+  listColaborador;
   selectedColaborador: any;
   dispositivoInfo = null;
 
-  buscaColaboradorNome($event: any){
+  buscaColaboradorNome($event: any) {
     this.usuarioService.listColaboradorNome($event.query).subscribe(
       (usuarios) => {
         this.listColaborador = usuarios;
@@ -44,7 +44,7 @@ export class RelatorioComponent extends FormBase implements OnInit {
     );
   }
 
-  selectID(value: any){
+  selectID(value: any) {
     console.log(value);
   }
 
@@ -131,7 +131,9 @@ export class RelatorioComponent extends FormBase implements OnInit {
     if (this.relAForm.valid) {
       this.inicioRelA = this.relAForm.value.inicioRelA.toLocaleDateString()
       this.fimRelA = this.relAForm.value.fimRelA.toLocaleDateString()
-      this.listaColaboradorTotalPagar('top')
+      if (this.deviceService.isDesktop()) {
+        this.listaColaboradorTotalPagar('top')
+      }
       this.toast.success('Relatório gerado com sucesso!')
       this.relAForm.reset()
 
@@ -143,7 +145,9 @@ export class RelatorioComponent extends FormBase implements OnInit {
       this.idRelB = this.relBForm.value.idRelB
       this.inicioRelB = this.relBForm.value.inicioRelB.toLocaleDateString()
       this.fimRelB = this.relBForm.value.fimRelB.toLocaleDateString()
-      this.colaboradorTotalPagar('top')
+      if (this.deviceService.isDesktop()) {
+        this.colaboradorTotalPagar('top')
+      }
       this.toast.success('Relatório gerado com sucesso!')
       this.relBForm.reset()
 
