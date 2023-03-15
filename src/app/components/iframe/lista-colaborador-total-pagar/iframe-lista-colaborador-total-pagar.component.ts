@@ -34,11 +34,12 @@ export class IframeListaColaboradorTotalPagarComponent implements OnInit {
         var iframe = document.querySelector("iframe");
         iframe.src = fileURL;
       } else {
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
         window.open(fileURL);
       }
     })
-
   }
 }
 

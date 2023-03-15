@@ -4,6 +4,7 @@ import {ColaboradorService} from "../../../service/colaborador.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {FormBase} from "../../../shared/FormBase";
 import {ToastrService} from "ngx-toastr";
+import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
   selector: 'app-relatorio',
@@ -27,6 +28,7 @@ export class RelatorioColComponent extends FormBase implements OnInit {
     private tokenService: TokenService,
     public formBuilderRelC: FormBuilder,
     private toast: ToastrService,
+    private deviceService: DeviceDetectorService
   ) {
     super();
     this.buscaUsuarioLogadoPOrEmail();
@@ -73,7 +75,9 @@ export class RelatorioColComponent extends FormBase implements OnInit {
       this.idRelC = this.idRelC
       this.inicioRelC = this.relCForm.value.inicioRelC.toLocaleDateString()
       this.fimRelC = this.relCForm.value.fimRelC.toLocaleDateString()
-      this.colaboradorTotalPagarIdCol('top')
+      if (this.deviceService.isDesktop()) {
+        this.colaboradorTotalPagarIdCol('top')
+      }
       this.toast.success('Relatório gerado com sucesso!')
       this.relCForm.reset()
     }

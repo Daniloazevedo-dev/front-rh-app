@@ -11,7 +11,7 @@
             [style]="{width: '80vw', height:'auto'}" [modal]="true" [closable]="false"
             [draggable]="true" [resizable]="true" [blockScroll]="true" [className]="relCForm">
 
-    <app-colaborador-total-pagar-col-id *ngIf="displayPosition && idRelC && inicioRelC && fimRelC"
+    <app-colaborador-total-pagar-col-id *ngIf="idRelC && inicioRelC && fimRelC"
                                         [idRelC]="idRelC" [inicioRelC]="inicioRelC"
                                         [fimRelC]="fimRelC"></app-colaborador-total-pagar-col-id>
     <ng-template pTemplate="footer">
