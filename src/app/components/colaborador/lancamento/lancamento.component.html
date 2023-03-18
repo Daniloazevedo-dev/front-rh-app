@@ -1,5 +1,5 @@
 <div class="col-12 md:col-6 gridLan">
-<!--  <p-confirmDialog class="w-full" [transitionOptions]="'0ms'" rejectLabel="Não" acceptLabel="Sim"></p-confirmDialog>-->
+  <!--  <p-confirmDialog class="w-full" [transitionOptions]="'0ms'" rejectLabel="Não" acceptLabel="Sim"></p-confirmDialog>-->
   <p-divider align="right">
     <span class="p-tag">Lançamento de dária</span>
   </p-divider>
@@ -7,7 +7,7 @@
     <input class="p-button-outlined" pInputText type="text"
            placeholder="Pesquisar..."/>
     <button style="margin-left: 1rem;" pButton label="Limpar" class="p-button-outlined" icon="pi pi-filter-slash"
-           ></button>
+    ></button>
   </div>
 
 </div>
@@ -23,7 +23,7 @@
   <p-messages [(value)]="msgError" [enableService]="false"></p-messages>
   <div>
     <p-divider align="right" type="border-0">
-      <p-selectButton   optionLabel="label"
+      <p-selectButton optionLabel="label"
                       optionValue="value"></p-selectButton>
     </p-divider>
 
@@ -51,7 +51,7 @@
         </th>
         <th>Situação</th>
         <th colspan="2">
-          <button pButton  pRipple label="Novo" icon="pi pi-plus"
+          <button pButton pRipple label="Novo" icon="pi pi-plus"
                   class="p-button-success"></button>
         </th>
       </tr>
@@ -68,7 +68,7 @@
                   class="p-button-rounded p-button-warning"></button>
         </td>
         <td style="width: 0.2rem">
-          <button   pButton pRipple  class="p-button-rounded p-button-sm"></button>
+          <button pButton pRipple class="p-button-rounded p-button-sm"></button>
         </td>
       </tr>
     </ng-template>
@@ -80,7 +80,7 @@
           [closable]="true" [style]="{'width': '600px', 'height': '76%'}" [modal]="true" styleClass="p-fluid">
   <div class="p-fieldset-content">
     <div class="card">
-      <form >
+      <form>
 
         <div class="field">
           <label for="colaboradorId" class="block">Colaborador:</label>
@@ -89,7 +89,7 @@
                   name="colaboradorId" id="colaboradorId">
             <option [ngValue]="null" [disabled]="true">Selecione...</option>
             <option>
-                  </option>
+            </option>
           </select>
           <small id="colaboradorId-help" class="p-error block"></small>
         </div>
@@ -127,13 +127,12 @@
 
         <div class="field">
           <button pButton type="button" class="m-1" label="salvar"></button>
-          <button pButton pRipple type="button"  label="Limpar"
+          <button pButton pRipple type="button" label="Limpar"
                   class="p-button-secondary m-1"></button>
-          <button pButton type="button"  class=" p-button-danger m-1"
+          <button pButton type="button" class=" p-button-danger m-1"
                   label="Cancelar"></button>
         </div>
       </form>
     </div>
   </div>
 </p-dialog>
-

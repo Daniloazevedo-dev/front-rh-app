@@ -37,7 +37,7 @@ export class LancamentoColComponent implements OnInit {
           this.coloborador = (data['colaborador']);
           if (this.coloborador != '0') {
             this.id = (data['id']);
-             console.log(this.id)
+            console.log(this.id)
           }
         },
         (error) => {
