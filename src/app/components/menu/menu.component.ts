@@ -7,6 +7,7 @@ import {UsuarioService} from 'src/app/service/usuario.service';
 import {ToastrService} from "ngx-toastr";
 
 const ADMIN = 'ROLE_ADMIN';
+const COLABORADOR = 'ROLE_OPERATOR';
 
 @Component({
   selector: 'app-menu',
@@ -31,6 +32,7 @@ export class MenuComponent {
 
   sair() {
     this.authService.logout();
+    window.location.reload();
     this.router.navigate(['/login']).then(_ => this.toast.info('Logout efetuado com sucesso!'));
   }
 

@@ -12,8 +12,11 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
     new BlipChat()
       .withAppKey('ZmVuaXg3OmEzYjUwZDRjLWQyMjktNGMyYy05NjZhLWRhNTM3MWE5NWMwMQ==')
-      .withButton({ color: '#2CC3D5', icon: '' })
+      .withButton({ color: '#2CC3D5'})
       .withCustomCommonUrl('https://danilo-azevedo-fezft.chat.blip.ai/')
       .build();
-  }
+
+     }
+
+
 }
