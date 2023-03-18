@@ -47,7 +47,7 @@ export class LancamentoColComponent implements OnInit {
   }
 
   buscaPagamentoIdCol() {
-    this.colaboradorService.listaPagamentoIdCol(Number(this.id)).subscribe(
+    this.colaboradorService.listaPagamentoIdCol(Number(7)).subscribe(
       (pagamento) => {
         this.pagamento = pagamento;
         console.log(this.id)
