@@ -33,6 +33,7 @@ export class TokenService {
     localStorage.setItem(ACCESS_TOKEN, token);
     localStorage.setItem(USER_NAME, user_name);
     localStorage.setItem(AUTHORITIES, authorities);
+    localStorage.removeItem('blipSdkUAccount');
   }
 
   saveRefreshToken(refreshToken): void {

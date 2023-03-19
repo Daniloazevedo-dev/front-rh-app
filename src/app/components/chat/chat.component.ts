@@ -10,6 +10,7 @@ export class ChatComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+    localStorage.removeItem('blipSdkUAccount');
     new BlipChat()
       .withAppKey('ZmVuaXg3OmEzYjUwZDRjLWQyMjktNGMyYy05NjZhLWRhNTM3MWE5NWMwMQ==')
       .withButton({ color: '#2CC3D5'})
