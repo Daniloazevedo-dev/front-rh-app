@@ -17,7 +17,7 @@ export class RelatorioColComponent extends FormBase implements OnInit {
   displayPosition: boolean;
   position: string;
   dataMaxima = new Date();
-  dataMinima = new Date();
+  dataMinima = new Date("12/01/2022");
   relCForm: FormGroup;
   inicioRelC: string;
   fimRelC: string;
@@ -32,7 +32,6 @@ export class RelatorioColComponent extends FormBase implements OnInit {
   ) {
     super();
     this.buscaUsuarioLogadoPOrEmail();
-    this.dataMinima.setDate(this.dataMinima.getDate() - 331);
     this.setFormColaboradorTotalPagarIdCol();
   }
 

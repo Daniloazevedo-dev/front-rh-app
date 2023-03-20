@@ -12,7 +12,6 @@ export class LancamentoColComponent implements OnInit {
   pagamento: any;
   msgError: any
   coloborador: String;
-  id: any;
 
   constructor(
     private colaboradorService: ColaboradorService,
@@ -20,8 +19,7 @@ export class LancamentoColComponent implements OnInit {
   ) {
 
     // super();
-    this.id = this.buscaUsuarioLogadoPOrEmail();
-    this.buscaPagamentoIdCol();
+    this.buscaUsuarioLogadoPOrEmail();
 
   }
 
@@ -36,8 +34,8 @@ export class LancamentoColComponent implements OnInit {
         (data) => {
           this.coloborador = (data['colaborador']);
           if (this.coloborador != '0') {
-            this.id = (data['id']);
-            console.log(this.id)
+            this.buscaPagamentoIdCol(data['id'])
+
           }
         },
         (error) => {
@@ -46,11 +44,12 @@ export class LancamentoColComponent implements OnInit {
       );
   }
 
-  buscaPagamentoIdCol() {
-    this.colaboradorService.listaPagamentoIdCol(Number(7)).subscribe(
+  buscaPagamentoIdCol(id: number) {
+
+    this.colaboradorService.listaPagamentoIdCol(id).subscribe(
       (pagamento) => {
         this.pagamento = pagamento;
-        console.log(this.id)
+
       },
       (error) => {
         this.msgError = [
