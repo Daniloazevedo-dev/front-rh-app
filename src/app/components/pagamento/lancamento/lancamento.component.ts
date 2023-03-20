@@ -33,6 +33,7 @@ export class LancamentoComponent extends FormBase implements OnInit {
   botaoSituacao: boolean;
   botaoLabel: string;
   botaoEstilo: string;
+  status: any;
 
 
   @ViewChild('filter') filter!: ElementRef;
@@ -64,7 +65,8 @@ export class LancamentoComponent extends FormBase implements OnInit {
       colaboradorId: [null, BasicValidators.obrigatorio('O Colaborador é obrigatório.')],
       id: [null],
       valorDia: [null],
-      situacao: [null]
+      situacao: [null],
+      status: ['1']
     });
   }
 
@@ -159,7 +161,8 @@ export class LancamentoComponent extends FormBase implements OnInit {
       let colaboradorId = this.form.get('colaboradorId').value
       let pagamento = {
         data: this.form.get('data').value.toLocaleDateString(),
-        valorDia: this.form.get('valorDia').value
+        valorDia: this.form.get('valorDia').value,
+        status: '1'
       }
       this.pagamentoService.salvarPagamento(colaboradorId, pagamento).subscribe(
         (pagamento) => {

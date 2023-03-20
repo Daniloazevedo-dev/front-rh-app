@@ -73,19 +73,7 @@ export class MenuComponent {
     return isAdmin;
   }
 
-  // isAColaborador() {
-  //   let isAColaborador = false;
-  //   if (this.tokenService.getAuthorities() !== null) {
-  //     this.tokenService.getAuthorities().split(',').forEach(r => {
-  //       if (r === COLABORADOR) {
-  //         isAColaborador = true;
-  //       }
-  //     });
-  //   }
-  //   return isAColaborador;
-  // }
-
-  private menuItems() {
+      private menuItems() {
     return [
       {
         label: 'Home',
@@ -140,6 +128,11 @@ export class MenuComponent {
             label: 'Relatório',
             icon: 'pi pi-book',
             routerLink: '/pagamento/relatorio',
+          },
+          {
+            label: 'Aprovar',
+            icon: 'pi pi-check-square',
+            routerLink: '/pagamento/aprovar',
           },
         ],
       },

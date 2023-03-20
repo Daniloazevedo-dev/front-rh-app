@@ -10,6 +10,7 @@ import {LancamentoComponent} from "./components/pagamento/lancamento/lancamento.
 import {ProfissaoComponent} from "./components/cadastro/profissao/profissao.component";
 import {RelatorioColComponent} from "./components/colaborador/relatorio/relatorio.component";
 import {LancamentoColComponent} from "./components/colaborador/lancamento/lancamento.component";
+import {AprovarComponent} from "./components/pagamento/aprovar/aprovar.component";
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'cadastro/profissao', canActivate: [AuthGuard], component: ProfissaoComponent},
   {path: 'pagamento/relatorio', canActivate: [AuthGuard], component: RelatorioComponent},
   {path: 'pagamento/lancamento', canActivate: [AuthGuard], component: LancamentoComponent},
+  {path: 'pagamento/aprovar', canActivate: [AuthGuard], component: AprovarComponent},
   {path: 'colaborador/relatorio', canActivate: [AuthGuard], component: RelatorioColComponent},
   {path: 'colaborador/lancamento', canActivate: [AuthGuard], component: LancamentoColComponent},
   {path: '', redirectTo: 'home', pathMatch: 'full'},
