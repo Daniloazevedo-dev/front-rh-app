@@ -22,4 +22,14 @@ export class ColaboradorService {
   listaPagamentoIdCol(id: Number) {
     return this.http.get(`${this.url}/pagamento/busca/${id}`);
   }
+
+  buscaColaboradorId(id: Number) {
+    return this.http.get(`${this.url}/usuario/colaborador/${id}`);
+  }
+
+  buscaProfissaoColabIdPro(id: number){
+    return this.http.get(`${this.url}/profissao/${id}`);
+
+  }
+
 }

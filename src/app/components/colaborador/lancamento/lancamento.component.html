@@ -1,13 +1,13 @@
 <div class="col-12 md:col-6 gridLan">
-  <!--  <p-confirmDialog class="w-full" [transitionOptions]="'0ms'" rejectLabel="Não" acceptLabel="Sim"></p-confirmDialog>-->
+  <p-confirmDialog class="w-full" [transitionOptions]="'0ms'" rejectLabel="Não" acceptLabel="Sim"></p-confirmDialog>
   <p-divider align="right">
     <span class="p-tag">Lançamento de dária</span>
   </p-divider>
   <div style="margin-top: -0.6rem">
-    <input class="p-button-outlined" pInputText type="text"
+    <input class="p-button-outlined" pInputText type="text" #filter (input)="onGlobalFilter(dt, $event)"
            placeholder="Pesquisar..."/>
     <button style="margin-left: 1rem;" pButton label="Limpar" class="p-button-outlined" icon="pi pi-filter-slash"
-    ></button>
+            (click)="clear(dt)"></button>
   </div>
 
 </div>
@@ -30,9 +30,9 @@
   </div>
 
 
-  <p-table styleClass="p-datatable-striped" [value]="pagamento" [paginator]="true" [rows]="10"
+  <p-table #dt styleClass="p-datatable-striped" [value]="pagamento" [paginator]="true" [rows]="10"
            [showCurrentPageReport]="true" responsiveLayout="scroll"
-           [globalFilterFields]="['id','nomeColaborador','data','valorDia']" [(selection)]="pagamento" [rowHover]="true"
+           [globalFilterFields]="['id','nomeColaborador','data','valorDia', 'status']" [(selection)]="pagamento" [rowHover]="true"
            dataKey="id" currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} registros"
            [rowsPerPageOptions]="[10,25,50]">
     <ng-template pTemplate="header">
@@ -49,9 +49,11 @@
         <th pSortableColumn="valorDia">Valor
           <p-sortIcon field="Valor"></p-sortIcon>
         </th>
-        <th>Situação</th>
+        <th pSortableColumn="status">Valor
+          <p-sortIcon field="Status"></p-sortIcon>
+        </th>
         <th colspan="2">
-          <button pButton pRipple label="Novo" icon="pi pi-plus"
+          <button (click)="abrirDialogPagamento()" pButton pRipple label="Novo" icon="pi pi-plus"
                   class="p-button-success"></button>
         </th>
       </tr>
@@ -62,13 +64,12 @@
         <td>{{pagamento.nomeColaborador}}</td>
         <td>{{pagamento.data}}</td>
         <td>{{pagamento.valorDia}}</td>
-        <td>{{pagamento.situacao}}</td>
+        <td>{{pagamento.status}}</td>
         <td style="width: 0.2rem">
-          <button pButton pRipple icon="pi pi-pencil"
-                  class="p-button-rounded p-button-warning"></button>
+
         </td>
         <td style="width: 0.2rem">
-          <button pButton pRipple class="p-button-rounded p-button-sm"></button>
+
         </td>
       </tr>
     </ng-template>
@@ -76,37 +77,36 @@
 </div>
 
 
-<p-dialog class="p-fieldset shadow-4 " [draggable]="false" [resizable]="false"
+<p-dialog class="p-fieldset shadow-4 " [draggable]="false" [resizable]="false" [(visible)]="pagamentotDialog"
           [closable]="true" [style]="{'width': '600px', 'height': '76%'}" [modal]="true" styleClass="p-fluid">
   <div class="p-fieldset-content">
     <div class="card">
-      <form>
+      <form [formGroup]="form">
 
         <div class="field">
           <label for="colaboradorId" class="block">Colaborador:</label>
-          <select class="p-inputtext p-float-label"
-                  style="height: 2.8rem; width: 100%;"
+          <select (change)="buscaValorProfissao()" class="p-inputtext p-float-label"
+                  style="height: 2.8rem; width: 100%;" formControlName="colaboradorId"
                   name="colaboradorId" id="colaboradorId">
             <option [ngValue]="null" [disabled]="true">Selecione...</option>
-            <option>
-            </option>
+            <option [selected]="false" value="{{colaborador.id}}"> {{colaborador.nome}}</option>
           </select>
-          <small id="colaboradorId-help" class="p-error block"></small>
+          <small id="colaboradorId-help" class="p-error block">{{getErrors('colaboradorId')}}</small>
         </div>
 
         <div class="field">
           <label for="data" class="block">Data:</label>
-          <p-calendar appendTo="body" [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"
-                      placeholder="data" [touchUI]="true" name="data" id="data"
-                      [readonlyInput]="true" [required] [maxDate]="" [minDate]="">
+          <p-calendar appendTo="body" formControlName="data" [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"
+                      placeholder="data" [touchUI]="true" name="data" id="data" *ngIf="pagamentotDialog"
+                      [readonlyInput]="true" [required] [maxDate]="dataMaxima" [minDate]="dataMinima">
           </p-calendar>
-          <small id="data-help" class="p-error block"></small>
+          <small id="data-help" class="p-error block">{{getErrors('data')}}</small>
         </div>
 
         <div class="field hidden">
           <label for="id" class="">ID:</label>
           <div class="col">
-            <input readonly type="number" name="id" id="id" class="w-1 ng-dirty" pInputText
+            <input readonly type="number" name="id" id="id" class="w-1 ng-dirty" formControlName="id" pInputText
                    placeholder=""/>
           </div>
         </div>
@@ -114,22 +114,22 @@
         <div class="field">
           <label for="valorDia" class="block">Valor:</label>
           <input currencyMask type="text" name="valorDia" id="valorDia" class="p-inputtext p-float-label"
-                 style="height: 2.8rem; width: 100%;"/>
-          <small id="valorDia-help" class="p-error block"></small>
+                 style="height: 2.8rem; width: 100%;" formControlName="valorDia"/>
+          <small id="valorDia-help" class="p-error block">{{getErrors('valorDia')}}</small>
         </div>
         <div class="field hidden">
           <label for="situacao" class="">Situação:</label>
           <div class="col">
-            <input readonly type="text" name="situacao" id="situacao" class="w-1 ng-dirty"
+            <input readonly type="text" name="situacao" id="situacao" class="w-1 ng-dirty" formControlName="situacao"
                    pInputText placeholder=""/>
           </div>
         </div>
 
         <div class="field">
-          <button pButton type="button" class="m-1" label="salvar"></button>
-          <button pButton pRipple type="button" label="Limpar"
+          <button pButton type="button" (click)="salvar()" class="m-1" label="salvar"></button>
+          <button  pButton pRipple type="button" (click)="limpar()" label="Limpar"
                   class="p-button-secondary m-1"></button>
-          <button pButton type="button" class=" p-button-danger m-1"
+          <button pButton type="button" (click)="fecharDialogPagamento()" class=" p-button-danger m-1"
                   label="Cancelar"></button>
         </div>
       </form>

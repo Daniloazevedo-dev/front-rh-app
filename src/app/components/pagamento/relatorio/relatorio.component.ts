@@ -1,5 +1,5 @@
 import {Component, OnInit,} from '@angular/core';
-import {FormBase} from "../../../shared/FormBase";
+import {FormBase} from "../../../shared/util/FormBase";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {UsuarioService} from "../../../service/usuario.service";

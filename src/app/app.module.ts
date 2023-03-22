@@ -56,13 +56,16 @@ import {MenuModule} from "primeng/menu";
 import {SplitterModule} from "primeng/splitter";
 import {LancamentoComponent} from './components/pagamento/lancamento/lancamento.component';
 import {LancamentoColComponent} from './components/colaborador/lancamento/lancamento.component';
-import {SortByPipe} from "./shared/sort-by.pipe";
+import {SortByPipe} from "./shared/pipe/sort-by.pipe";
 import {ProfissaoComponent} from './components/cadastro/profissao/profissao.component';
 import {CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule} from "ng2-currency-mask";
 import {SelectButtonModule} from "primeng/selectbutton";
-import { ColaboradorTotalPagarColIdComponent } from './components/iframe/colaborador-total-pagar-col-id/colaborador-total-pagar-col-id.component';
-import { ChatComponent } from './components/chat/chat.component';
-import { AprovarComponent } from './components/pagamento/aprovar/aprovar.component';
+import {
+  ColaboradorTotalPagarColIdComponent
+} from './components/iframe/colaborador-total-pagar-col-id/colaborador-total-pagar-col-id.component';
+import {ChatComponent} from './components/chat/chat.component';
+import {AprovarComponent} from './components/pagamento/aprovar/aprovar.component';
+import {TreeTableModule} from "primeng/treetable";
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "left",
@@ -148,6 +151,7 @@ export declare function registerLocaleData(
     SplitterModule,
     CurrencyMaskModule,
     SelectButtonModule,
+    TreeTableModule,
 
 
   ],
@@ -163,7 +167,7 @@ export declare function registerLocaleData(
       useClass: LoadingInterceptor,
       multi: true,
     },
-    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
+    {provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig}
   ],
 
   bootstrap: [AppComponent],

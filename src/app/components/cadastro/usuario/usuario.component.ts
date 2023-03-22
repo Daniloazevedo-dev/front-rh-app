@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBase } from 'src/app/shared/FormBase';
+import { FormBase } from 'src/app/shared/util/FormBase';
 import { FormBuilder } from '@angular/forms';
-import { BasicValidators } from 'src/app/shared/basic-validators';
+import { BasicValidators } from 'src/app/shared/util/basic-validators';
 import { MessageService } from 'primeng/api';
 import { RoleService } from 'src/app/service/role.service';
 import { UsuarioService } from 'src/app/service/usuario.service';

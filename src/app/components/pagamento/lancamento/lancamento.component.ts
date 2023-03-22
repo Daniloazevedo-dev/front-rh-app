@@ -3,9 +3,9 @@ import {PagamentoService} from "../../../service/pagamento.service";
 import {ToastrService} from "ngx-toastr";
 import {Table} from "primeng/table";
 import {UsuarioService} from "../../../service/usuario.service";
-import {FormBase} from "../../../shared/FormBase";
+import {FormBase} from "../../../shared/util/FormBase";
 import {FormBuilder} from "@angular/forms";
-import {BasicValidators} from "../../../shared/basic-validators";
+import {BasicValidators} from "../../../shared/util/basic-validators";
 import {ProfissaoService} from "../../../service/profissao.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 

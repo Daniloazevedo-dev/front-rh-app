@@ -21,6 +21,10 @@ export class PagamentoService {
     return this.http.post(`${this.url}/${id}`, pagamento)
   }
 
+  salvarPagamentoColaborador(id: Number, pagamento: any) {
+    return this.http.patch(`${this.url}/colaborador/${id}`, pagamento)
+  }
+
   buscaPorId(id: Number) {
     return this.http.get(`${this.url}/lancamento/${id}`);
   }

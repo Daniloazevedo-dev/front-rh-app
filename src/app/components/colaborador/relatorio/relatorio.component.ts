@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TokenService} from "../../../service/token.service";
 import {ColaboradorService} from "../../../service/colaborador.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {FormBase} from "../../../shared/FormBase";
+import {FormBase} from "../../../shared/util/FormBase";
 import {ToastrService} from "ngx-toastr";
 import {DeviceDetectorService} from "ngx-device-detector";
 
