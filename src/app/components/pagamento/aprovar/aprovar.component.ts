@@ -66,7 +66,7 @@ export class AprovarComponent implements OnInit {
         if((pagamento['status']) = '0'){
           this.nomeStatus = 'Aguardando Aprovação'
         }
-        console.log(this.pagamento.status)
+        // console.log(this.pagamento.status)
       },
       (error) => {
         this.msgError = [

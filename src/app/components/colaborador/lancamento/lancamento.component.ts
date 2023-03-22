@@ -24,6 +24,7 @@ export class LancamentoColComponent extends FormBase implements OnInit {
   id: any;
   dataMaxima = new Date();
   dataMinima = new Date();
+  nomeStatus: any;
 
   @ViewChild('filter') filter!: ElementRef;
 
@@ -100,7 +101,8 @@ export class LancamentoColComponent extends FormBase implements OnInit {
     this.colaboradorService.listaPagamentoIdCol(id).subscribe(
       (pagamento) => {
         this.pagamento = pagamento;
-        console.log(this.pagamento)
+         // console.log(pagamento['id'])
+
 
       },
       (error) => {
@@ -122,7 +124,7 @@ export class LancamentoColComponent extends FormBase implements OnInit {
       this.pagamentoService.salvarPagamentoColaborador(colaboradorId, pagamento).subscribe(
         (pagamento) => {
 
-          this.pagamento;
+          this.buscaPagamentoIdCol(colaboradorId);
           this.toast.success('Lançamento Salvo com sucesso!');
           this.pagamentotDialog = false;
         },
@@ -165,5 +167,8 @@ export class LancamentoColComponent extends FormBase implements OnInit {
   clear(table: Table) {
     table.clear();
     this.filter.nativeElement.value = '';
+  }
+  formatarPreco(preco: number) {
+    return new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(preco);
   }
 }
