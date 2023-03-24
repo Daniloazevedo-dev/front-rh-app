@@ -24,7 +24,9 @@ export class LancamentoColComponent extends FormBase implements OnInit {
   id: any;
   dataMaxima = new Date();
   dataMinima = new Date();
-  nomeStatus: any;
+  valorDia: any;
+  colId: any;
+  nomeCol: any;
 
   @ViewChild('filter') filter!: ElementRef;
 
@@ -52,7 +54,7 @@ export class LancamentoColComponent extends FormBase implements OnInit {
   private setForm() {
       this.form = this.formBuilder.group({
       data: [null, BasicValidators.obrigatorio('A data é obrigatória.')],
-      colaboradorId: [null, BasicValidators.obrigatorio('O Colaborador é obrigatório.')],
+      colaboradorId: [],
       id: [null],
       valorDia: [null],
       situacao: [null],
@@ -68,6 +70,7 @@ export class LancamentoColComponent extends FormBase implements OnInit {
 
   abrirDialogPagamento() {
     this.form.reset()
+    this.buscaValorProfissao()
     this.setForm()
     this.pagamentotDialog = true;
 
@@ -83,13 +86,11 @@ export class LancamentoColComponent extends FormBase implements OnInit {
       .buscarColaboradorEmail(this.tokenService.getUserName())
       .subscribe(
         (colaborador) => {
-          this.colaborador = (colaborador['colaborador']);
-          if (this.colaborador != '0') {
-            this.buscaPagamentoIdCol(colaborador['id'])
-            this.colaborador = colaborador;
-            // console.log(colaborador)
-          }
-        },
+           this.colId = colaborador['id'];
+           this.nomeCol = colaborador['nome'];
+            this.buscaPagamentoIdCol(this.colId);
+
+          },
         (error) => {
           error.message('não é colaborador')
         }
@@ -115,16 +116,15 @@ export class LancamentoColComponent extends FormBase implements OnInit {
 
   salvarPagamento() {
     if (this.form.valid) {
-      let colaboradorId = this.form.get('colaboradorId').value
-      let pagamento = {
+            let pagamento = {
         data: this.form.get('data').value.toLocaleDateString(),
-        valorDia: this.form.get('valorDia').value,
+        valorDia: this.valorDia,
         status: '0'
       }
-      this.pagamentoService.salvarPagamentoColaborador(colaboradorId, pagamento).subscribe(
+      this.pagamentoService.salvarPagamentoColaborador(this.colId, pagamento).subscribe(
         (pagamento) => {
 
-          this.buscaPagamentoIdCol(colaboradorId);
+          this.buscaPagamentoIdCol(this.colId);
           this.toast.success('Lançamento Salvo com sucesso!');
           this.pagamentotDialog = false;
         },
@@ -152,9 +152,10 @@ export class LancamentoColComponent extends FormBase implements OnInit {
   }
 
   buscaValorProfissao() {
-    this.colaboradorService.buscaColaboradorId(this.form.get('colaboradorId').value).subscribe(colaborador => {
+    this.colaboradorService.buscaColaboradorId(this.colId).subscribe(colaborador => {
       this.colaboradorService.buscaProfissaoColabIdPro(colaborador['profissaoId']).subscribe(profissao => {
-        this.form.get('valorDia').setValue(profissao['valorDia']);
+        this.valorDia = profissao['valorDia']
+        this.form.get('valorDia').setValue(this.valorDia);
       })
 
     })

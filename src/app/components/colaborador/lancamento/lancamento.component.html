@@ -80,14 +80,9 @@
       <form [formGroup]="form">
 
         <div class="field">
-          <label for="colaboradorId" class="block">Colaborador:</label>
-          <select (change)="buscaValorProfissao()" class="p-inputtext p-float-label"
-                  style="height: 2.8rem; width: 100%;" formControlName="colaboradorId"
-                  name="colaboradorId" id="colaboradorId">
-            <option [ngValue]="null" [disabled]="true">Selecione...</option>
-            <option [selected]="false" value="{{colaborador.id}}"> {{colaborador.nome}}</option>
-          </select>
-          <small id="colaboradorId-help" class="p-error block">{{getErrors('colaboradorId')}}</small>
+          <label for="colaborador" class="block" >Colaborador:</label>
+          <input value="{{nomeCol}}" type="text" name="colaborador" id="colaborador" class="w-full ng-dirty" pInputText placeholder="" />
+          <small id="colaborador-help" class="p-error block">{{getErrors('colaborador')}}</small>
         </div>
 
         <div class="field">
