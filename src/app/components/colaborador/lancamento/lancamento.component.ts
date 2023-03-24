@@ -37,13 +37,12 @@ export class LancamentoColComponent extends FormBase implements OnInit {
     private pagamentoService: PagamentoService,
     private toast: ToastrService,
     private confirmationService: ConfirmationService,
-
   ) {
 
     super();
     this.colaborador = this.buscaUsuarioLogadoPorEmail();
 
-    }
+  }
 
   ngOnInit(): void {
     this.setForm();
@@ -52,7 +51,7 @@ export class LancamentoColComponent extends FormBase implements OnInit {
   }
 
   private setForm() {
-      this.form = this.formBuilder.group({
+    this.form = this.formBuilder.group({
       data: [null, BasicValidators.obrigatorio('A data é obrigatória.')],
       colaboradorId: [],
       id: [null],
@@ -86,11 +85,11 @@ export class LancamentoColComponent extends FormBase implements OnInit {
       .buscarColaboradorEmail(this.tokenService.getUserName())
       .subscribe(
         (colaborador) => {
-           this.colId = colaborador['id'];
-           this.nomeCol = colaborador['nome'];
-            this.buscaPagamentoIdCol(this.colId);
+          this.colId = colaborador['id'];
+          this.nomeCol = colaborador['nome'];
+          this.buscaPagamentoIdCol(this.colId);
 
-          },
+        },
         (error) => {
           error.message('não é colaborador')
         }
@@ -102,9 +101,7 @@ export class LancamentoColComponent extends FormBase implements OnInit {
     this.colaboradorService.listaPagamentoIdCol(id).subscribe(
       (pagamento) => {
         this.pagamento = pagamento;
-         // console.log(pagamento['id'])
-
-
+        // console.log(pagamento['id'])
       },
       (error) => {
         this.msgError = [
@@ -116,7 +113,7 @@ export class LancamentoColComponent extends FormBase implements OnInit {
 
   salvarPagamento() {
     if (this.form.valid) {
-            let pagamento = {
+      let pagamento = {
         data: this.form.get('data').value.toLocaleDateString(),
         valorDia: this.valorDia,
         status: '0'
@@ -169,6 +166,7 @@ export class LancamentoColComponent extends FormBase implements OnInit {
     table.clear();
     this.filter.nativeElement.value = '';
   }
+
   formatarPreco(preco: number) {
     return new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(preco);
   }
