@@ -1,5 +1,7 @@
+<p-confirmDialog class="w-full" [transitionOptions]="'0ms'" rejectLabel="Não" acceptLabel="Sim">
+</p-confirmDialog>
 <div class="col-12 md:col-6 gridPro">
-  <p-divider align="right">
+    <p-divider align="right">
     <span class="p-tag">Cadastro de profissão</span>
   </p-divider>
   <input class="p-button-outlined" pInputText type="text" #filter (input)="onGlobalFilter(dt, $event)"
@@ -43,9 +45,10 @@
         <td>{{profissao.id}}</td>
         <td>{{profissao.descricao}}</td>
         <td>{{profissao.valorDia}}</td>
-        <td>{{profissao.situacaoProfissao}}</td>
+        <td>{{profissao.situacao}}</td>
         <td> <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-warning mr-2" ></button>
-          <button pButton pRipple icon="pi pi-trash"  class="p-button-rounded p-button-danger" ></button></td>
+          <button (click)="editarProfissao(profissao.id,profissao.situacao)" pButton pRipple label= "{{tratarSituacao(profissao.situacao)}}" class="p-button-rounded p-button-sm {{tratarcorbutao(profissao.situacao)}}"></button>
+        </td>
       </tr>
     </ng-template>
   </p-table>

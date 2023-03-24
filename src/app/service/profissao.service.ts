@@ -18,6 +18,9 @@ export class ProfissaoService {
      return this.http.get(this.url);
 
   }
+  editarSituacao(id: number, situacao: string) {
+    return this.http.patch(`${this.url}/id/${id}/situacao/${situacao}`,null);
+  }
 
   listProfissaoIdPro(id: number){
     return this.http.get(`${this.url}/${id}`);
