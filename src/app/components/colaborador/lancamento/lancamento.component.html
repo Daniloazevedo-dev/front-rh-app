@@ -32,8 +32,7 @@
 
   <p-table #dt styleClass="p-datatable-striped" [value]="pagamento" [paginator]="true" [rows]="10"
            [showCurrentPageReport]="true" responsiveLayout="scroll"
-           [globalFilterFields]="['id','nomeColaborador','data','valorDia', 'status']" [(selection)]="pagamento"
-           [rowHover]="true"
+           [globalFilterFields]="['id','nomeColaborador','data','valorDia', 'status']" [(selection)]="pagamento" [rowHover]="true"
            dataKey="id" currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} registros"
            [rowsPerPageOptions]="[10,25,50]">
     <ng-template pTemplate="header">
@@ -65,13 +64,14 @@
         <td>{{pagamento.nomeColaborador}}</td>
         <td>{{pagamento.data}}</td>
         <td>{{formatarPreco(pagamento.valorDia)}}</td>
-        <td>{{pagamento.status === '0' ? 'Aguardando aprovação' : pagamento.status === '1' ? 'Aprovado' : 'Reprovado'}}</td>
+        <td style="width: 0.2rem">{{pagamento.status === '0'? 'Aguardando aprovação': pagamento.status === '1'? 'Aprovado': 'Reprovado'}}</td>
         <td style="width: 0.2rem"></td>
         <td style="width: 0.2rem"></td>
       </tr>
     </ng-template>
   </p-table>
 </div>
+
 
 <p-dialog class="p-fieldset shadow-4 " [draggable]="false" [resizable]="false" [(visible)]="pagamentotDialog"
           [closable]="true" [style]="{'width': '600px', 'height': '76%'}" [modal]="true" styleClass="p-fluid">
@@ -80,9 +80,8 @@
       <form [formGroup]="form">
 
         <div class="field">
-          <label for="colaborador" class="block">Colaborador:</label>
-          <input value="{{nomeCol}}" type="text" name="colaborador" id="colaborador" class="w-full ng-dirty" pInputText
-                 placeholder=""/>
+          <label for="colaborador" class="block" >Colaborador:</label>
+          <input value="{{nomeCol}}" type="text" name="colaborador" id="colaborador" class="w-full ng-dirty" pInputText placeholder="" />
           <small id="colaborador-help" class="p-error block">{{getErrors('colaborador')}}</small>
         </div>
 
@@ -105,8 +104,7 @@
 
         <div class="field">
           <label for="valorDia" class="block">Valor:</label>
-          <input [readonly]="true" currencyMask type="text" name="valorDia" id="valorDia"
-                 class="p-inputtext p-float-label"
+          <input [readonly]="true" currencyMask type="text" name="valorDia" id="valorDia" class="p-inputtext p-float-label"
                  style="height: 2.8rem; width: 100%;" formControlName="valorDia"/>
           <small id="valorDia-help" class="p-error block">{{getErrors('valorDia')}}</small>
         </div>
@@ -120,8 +118,8 @@
 
         <div class="field">
           <button pButton type="button" (click)="salvar()" class="m-1" label="salvar"></button>
-          <button pButton pRipple type="button" (click)="limpar()" label="Limpar"
-                  class="p-button-secondary m-1"></button>
+          <button  pButton pRipple type="button" (click)="limpar()" label="Limpar"
+                   class="p-button-secondary m-1"></button>
           <button pButton type="button" (click)="fecharDialogPagamento()" class=" p-button-danger m-1"
                   label="Cancelar"></button>
         </div>

@@ -173,15 +173,9 @@ export class LancamentoComponent extends FormBase implements OnInit {
         },
         (error) => {
           this.pagamentotDialog = false;
-          if (error.status === 500) {
-            this.msgError = [
-              {severity: 'error', summary: 'Erro', detail: 'Entre em contato com seu administrador!'},
-            ];
-          } else {
-            this.msgError = [
-              {severity: 'error', summary: 'Erro', detail: error.error.message},
-            ];
-          }
+          this.msgError = [
+            {severity: 'warn', summary: 'Aviso', detail: error.error.message},
+          ];
         }
       );
     }

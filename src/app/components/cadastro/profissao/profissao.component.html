@@ -20,7 +20,7 @@
 
   <p-table #dt styleClass="p-datatable-striped" [value]="profissao" [paginator]="true" [rows]="10"
            [showCurrentPageReport]="true" responsiveLayout="scroll"
-           [globalFilterFields]="['id','descricao','valorDia','situacaoProfissao']" [(selection)]="profissao" [rowHover]="true"
+           [globalFilterFields]="['id','descricao','valorDia','situacao']" [(selection)]="profissao" [rowHover]="true"
            dataKey="id" currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} registros"
            [rowsPerPageOptions]="[10,25,50]">
     <ng-template pTemplate="header">
@@ -34,7 +34,7 @@
         <th pSortableColumn="valorDia">Valor
           <p-sortIcon field="Valor"></p-sortIcon>
         </th>
-        <th pSortableColumn="situacaoProfissao">Situação
+        <th pSortableColumn="situacao">Situação
           <p-sortIcon field="Situação"></p-sortIcon>
         </th>
         <th><button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success" ></button></th>
