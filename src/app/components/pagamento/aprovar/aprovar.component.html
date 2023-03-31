@@ -61,7 +61,7 @@
         <td>{{pagamento.nomeColaborador}}</td>
         <td>{{pagamento.data}}</td>
         <td>{{formatarPreco(pagamento.valorDia)}}</td>
-        <td>{{this.nomeStatus}}</td>
+        <td style="width: 0.2rem">{{this.nomeStatus}}</td>
         <td style="width: 0.2rem">
           <button (click)="editaStatusAprovado(pagamento.id,this.aprovado)" pButton pRipple icon="pi pi-check-square"
                   class="p-button-rounded p-button-info"></button>
