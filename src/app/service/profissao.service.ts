@@ -21,7 +21,9 @@ export class ProfissaoService {
   editarSituacao(id: number, situacao: string) {
     return this.http.patch(`${this.url}/id/${id}/situacao/${situacao}`,null);
   }
-
+  salvarProfissao(profissao: any) {
+    return this.http.post(this.url, profissao);
+  }
   listProfissaoIdPro(id: number){
     return this.http.get(`${this.url}/${id}`);
 
