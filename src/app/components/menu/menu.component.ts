@@ -73,7 +73,7 @@ export class MenuComponent {
     return isAdmin;
   }
 
-      private menuItems() {
+  private menuItems() {
     return [
       {
         label: 'Home',

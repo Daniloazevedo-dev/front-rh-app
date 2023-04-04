@@ -100,7 +100,7 @@
 
                 <select class="p-inputtext p-float-label" style="height: 2.8rem; width: 98%;"
                         formControlName="idRelB">
-                  <option [ngValue]="null" [disabled]="true" >Selecione...</option>
+                  <option [ngValue]="null" [disabled]="true">Selecione...</option>
                   <option [selected]="false" *ngFor="let usuario of usuarios |sortBy:'asc':'{{usuario.nome}}'"
                           value="{{usuario.id}}"> {{usuario.matricula}} - {{usuario.nome}} </option>
                 </select>

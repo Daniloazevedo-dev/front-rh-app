@@ -1,5 +1,5 @@
 <div class="col-12 md:col-6 gridApro">
-    <p-confirmDialog class="w-full" [transitionOptions]="'0ms'" rejectLabel="Não" acceptLabel="Sim"></p-confirmDialog>
+  <p-confirmDialog class="w-full" [transitionOptions]="'0ms'" rejectLabel="Não" acceptLabel="Sim"></p-confirmDialog>
   <p-divider align="right">
     <span class="p-tag">Aprovação de dária</span>
   </p-divider>
@@ -32,7 +32,8 @@
 
   <p-table styleClass="p-datatable-striped" [value]="pagamento" [paginator]="true" [rows]="10"
            [showCurrentPageReport]="true" responsiveLayout="scroll"
-           [globalFilterFields]="['id','matriculaColaborador','nomeColaborador','data','valorDia']" [(selection)]="pagamento" [rowHover]="true"
+           [globalFilterFields]="['id','matriculaColaborador','nomeColaborador','data','valorDia']"
+           [(selection)]="pagamento" [rowHover]="true"
            dataKey="id" currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} registros"
            [rowsPerPageOptions]="[10,25,50]">
     <ng-template pTemplate="header">
@@ -54,7 +55,6 @@
         </th>
         <th>Status</th>
         <th colspan="2">
-
         </th>
       </tr>
     </ng-template>
