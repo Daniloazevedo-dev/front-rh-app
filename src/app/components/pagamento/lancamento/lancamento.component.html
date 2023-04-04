@@ -23,7 +23,8 @@
   <p-messages [(value)]="msgError" [enableService]="false"></p-messages>
   <div>
     <p-divider align="right" type="border-0">
-      <p-selectButton (click)="pagamentoFiltro(this.value1)" [options]="statusOptions" [(ngModel)]="value1" optionLabel="label"
+      <p-selectButton (click)="pagamentoFiltro(this.value1)" [options]="statusOptions" [(ngModel)]="value1"
+                      optionLabel="label"
                       optionValue="value"></p-selectButton>
     </p-divider>
 
@@ -32,13 +33,17 @@
 
   <p-table #dt styleClass="p-datatable-striped" [value]="pagamento" [paginator]="true" [rows]="10"
            [showCurrentPageReport]="true" responsiveLayout="scroll"
-           [globalFilterFields]="['id','nomeColaborador','data','valorDia']" [(selection)]="pagamento" [rowHover]="true"
+           [globalFilterFields]="['id', 'matriculaColaborador', 'nomeColaborador','data','valorDia']"
+           [(selection)]="pagamento" [rowHover]="true"
            dataKey="id" currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} registros"
            [rowsPerPageOptions]="[10,25,50]">
     <ng-template pTemplate="header">
       <tr style="line-height: 0.3rem;">
         <th pSortableColumn="id">Código
           <p-sortIcon field="Código"></p-sortIcon>
+        </th>
+        <th pSortableColumn="matriculaColaborador">Matricula
+          <p-sortIcon field="Matricula"></p-sortIcon>
         </th>
         <th pSortableColumn="nomeColaborador">Nome
           <p-sortIcon field="Nome"></p-sortIcon>
@@ -59,6 +64,7 @@
     <ng-template pTemplate="body" let-pagamento>
       <tr style="line-height: 0.2rem">
         <td>{{pagamento.id}}</td>
+        <td>{{pagamento.matriculaColaborador}}</td>
         <td>{{pagamento.nomeColaborador}}</td>
         <td>{{pagamento.data}}</td>
         <td>{{formatarPreco(pagamento.valorDia)}}</td>
@@ -68,13 +74,13 @@
                   class="p-button-rounded p-button-warning"></button>
         </td>
         <td style="width: 0.2rem">
-          <button  (click)="editaSituacao(pagamento.id,botaoLabel === 'Ativar'? 'ATIVO': 'INATIVO')" pButton pRipple label="{{botaoLabel}}" class="p-button-rounded p-button-sm {{botaoEstilo}}"></button>
+          <button (click)="editaSituacao(pagamento.id,botaoLabel === 'Ativar'? 'ATIVO': 'INATIVO')" pButton pRipple
+                  label="{{botaoLabel}}" class="p-button-rounded p-button-sm {{botaoEstilo}}"></button>
         </td>
       </tr>
     </ng-template>
   </p-table>
 </div>
-
 
 <p-dialog class="p-fieldset shadow-4 " [draggable]="false" [resizable]="false" [(visible)]="pagamentotDialog"
           [closable]="true" [style]="{'width': '600px', 'height': '76%'}" [modal]="true" styleClass="p-fluid">
