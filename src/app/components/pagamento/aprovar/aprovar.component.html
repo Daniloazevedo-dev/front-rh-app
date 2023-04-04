@@ -32,13 +32,16 @@
 
   <p-table styleClass="p-datatable-striped" [value]="pagamento" [paginator]="true" [rows]="10"
            [showCurrentPageReport]="true" responsiveLayout="scroll"
-           [globalFilterFields]="['id','nomeColaborador','data','valorDia']" [(selection)]="pagamento" [rowHover]="true"
+           [globalFilterFields]="['id','matriculaColaborador','nomeColaborador','data','valorDia']" [(selection)]="pagamento" [rowHover]="true"
            dataKey="id" currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} registros"
            [rowsPerPageOptions]="[10,25,50]">
     <ng-template pTemplate="header">
       <tr style="line-height: 0.3rem;">
         <th pSortableColumn="id">Código
           <p-sortIcon field="Código"></p-sortIcon>
+        </th>
+        <th pSortableColumn="matriculaColaborador">Matricula
+          <p-sortIcon field="Matricula"></p-sortIcon>
         </th>
         <th pSortableColumn="nomeColaborador">Nome
           <p-sortIcon field="Nome"></p-sortIcon>
@@ -58,6 +61,7 @@
     <ng-template pTemplate="body" let-pagamento>
       <tr style="line-height: 1rem">
         <td>{{pagamento.id}}</td>
+        <td>{{pagamento.matriculaColaborador}}</td>
         <td>{{pagamento.nomeColaborador}}</td>
         <td>{{pagamento.data}}</td>
         <td>{{formatarPreco(pagamento.valorDia)}}</td>

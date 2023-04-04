@@ -33,7 +33,7 @@ export class MenuComponent {
   sair() {
     this.authService.logout();
     window.location.reload();
-    this.router.navigate(['/login']).then(_ => this.toast.info('Logout efetuado com sucesso!'));
+    // this.router.navigate(['/login']).then(_ => this.toast.info('Logout efetuado com sucesso!'));
   }
 
   buscaUsuarioEmail() {
