@@ -11,7 +11,7 @@ export class PagamentoService {
 
   }
 
-  private url = `${environment.url}rh-pagamento/pagamento`
+  private url = `${environment.API_URL}rh-pagamento/pagamento`
 
   listPagamento() {
     return this.http.get(this.url);

@@ -46,7 +46,7 @@ export class AuthService {
       .set('password', loginData.password)
       .set('grant_type', 'password');
 
-    return this.http.post<any>(environment.url + 'rh-oauth/oauth/token', body, HTTP_OPTIONS)
+    return this.http.post<any>(environment.API_URL + 'rh-oauth/oauth/token', body, HTTP_OPTIONS)
       .pipe(
         tap(res => {
           var token = JSON.parse(JSON.stringify(res)).access_token.split('.')[1];
@@ -70,7 +70,7 @@ export class AuthService {
     const body = new HttpParams()
       .set('refresh_token', refreshData.refresh_token)
       .set('grant_type', 'refresh_token');
-    return this.http.post<any>(environment.url + 'rh-oauth/oauth/token', body, HTTP_OPTIONS)
+    return this.http.post<any>(environment.API_URL + 'rh-oauth/oauth/token', body, HTTP_OPTIONS)
       .pipe(
         tap(res => {
           var token = JSON.parse(JSON.stringify(res)).access_token.split('.')[1];

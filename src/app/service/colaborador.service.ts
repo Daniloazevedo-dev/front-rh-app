@@ -12,7 +12,7 @@ export class ColaboradorService {
 
   }
 
-  private url = `${environment.url}rh-colaborador`
+  private url = `${environment.API_URL}rh-colaborador`
 
   buscarColaboradorEmail(email: string) {
     const params = new HttpParams().set('email', email);
