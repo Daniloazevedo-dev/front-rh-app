@@ -72,13 +72,7 @@
           </div>
           <small id="descricao-help" class="p-error block">{{getErrors('descricao')}}</small>
         </div>
-        <div class="field" >
-          <label for="valorDia" class="" >Valor Dia: </label>
-          <div class="col">
-            <input  type="text" name="valorDia" id="valorDia" class="w-full ng-dirty" formControlName="valorDia" pInputText placeholder="" />
-          </div>
-          <small id="valorDia-help" class="p-error block">{{getErrors('valorDia')}}</small>
-        </div>
+        <div class="field"> <label for="valorDia" class="block">Valor Dia:</label> <input currencyMask type="text" name="valorDia" id="valorDia" class="p-inputtext p-float-label" style="height: 2.8rem; width: 100%;" formControlName="valorDia"/> <small id="valorDia-help" class="p-error block">{{getErrors('valorDia')}}</small> </div>
 
         <div class="field">
           <button pButton (click)="salvar()" type="button" class="m-1" label="Salvar"></button>
