@@ -70,24 +70,12 @@
 
     <div class="card">
       <p-divider align="center">
-        <span>Tecnologia utilizada</span>
+        <span></span>
       </p-divider>
-      <p-panel header="Jasper Reports" [toggleable]="true" [collapsed]="false" class="line-height-3 m-0">
-        JasperReports é uma ferramenta de relatório Java de código aberto que pode gravar em uma variedade de destinos,
-        como: tela, impressora, em PDF, HTML, Microsoft Excel, RTF, ODT, valores separados por vírgula ou arquivos XML.
-        Ele pode ser usado em aplicativos habilitados para Java, incluindo Java EE ou aplicativos da web,
-        para gerar conteúdo dinâmico.
+      <p-panel header="" [toggleable]="true" [collapsed]="false" class="line-height-3 m-0">
+        Escolhendo a data inicial e final é possivel visualizar uma lista com todos os calaboradores,
+        com seus respectivos detalhes, e valores a pagar.
       </p-panel>
-      <!--      <p-tabView orientation="left">-->
-      <!--        <p-autoComplete [(ngModel)]="selectedColaborador"-->
-      <!--         [suggestions]="listColaborador"-->
-      <!--         (completeMethod)="buscaColaboradorNome($event)"-->
-      <!--         field="nome" (onSelect)="selectID($event)"-->
-      <!--         [delay]="300" [minLength]="1" [dropdown]="true"-->
-      <!--         [forceSelection]="true" placeholder="Colaborador"-->
-      <!--         [showEmptyMessage]="true" dataKey="id"  formControlName="idRelB"-->
-      <!--        ></p-autoComplete>-->
-      <!--      </p-tabView>-->
     </div>
   </div>
 
@@ -112,9 +100,9 @@
 
                 <select class="p-inputtext p-float-label" style="height: 2.8rem; width: 98%;"
                         formControlName="idRelB">
-                  <option [ngValue]="null" [disabled]="true" >Selecione...</option>
+                  <option [ngValue]="null" [disabled]="true">Selecione...</option>
                   <option [selected]="false" *ngFor="let usuario of usuarios |sortBy:'asc':'{{usuario.nome}}'"
-                          value="{{usuario.id}}"> {{usuario.nome}}</option>
+                          value="{{usuario.id}}"> {{usuario.matricula}} - {{usuario.nome}} </option>
                 </select>
 
               </td>
@@ -153,32 +141,13 @@
 
     <div class="card">
       <p-divider align="center">
-        <span>Detalhes técnicos</span>
+        <span></span>
       </p-divider>
-      <p-tabView orientation="left">
-        <p-tabPanel header="Compile" class="line-height-3 m-0">
-          Classe (JasperCompileManager) utilizada para compilar designs de relatório no formulário pronto para
-          preenchimento e para
-          obter a representação XML de objetos de design de relatório para armazenamento ou transferência de rede.
-          Essa classe expõe toda a funcionalidade de compilação de relatórios da biblioteca.
-        </p-tabPanel>
-        <p-tabPanel header="Fill" class="line-height-3 m-0">
-          Classe (JasperFillManager) utilizada para preencher projetos de relatórios compilados com dados de fontes de
-          dados de relatórios,
-          a fim de produzir documentos orientados a páginas, prontos para impressão.
-          Ele expõe uma variedade de métodos que recebem um modelo de relatório na forma de um objeto,
-          arquivo ou fluxo de entrada e também produz um documento em vários formatos de saída
-          (objeto, arquivo ou fluxo de saída).
-        </p-tabPanel>
-        <p-tabPanel header="Export" class="line-height-3 m-0">
-          Classe (JasperExportManager) utilizada para exportar relatórios gerados em formatos mais populares, como PDF,
-          HTML e XML.
-          Esses métodos podem processar dados que vêm de diferentes fontes e vão para diferentes destinos
-          (arquivos, fluxos de entrada e saída, etc.).
-          Para exportar para o formato XLS e CSV ou para usar parâmetros especiais do exportador,
-          a classe específica do exportador deve ser usada diretamente.
-        </p-tabPanel>
-      </p-tabView>
+      <p-panel header="" [toggleable]="true" [collapsed]="false" class="line-height-3 m-0">
+        É necessário selecionar o colaborador na listagem, a data inicial e final, após a pesquisa,
+        será possível visualizar um extrato para que o colaborador assine,
+        no mesmo estará todos os detalhes e dias trabalahados assim como o valor que será pago.
+      </p-panel>
     </div>
 
   </div>

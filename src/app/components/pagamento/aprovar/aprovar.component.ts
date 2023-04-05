@@ -13,6 +13,8 @@ import {ConfirmationService, MessageService} from "primeng/api";
 })
 export class AprovarComponent implements OnInit {
 
+
+
   @ViewChild('filter') filter!: ElementRef;
 
   pagamento: any;
@@ -31,7 +33,7 @@ export class AprovarComponent implements OnInit {
 
   )
   {
-    // super();
+     // super();
     this.pagamento = this.buscarPagamentoStatus(0);
     this.aprovado = '1';
     this.reprovado = '2';

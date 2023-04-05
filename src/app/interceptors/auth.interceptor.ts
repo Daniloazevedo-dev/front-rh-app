@@ -66,7 +66,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 location.reload();
               });
           } else {
-            this.router.navigate(['login']).then(_ => this.toast.error('Sua sessão expirou!'));
+            this.router.navigate(['login']).then();
           }
         }
         return throwError(error);

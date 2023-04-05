@@ -67,6 +67,7 @@ import {ChatComponent} from './components/chat/chat.component';
 import {AprovarComponent} from './components/pagamento/aprovar/aprovar.component';
 import {TreeTableModule} from "primeng/treetable";
 
+
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "left",
   allowNegative: true,
@@ -152,7 +153,6 @@ export declare function registerLocaleData(
     CurrencyMaskModule,
     SelectButtonModule,
     TreeTableModule,
-
 
   ],
   providers: [

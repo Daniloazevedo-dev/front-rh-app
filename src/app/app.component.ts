@@ -17,16 +17,16 @@ export class AppComponent {
     return this.tokenService.getToken() !== null;
   }
 
-  isAColaborador() {
-    let isAColaborador = false;
+  isColaborador() {
+    let isColaborador = false;
     if(this.tokenService.getAuthorities() !== null) {
       this.tokenService.getAuthorities().split(',').forEach(r => {
         if (r === COLABORADOR) {
-          isAColaborador = true;
+          isColaborador = true;
         }
       });
     }
-    return isAColaborador;
+    return isColaborador;
   }
 
 }
