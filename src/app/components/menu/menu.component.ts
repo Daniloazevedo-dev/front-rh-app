@@ -33,6 +33,7 @@ export class MenuComponent {
   sair() {
     this.authService.logout();
     window.location.reload();
+    console.log('Saiu...')
     // this.router.navigate(['/login']).then(_ => this.toast.info('Logout efetuado com sucesso!'));
   }
 
