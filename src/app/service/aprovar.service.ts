@@ -13,10 +13,6 @@ export class AprovarService {
 
   private url = `${environment.API_URL}rh-pagamento`
 
-  listaPagamentoStatus(status: string) {
-    return this.http.get(`${this.url}/pagamento/busca/status/${status}`);
-  }
-
   editarPagamentoStatus(id: number, status: string) {
     return this.http.put(`${this.url}/pagamento/id/${id}/status/${status}`,null);
   }
