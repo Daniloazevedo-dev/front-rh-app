@@ -4,10 +4,10 @@
     <span class="p-tag">Aprovação de dária</span>
   </p-divider>
   <div style="margin-top: -0.6rem">
-    <input class="p-button-outlined" pInputText type="text"
+    <input class="p-button-outlined" pInputText type="text" #filter (input)="onGlobalFilter(dt, $event)"
            placeholder="Pesquisar..."/>
     <button style="margin-left: 1rem;" pButton label="Limpar" class="p-button-outlined" icon="pi pi-filter-slash"
-    ></button>
+            (click)="clear(dt)"></button>
   </div>
 
 </div>
@@ -21,6 +21,15 @@
 <div class="gridTab">
 
   <p-messages [(value)]="msgError" [enableService]="false"></p-messages>
+
+  <div>
+    <p-divider align="right" type="border-0">
+      <p-selectButton  (click)="pagamentoFiltro(this.value1)" [options]="statusOptions" [(ngModel)]="value1"
+                      optionLabel="label" optionValue="value"></p-selectButton>
+    </p-divider>
+
+  </div>
+
   <div>
     <p-divider align="right" type="border-0">
       <p-selectButton optionLabel="label"
@@ -30,7 +39,7 @@
   </div>
 
 
-  <p-table styleClass="p-datatable-striped" [value]="pagamento" [paginator]="true" [rows]="10"
+  <p-table  #dt styleClass="p-datatable-striped" [value]="pagamento" [paginator]="true" [rows]="10"
            [showCurrentPageReport]="true" responsiveLayout="scroll"
            [globalFilterFields]="['id','matriculaColaborador','nomeColaborador','data','valorDia']"
            [(selection)]="pagamento" [rowHover]="true"
@@ -65,13 +74,13 @@
         <td>{{pagamento.nomeColaborador}}</td>
         <td>{{pagamento.data}}</td>
         <td>{{formatarPreco(pagamento.valorDia)}}</td>
-        <td style="width: 0.2rem">{{this.nomeStatus}}</td>
+        <td style="width: 0.2rem">{{pagamento.status === '0' ? 'Aguardando aprovação' : 'Reprovado' }}</td>
         <td style="width: 0.2rem">
           <button (click)="editaStatusAprovado(pagamento.id,this.aprovado)" pButton pRipple icon="pi pi-check-square"
                   class="p-button-rounded p-button-info"></button>
         </td>
         <td style="width: 0.2rem">
-          <button (click)="editaStatusReprovado(pagamento.id,this.reprovado)" pButton pRipple icon="pi pi-check-square"
+          <button *ngIf="pagamento.status === '0'" (click)="editaStatusReprovado(pagamento.id,this.reprovado)" pButton pRipple icon="pi pi-check-square"
                   class="p-button-rounded p-button-danger"></button>
         </td>
       </tr>

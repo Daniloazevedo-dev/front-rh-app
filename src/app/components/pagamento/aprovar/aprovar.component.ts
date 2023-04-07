@@ -4,6 +4,7 @@ import {Table} from "primeng/table";
 import {FormBuilder} from "@angular/forms";
 import {AprovarService} from "../../../service/aprovar.service";
 import {ConfirmationService, MessageService} from "primeng/api";
+import {PagamentoService} from "../../../service/pagamento.service";
 
 @Component({
   selector: 'app-aprovar',
@@ -24,23 +25,48 @@ export class AprovarComponent implements OnInit {
   nomeStatus: any;
   aprovado: any;
   reprovado: any;
+  statusOptions: any[];
+  value1: string = "0";
+  value2: number;
+  botaoStatus: boolean;
+  botaoLabel: string;
+  botaoEstilo: string;
+  pagamentoAguardando: any;
+  pagamentoReprovado: any;
+
 
   constructor(
     private toast: ToastrService,
     public formBuilder: FormBuilder,
     private aprovarService: AprovarService,
     private confirmationService: ConfirmationService,
+    private pagamentoService: PagamentoService,
 
   )
   {
      // super();
-    this.pagamento = this.buscarPagamentoStatus(0);
+    // this.pagamento = this.buscarPagamentoStatus();
+    this.pagamento = this.buscarPagamento();
     this.aprovado = '1';
     this.reprovado = '2';
+    this.statusOptions = [{label: 'Aguardando', value: '0'}, {label: 'Reprovado', value: '2'}];
      }
 
   ngOnInit(): void {
 
+  }
+  pagamentoFiltro(status) {
+    if (status === '0') {
+      this.botaoLabel = 'Desativar';
+      this.botaoEstilo = 'p-button-secondary';
+      this.botaoStatus = true;
+      this.pagamento = this.pagamentoAguardando
+    } else {
+      this.botaoLabel = 'Ativar';
+      this.botaoEstilo = 'p-button-info';
+      this.botaoStatus = false;
+      this.pagamento = this.pagamentoReprovado
+    }
   }
 
 
@@ -61,14 +87,19 @@ export class AprovarComponent implements OnInit {
     return new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(preco);
   }
 
-  buscarPagamentoStatus(status: any) {
-    this.aprovarService.listaPagamentoStatus('0').subscribe(
+  buscarPagamento(status: string = '2') {
+    const boleanStatus = status === '2' ? true : false
+    this.pagamentoService.listPagamento().subscribe(
       (pagamento) => {
         this.pagamento = pagamento;
-        if((pagamento['status']) = '0'){
-          this.nomeStatus = 'Aguardando Aprovação'
-        }
-        // console.log(this.pagamento.status)
+        this.pagamentoAguardando = this.pagamento.filter(p => p.status === '0')
+        this.pagamentoReprovado = this.pagamento.filter(p => p.status === '2')
+        this.botaoLabel = boleanStatus === true ? 'Aguardando' : 'Reprovado';
+        this.botaoEstilo = boleanStatus === true ? 'p-button-secondary' : 'p-button-info';
+
+        this.pagamento = boleanStatus === true ? this.pagamentoAguardando : this.pagamentoReprovado;
+        this.botaoStatus = boleanStatus;
+
       },
       (error) => {
         this.msgError = [
@@ -78,13 +109,13 @@ export class AprovarComponent implements OnInit {
     );
   }
 
-  alterarPagamentoStatus(id: number, status: string) {
+  alterarStatus(id: number, status: string) {
     this.aprovarService.editarPagamentoStatus(id, status).subscribe(pagamento => {
-      this.buscarPagamentoStatus(status);
-      this.toast.success('Status alterado com sucesso!');
+      this.buscarPagamento(status);
+      this.toast.success('Situacao alterada com sucesso!');
     }, (error) => {
       this.pagamentotDialog = false;
-       if (error.status === 500) {
+      if (error.status === 500) {
         this.msgError = [
           {severity: 'error', summary: 'Erro', detail: 'Entre em contato com seu administrador!'},
         ];
@@ -100,7 +131,7 @@ export class AprovarComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Está certo em aprovar a diária?',
       accept: () => {
-        this.alterarPagamentoStatus(id, status)
+        this.alterarStatus(id, status)
       }
     });
   }
@@ -108,7 +139,7 @@ export class AprovarComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Está certo em reprovar a diária?',
       accept: () => {
-        this.alterarPagamentoStatus(id, status)
+        this.alterarStatus(id, status)
       }
     });
   }
