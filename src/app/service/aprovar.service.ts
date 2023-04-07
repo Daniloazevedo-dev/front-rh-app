@@ -11,7 +11,7 @@ export class AprovarService {
 
   }
 
-  private url = `${environment.url}rh-pagamento`
+  private url = `${environment.API_URL}rh-pagamento`
 
   listaPagamentoStatus(status: string) {
     return this.http.get(`${this.url}/pagamento/busca/status/${status}`);

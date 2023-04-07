@@ -10,7 +10,7 @@ export class UsuarioService {
   constructor(private http: HttpClient) {
   }
 
-  private url = `${environment.url}rh-usuario/usuario`
+  private url = `${environment.API_URL}rh-usuario/usuario`
 
   listUsuarios() {
     return this.http.get(this.url);

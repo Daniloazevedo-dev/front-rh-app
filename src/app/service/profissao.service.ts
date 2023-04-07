@@ -12,7 +12,7 @@ export class ProfissaoService {
   ) {
 
   }
-  private url = `${environment.url}rh-pagamento/profissao`
+  private url = `${environment.API_URL}rh-pagamento/profissao`
 
    listProfissao(){
      return this.http.get(this.url);

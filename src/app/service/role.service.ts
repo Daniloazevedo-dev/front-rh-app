@@ -9,7 +9,7 @@ export class RoleService {
 
 constructor(private http: HttpClient) { }
 
-  private url = environment.url + 'rh-usuario/role'
+  private url = environment.API_URL + 'rh-usuario/role'
 
   listRoles() {
     return this.http.get(this.url);

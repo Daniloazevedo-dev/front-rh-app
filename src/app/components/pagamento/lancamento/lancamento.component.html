@@ -33,7 +33,7 @@
 
   <p-table #dt styleClass="p-datatable-striped" [value]="pagamento" [paginator]="true" [rows]="10"
            [showCurrentPageReport]="true" responsiveLayout="scroll"
-           [globalFilterFields]="['id', 'matriculaColaborador', 'nomeColaborador','data','valorDia']"
+           [globalFilterFields]="['id','matriculaColaborador','nomeColaborador','data','valorDia']"
            [(selection)]="pagamento" [rowHover]="true"
            dataKey="id" currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} registros"
            [rowsPerPageOptions]="[10,25,50]">

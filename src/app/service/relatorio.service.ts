@@ -11,8 +11,8 @@ export class RelatorioService {
   constructor(private http: HttpClient) {
   }
 
-  private urlPag = `${environment.url}rh-pagamento/relatorio`
-  private urlCol = `${environment.url}rh-colaborador/relatorio`
+  private urlPag = `${environment.API_URL}rh-pagamento/relatorio`
+  private urlCol = `${environment.API_URL}rh-colaborador/relatorio`
 
 
   listaColaboradorTotalPagar(inicio: string, fim: string) {
