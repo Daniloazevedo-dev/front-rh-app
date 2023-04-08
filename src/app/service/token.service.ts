@@ -14,39 +14,40 @@ export class TokenService {
   }
 
   getToken(): string {
-    return localStorage.getItem(ACCESS_TOKEN);
+    return sessionStorage.getItem(ACCESS_TOKEN);
   }
 
   getUserName(): string {
-    return localStorage.getItem(USER_NAME);
+    return sessionStorage.getItem(USER_NAME);
   }
 
   getAuthorities(): string {
-    return localStorage.getItem(AUTHORITIES);
+    return sessionStorage.getItem(AUTHORITIES);
   }
 
   getRefreshToken(): string {
-    return localStorage.getItem(REFRESH_TOKEN);
+    return sessionStorage.getItem(REFRESH_TOKEN);
   }
 
   saveToken(token, user_name, authorities): void {
-    localStorage.setItem(ACCESS_TOKEN, token);
-    localStorage.setItem(USER_NAME, user_name);
-    localStorage.setItem(AUTHORITIES, authorities);
+    sessionStorage.setItem(ACCESS_TOKEN, token);
+    sessionStorage.setItem(USER_NAME, user_name);
+    sessionStorage.setItem(AUTHORITIES, authorities);
+    localStorage.removeItem('blipSdkUAccount');
   }
 
   saveRefreshToken(refreshToken): void {
-    localStorage.setItem(REFRESH_TOKEN, refreshToken);
+    sessionStorage.setItem(REFRESH_TOKEN, refreshToken);
   }
 
   removeToken(): void {
-    localStorage.removeItem(ACCESS_TOKEN);
-    localStorage.removeItem(USER_NAME);
-    localStorage.removeItem(AUTHORITIES);
+    sessionStorage.removeItem(ACCESS_TOKEN);
+    sessionStorage.removeItem(USER_NAME);
+    sessionStorage.removeItem(AUTHORITIES);
   }
 
   removeRefreshToken(): void {
-    localStorage.removeItem(REFRESH_TOKEN);
+    sessionStorage.removeItem(REFRESH_TOKEN);
 
   }
 }

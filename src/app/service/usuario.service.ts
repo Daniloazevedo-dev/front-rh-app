@@ -10,7 +10,7 @@ export class UsuarioService {
   constructor(private http: HttpClient) {
   }
 
-  private url = `${environment.url}rh-usuario/usuario`
+  private url = `${environment.API_URL}rh-usuario/usuario`
 
   listUsuarios() {
     return this.http.get(this.url);
@@ -30,7 +30,7 @@ export class UsuarioService {
 
   buscarUsuarioEmail(email: string) {
     const params = new HttpParams().set('email', email);
-    return this.http.get(`${this.url}/login`, {params});
+    return this.http.get(`${this.url}/login/email`, {params});
   }
 
   buscaPorId(id: Number) {

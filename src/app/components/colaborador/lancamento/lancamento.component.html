@@ -1,0 +1,134 @@
+<div class="col-12 md:col-6 gridLan">
+  <p-confirmDialog class="w-full" [transitionOptions]="'0ms'" rejectLabel="Não" acceptLabel="Sim"></p-confirmDialog>
+  <p-divider align="right">
+    <span class="p-tag">Lançamento de dária</span>
+  </p-divider>
+  <div style="margin-top: -0.6rem">
+    <input class="p-button-outlined" pInputText type="text" #filter (input)="onGlobalFilter(dt, $event)"
+           placeholder="Pesquisar..."/>
+    <button style="margin-left: 1rem;" pButton label="Limpar" class="p-button-outlined" icon="pi pi-filter-slash"
+            (click)="clear(dt)"></button>
+  </div>
+
+</div>
+
+<div class="card"></div>
+
+<div class="col-12 md:col-6"></div>
+
+<div class="card"></div>
+
+<div class="gridTab">
+
+  <p-messages [(value)]="msgError" [enableService]="false"></p-messages>
+  <div>
+    <p-divider align="right" type="border-0">
+      <p-selectButton optionLabel="label"
+                      optionValue="value"></p-selectButton>
+    </p-divider>
+
+  </div>
+
+
+  <p-table #dt styleClass="p-datatable-striped" [value]="pagamento" [paginator]="true" [rows]="10"
+           [showCurrentPageReport]="true" responsiveLayout="scroll"
+           [globalFilterFields]="['id','nomeColaborador','data','valorDia', 'status']"
+           [(selection)]="pagamento" [rowHover]="true"
+           dataKey="id" currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} registros"
+           [rowsPerPageOptions]="[10,25,50]">
+    <ng-template pTemplate="header">
+      <tr style="line-height: 0.3rem;">
+        <th pSortableColumn="id">Código
+          <p-sortIcon field="Código"></p-sortIcon>
+        </th>
+        <th>Matricula</th>
+        <th pSortableColumn="nomeColaborador">Nome
+          <p-sortIcon field="Nome"></p-sortIcon>
+        </th>
+        <th pSortableColumn="data">Data
+          <p-sortIcon field="Data"></p-sortIcon>
+        </th>
+        <th pSortableColumn="valorDia">Valor
+          <p-sortIcon field="Valor"></p-sortIcon>
+        </th>
+        <th pSortableColumn="status">Status
+          <p-sortIcon field="Status"></p-sortIcon>
+        </th>
+        <th colspan="2" style="width: 0.1rem">
+          <button (click)="abrirDialogPagamento()" pButton pRipple label="Novo" icon="pi pi-plus"
+                  class="p-button-success"></button>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pagamento>
+      <tr style="line-height: 1rem">
+        <td>{{pagamento.id}}</td>
+        <td>{{pagamento.matriculaColaborador}}</td>
+        <td>{{pagamento.nomeColaborador}}</td>
+        <td>{{pagamento.data}}</td>
+        <td>{{formatarPreco(pagamento.valorDia)}}</td>
+        <td
+          style="width: 0.2rem">{{pagamento.status === '0' ? 'Aguardando aprovação' : pagamento.status === '1' ? 'Aprovado' : 'Reprovado'}}</td>
+        <td style="width: 0.2rem"></td>
+        <td style="width: 0.2rem"></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog class="p-fieldset shadow-4 " [draggable]="false" [resizable]="false" [(visible)]="pagamentotDialog"
+          [closable]="true" [style]="{'width': '600px', 'height': '76%'}" [modal]="true" styleClass="p-fluid">
+  <div class="p-fieldset-content">
+    <div class="card">
+      <form [formGroup]="form">
+
+        <div class="field">
+          <label for="colaborador" class="block">Colaborador:</label>
+          <input value="{{nomeCol}}" type="text" name="colaborador" id="colaborador" class="w-full ng-dirty" pInputText
+                 placeholder=""/>
+          <small id="colaborador-help" class="p-error block">{{getErrors('colaborador')}}</small>
+        </div>
+
+        <div class="field">
+          <label for="data" class="block">Data:</label>
+          <p-calendar appendTo="body" formControlName="data" [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"
+                      placeholder="data" [touchUI]="true" name="data" id="data" *ngIf="pagamentotDialog"
+                      [readonlyInput]="true" [required] [maxDate]="dataMaxima" [minDate]="dataMinima">
+          </p-calendar>
+          <small id="data-help" class="p-error block">{{getErrors('data')}}</small>
+        </div>
+
+        <div class="field hidden">
+          <label for="id" class="">ID:</label>
+          <div class="col">
+            <input readonly type="number" name="id" id="id" class="w-1 ng-dirty" formControlName="id" pInputText
+                   placeholder=""/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="valorDia" class="block">Valor:</label>
+          <input [readonly]="true" currencyMask type="text" name="valorDia" id="valorDia"
+                 class="p-inputtext p-float-label"
+                 style="height: 2.8rem; width: 100%;" formControlName="valorDia"/>
+          <small id="valorDia-help" class="p-error block">{{getErrors('valorDia')}}</small>
+        </div>
+        <div class="field hidden">
+          <label for="situacao" class="">Situação:</label>
+          <div class="col">
+            <input readonly type="text" name="situacao" id="situacao" class="w-1 ng-dirty" formControlName="situacao"
+                   pInputText placeholder=""/>
+          </div>
+        </div>
+
+        <div class="field">
+          <button pButton type="button" (click)="salvar()" class="m-1" label="salvar"></button>
+          <button pButton pRipple type="button" (click)="limpar()" label="Limpar"
+                  class="p-button-secondary m-1"></button>
+          <button pButton type="button" (click)="fecharDialogPagamento()" class=" p-button-danger m-1"
+                  label="Cancelar"></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</p-dialog>

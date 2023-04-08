@@ -7,6 +7,7 @@ import {UsuarioService} from 'src/app/service/usuario.service';
 import {ToastrService} from "ngx-toastr";
 
 const ADMIN = 'ROLE_ADMIN';
+const COLABORADOR = 'ROLE_OPERATOR';
 
 @Component({
   selector: 'app-menu',
@@ -31,7 +32,9 @@ export class MenuComponent {
 
   sair() {
     this.authService.logout();
-    this.router.navigate(['/login']).then(_ => this.toast.info('Logout efetuado com sucesso!'));
+    window.location.reload();
+    console.log('Saiu...')
+    // this.router.navigate(['/login']).then(_ => this.toast.info('Logout efetuado com sucesso!'));
   }
 
   buscaUsuarioEmail() {
@@ -44,6 +47,7 @@ export class MenuComponent {
           } else {
             this.setUsuarioMenuEAvatar('usuário');
           }
+
         },
         (error) => {
           this.setUsuarioMenuEAvatar('usuário');
@@ -79,38 +83,62 @@ export class MenuComponent {
       },
       {
         visible: this.isAdmin(),
-        label: 'Cadastro',
+        label: 'Cadastros',
         icon: 'pi pi-fw pi-plus',
         items: [
           {
             label: 'Usuário',
             icon: 'pi pi-user',
-            routerLink: '/cadastro/usuario',
+            routerLink: '/cadastros/usuario',
           },
           {
             label: 'Profissão',
             icon: 'pi pi-wallet',
-            routerLink: '/cadastro/profissao',
+            routerLink: '/cadastros/profissao',
           },
         ],
       },
       {
+        visible: !this.isAdmin(),
         label: 'Colaborador',
         icon: 'pi pi-briefcase',
-      },
-      {
-        label: 'Pagamento',
-        icon: 'pi pi-money-bill',
         items: [
           {
             label: 'Lançamento',
             icon: 'pi pi-calendar-plus',
-            routerLink: '/pagamento/lancamento',
+            routerLink: '/colaborador/lancamento',
           },
           {
             label: 'Relatório',
             icon: 'pi pi-book',
-            routerLink: '/pagamento/relatorio',
+            routerLink: '/colaborador/relatorio',
+          },
+        ],
+      },
+      {
+        visible: this.isAdmin(),
+        label: 'Movimentos',
+        icon: 'pi pi-list',
+        items: [
+          {
+            label: 'Lançamento',
+            icon: 'pi pi-calendar-plus',
+            routerLink: '/movimentos/lancamento',
+          },
+          {
+            label: 'Aprovar',
+            icon: 'pi pi-check-square',
+            routerLink: '/movimentos/aprovar',
+          },
+          {
+            label: 'Relatório',
+            icon: 'pi pi-book',
+            routerLink: '/movimentos/relatorio',
+          },
+          {
+            label: 'Pagamento',
+            icon: 'pi pi-money-bill',
+            routerLink: '/movimentos/pagamento',
           },
         ],
       },

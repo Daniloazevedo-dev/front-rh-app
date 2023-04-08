@@ -1,0 +1,80 @@
+<div style="padding-top: 3rem;"></div>
+<p-divider align="right">
+  <span class="p-tag">Gerador de Relatório</span>
+</p-divider>
+
+<div class="gridRel" style=" width: 100%; padding-left: 0.5rem; padding-right: 0.5rem;">
+
+
+  <p-dialog header="Relatório gerado"
+            [(visible)]="displayPosition" [position]="position" [maximizable]="true" [closeOnEscape]="true"
+            [style]="{width: '80vw', height:'auto'}" [modal]="true" [closable]="false"
+            [draggable]="true" [resizable]="true" [blockScroll]="true" [className]="relCForm">
+
+    <app-colaborador-total-pagar-col-id *ngIf="idRelC && inicioRelC && fimRelC"
+                                        [idRelC]="idRelC" [inicioRelC]="inicioRelC"
+                                        [fimRelC]="fimRelC"></app-colaborador-total-pagar-col-id>
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-check" (click)="refresh()" label="Fechar"
+                styleClass="p-button-text"></p-button>
+    </ng-template>
+  </p-dialog>
+
+  <div class="col-12 md:col-4">
+    <div class="card"></div>
+    <div class="card"></div>
+  </div>
+
+  <div class="col-12 md:col-4 shadow-2">
+    <div style="background-color: rgb(246, 246, 246);" class="shadow-2">
+      <div style="height: 15.7rem;">
+        <form  [formGroup]="relCForm">
+          <table style="justify-content: center; width: 100%; background-color: rgb(246, 246, 246);text-align: right;">
+            <tr>
+              <td class="shadow-2" colspan="2"
+                  style="text-align: center; padding-top: 0.5rem; background-color: rgb(225, 225, 225);height: 2.3rem;">
+                Extrato de dias trabalhados
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p></p>
+                <p-calendar formControlName="inicioRelC" [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"
+                            placeholder="ínicio" [touchUI]="true" [maxDate]="dataMaxima" [minDate]="dataMinima"
+                            [readonlyInput]="true" [required]>
+                </p-calendar>
+              </td>
+              <td style="text-align: left">
+                <p></p>
+                <p-calendar formControlName="fimRelC" [showIcon]="false" dateFormat="dd/mm/yy" inputId="icon"
+                            placeholder="final" [touchUI]="true" [maxDate]="dataMaxima" [minDate]="dataMinima"
+                            [readonlyInput]="true" [required]>
+                </p-calendar>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align: right">
+                <p style="height: 2rem"></p>
+                <button style="margin-right: 0.5rem" pButton label="Limpar" class="p-button-outlined"
+                        icon="pi pi-filter-slash"
+                        (click)="relCForm.reset(true)"></button>
+                <button  (click)="printColaboradorTotalPagarIdCol()" pButton type="button" label="Gerar"
+                        icon="pi pi-folder-open" class="p-button-sprimary mr-2"></button>
+              </td>
+
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+
+    <div class="card">
+      <p-panel header="Informações" [toggleable]="true" [collapsed]="false" class="line-height-3 m-0">
+        Através do gerador de relatórios o colaborador tem acesso a listagem de todos os dias trabalhados,
+        basta informar uma data de inicio e fim, após clicar no botão gerar.
+      </p-panel>
+    </div>
+
+  </div>
+</div>
+

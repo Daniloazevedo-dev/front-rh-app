@@ -12,16 +12,23 @@ export class ProfissaoService {
   ) {
 
   }
-  private url = `${environment.url}rh-pagamento/profissao`
+  private url = `${environment.API_URL}rh-pagamento/profissao`
 
    listProfissao(){
      return this.http.get(this.url);
 
   }
-
+  editarSituacao(id: number, situacao: string) {
+    return this.http.patch(`${this.url}/id/${id}/situacao/${situacao}`,null);
+  }
+  salvarProfissao(profissao: any) {
+    return this.http.post(this.url, profissao);
+  }
   listProfissaoIdPro(id: number){
     return this.http.get(`${this.url}/${id}`);
 
   }
-
+  atualizarProfissao(profissao: any) {
+    return this.http.put(this.url, profissao);
+  }
   }

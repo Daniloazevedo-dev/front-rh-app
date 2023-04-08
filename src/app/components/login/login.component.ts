@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
       .subscribe(() => {
         this.isLoadingResults = false;
         this.router.navigate(['/home'])
-          .then(_ => this.toast.success('Login efetuado com sucesso!'));
+          .then(_ => location.reload());
       }, (err: any) => {
         this.toast.error('Usuário e/ou senha inválidos!')
         this.loginForm.reset();

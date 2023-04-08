@@ -11,7 +11,7 @@ export class PagamentoService {
 
   }
 
-  private url = `${environment.url}rh-pagamento/pagamento`
+  private url = `${environment.API_URL}rh-pagamento/pagamento`
 
   listPagamento() {
     return this.http.get(this.url);
@@ -21,12 +21,16 @@ export class PagamentoService {
     return this.http.post(`${this.url}/${id}`, pagamento)
   }
 
+  salvarPagamentoColaborador(id: Number, pagamento: any) {
+    return this.http.patch(`${this.url}/colaborador/${id}`, pagamento)
+  }
+
   buscaPorId(id: Number) {
     return this.http.get(`${this.url}/lancamento/${id}`);
   }
 
-  deletar(pagamento: any) {
-    return this.http.put(this.url, pagamento);
+  editarSituacao(id: number, situacao: string) {
+    return this.http.patch(`${this.url}/id/${id}/situacao/${situacao}`,null);
   }
 
   editarPagamento( pagamento: any) {

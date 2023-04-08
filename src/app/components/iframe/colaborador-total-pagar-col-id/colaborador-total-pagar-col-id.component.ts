@@ -3,15 +3,15 @@ import {RelatorioService} from "../../../service/relatorio.service";
 import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
-  selector: 'app-iframe-colaborador-total-pagar',
-  templateUrl: './iframe-colaborador-total-pagar.component.html',
-  styleUrls: ['./iframe-colaborador-total-pagar.component.css']
+  selector: 'app-colaborador-total-pagar-col-id',
+  templateUrl: './colaborador-total-pagar-col-id.component.html',
+  styleUrls: ['./colaborador-total-pagar-col-id.component.css']
 })
-export class IframeColaboradorTotalPagarComponent implements OnInit {
+export class ColaboradorTotalPagarColIdComponent implements OnInit {
 
-  @Input() idRelB: string;
-  @Input() inicioRelB: string;
-  @Input() fimRelB: string;
+  @Input() idRelC: string;
+  @Input() inicioRelC: string;
+  @Input() fimRelC: string;
 
   constructor(
     private relatorioService: RelatorioService,
@@ -21,13 +21,12 @@ export class IframeColaboradorTotalPagarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.colaboradorTotalPagar(this.idRelB, this.inicioRelB, this.fimRelB)
-    // console.log(this.inicio)
+    this.colaboradorTotalPagarColId(this.idRelC, this.inicioRelC, this.fimRelC)
+    // console.log(this.idRelC)
   }
 
-  colaboradorTotalPagar(idRelB: string, inicioRelB: string, fimRelB: string) {
-    this.relatorioService.colaboradorTotalPagar(idRelB, inicioRelB, fimRelB).subscribe(data => {
+  colaboradorTotalPagarColId(idRelC: string, inicioRelC: string, fimRelC: string) {
+    this.relatorioService.colaboradorTotalPagarColId(idRelC, inicioRelC, fimRelC).subscribe(data => {
 
       var blob = new Blob([data], {type: 'application/pdf'})
       var fileURL = URL.createObjectURL(blob);

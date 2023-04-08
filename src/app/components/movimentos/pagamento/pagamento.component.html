@@ -1,0 +1,86 @@
+<div class="col-12 md:col-6 gridLan">
+  <p-confirmDialog class="w-full" [transitionOptions]="'0ms'" rejectLabel="Não" acceptLabel="Sim"></p-confirmDialog>
+  <p-divider align="right">
+    <span class="p-tag">Lançamento de dária</span>
+  </p-divider>
+  <div style="margin-top: -0.6rem">
+    <input class="p-button-outlined" pInputText type="text" #filter (input)="onGlobalFilter(dt, $event)"
+           placeholder="Pesquisar..."/>
+    <button style="margin-left: 1rem;" pButton label="Limpar" class="p-button-outlined" icon="pi pi-filter-slash"
+            (click)="clear(dt)"></button>
+  </div>
+
+</div>
+
+<div class="card"></div>
+
+<div class="col-12 md:col-6"></div>
+
+<div class="card"></div>
+
+<div class="gridTab">
+
+  <p-messages [(value)]="msgError" [enableService]="false"></p-messages>
+  <div>
+    <p-divider align="right" type="border-0">
+      <p-selectButton
+                      optionLabel="label"
+                      optionValue="value"></p-selectButton>
+    </p-divider>
+
+  </div>
+
+
+  <p-table #dt styleClass="p-datatable-striped" [value]="pagamento" [paginator]="true" [rows]="10"
+           [showCurrentPageReport]="true" responsiveLayout="scroll"
+           [globalFilterFields]="['id','matriculaColaborador','nomeColaborador','data','valorDia']"
+           [(selection)]="pagamento" [rowHover]="true"
+           dataKey="id" currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} registros"
+           [rowsPerPageOptions]="[10,25,50]">
+    <ng-template pTemplate="header">
+      <tr style="line-height: 0.3rem;">
+        <th pSortableColumn="id">Código
+          <p-sortIcon field="Código"></p-sortIcon>
+        </th>
+        <th pSortableColumn="matriculaColaborador">Matricula
+          <p-sortIcon field="Matricula"></p-sortIcon>
+        </th>
+        <th pSortableColumn="nomeColaborador">Nome
+          <p-sortIcon field="Nome"></p-sortIcon>
+        </th>
+        <th pSortableColumn="data">Data
+          <p-sortIcon field="Data"></p-sortIcon>
+        </th>
+        <th pSortableColumn="valorDia">Valor
+          <p-sortIcon field="Valor"></p-sortIcon>
+        </th>
+        <th>Situação</th>
+        <th colspan="2">
+          <form [formGroup]="pagForm">
+
+          <select class="p-inputtext p-float-label" style="height: 2.8rem; width: 98%;"
+                  formControlName="idPag">
+            <option [ngValue]="null" [disabled]="true">Selecione...</option>
+            <option [selected]="false" *ngFor="let usuario of usuarios |sortBy:'asc':'{{usuario.nome}}'"
+                    value="{{usuario.id}}"> {{usuario.matricula}} - {{usuario.nome}} </option>
+          </select>
+          <button pButton pRipple label="Novo" icon="pi pi-plus"
+                  class="p-button-success"></button>
+          </form>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pagamento>
+      <tr style="line-height: 0.2rem">
+        <td>{{pagamento.id}}</td>
+        <td>{{pagamento.matriculaColaborador}}</td>
+        <td>{{pagamento.nomeColaborador}}</td>
+        <td>{{pagamento.data}}</td>
+        <td>{{formatarPreco(pagamento.valorDia)}}</td>
+        <td style="width: 0.2rem">{{pagamento.status === '1' ? 'Aprovado' : 'Reprovado' }}</td>
+        <td style="width: 0.2rem"></td>
+        <td style="width: 0.2rem"></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

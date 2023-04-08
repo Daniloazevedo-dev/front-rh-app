@@ -1,0 +1,94 @@
+<p-confirmDialog class="w-full" [transitionOptions]="'0ms'" rejectLabel="Não" acceptLabel="Sim">
+</p-confirmDialog>
+<div class="col-12 md:col-6 gridPro">
+    <p-divider align="right">
+    <span class="p-tag">Cadastro de profissão</span>
+  </p-divider>
+  <input class="p-button-outlined" pInputText type="text" #filter (input)="onGlobalFilter(dt, $event)"
+         placeholder="Pesquisar..."/>
+  <button style="margin-left: 1rem;" pButton label="Limpar" class="p-button-outlined" icon="pi pi-filter-slash"
+          (click)="clear(dt)"></button>
+</div>
+
+<div class="card"></div>
+
+<div class="col-12 md:col-6"></div>
+
+<div class="card"></div>
+<p-messages [(value)]="msgError" [enableService]="false"></p-messages>
+
+<div class="gridTab">
+
+  <p-table #dt styleClass="p-datatable-striped" [value]="profissao" [paginator]="true" [rows]="10"
+           [showCurrentPageReport]="true" responsiveLayout="scroll"
+           [globalFilterFields]="['id','descricao','valorDia','situacao']" [(selection)]="profissao" [rowHover]="true"
+           dataKey="id" currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} registros"
+           [rowsPerPageOptions]="[10,25,50]">
+    <ng-template pTemplate="header">
+      <tr style="line-height: 0.3rem;">
+        <th pSortableColumn="id">Código
+          <p-sortIcon field="Código"></p-sortIcon>
+        </th>
+        <th pSortableColumn="descricao">Descrição
+          <p-sortIcon field="Descrição"></p-sortIcon>
+        </th>
+        <th pSortableColumn="valorDia">Valor
+          <p-sortIcon field="Valor"></p-sortIcon>
+        </th>
+        <th pSortableColumn="situacao">Situação
+          <p-sortIcon field="Situação"></p-sortIcon>
+        </th>
+        <th><button pButton pRipple (click)="abrirDialogProfissao()" label="Novo" icon="pi pi-plus" class="p-button-success" ></button></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-profissao>
+      <tr style="line-height: 0.2rem">
+        <td>{{profissao.id}}</td>
+        <td>{{profissao.descricao}}</td>
+        <td>R$ {{profissao.valorDia.toLocaleString("pt-BR", {minimumFractionDigits: 2})}}</td>
+        <td>{{profissao.situacao}}</td>
+        <td> <button pButton (click) = "editar(profissao.id)" pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-warning mr-2" ></button>
+          <button (click)="editarProfissao(profissao.id,profissao.situacao)" pButton pRipple label= "{{tratarSituacao(profissao.situacao)}}" class="p-button-rounded p-button-sm {{tratarcorbutao(profissao.situacao)}}"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<p-dialog class="p-fieldset shadow-4 " [draggable]="false" [resizable]="false" [(visible)]="profissaoDialog" [closable]="true"  [style]="{'width': '600px', 'height': '76%'}" [modal]="true" styleClass="p-fluid">
+  <div class="p-fieldset-content">
+    <div class="card">
+      <form [formGroup]="form">
+        <div class="field" hidden>
+          <label for="id" class="" >ID:</label>
+          <div class="col">
+            <input readonly type="number" name="id" id="id" class="w-1 ng-dirty" formControlName="id" pInputText placeholder="" />
+          </div>
+          <small id="nome-help" class="p-error block">{{getErrors('id')}}</small>
+        </div>
+        <div class="field" >
+          <label for="descricao" class="" >Descrição: </label>
+          <div class="col">
+            <input  type="text" name="descricao" id="descricao" class="w-full ng-dirty" formControlName="descricao" pInputText placeholder="" />
+          </div>
+          <small id="descricao-help" class="p-error block">{{getErrors('descricao')}}</small>
+        </div>
+        <div class="field" hidden>
+          <label for="situacao" class="" >Situação: </label>
+          <div class="col">
+            <input  type="text" name="situacao" id="situacao" class="w-full ng-dirty" formControlName="situacao" pInputText placeholder="" />
+          </div>
+          <small id="situacao-help" class="p-error block">{{getErrors('situacao')}}</small>
+        </div>
+        <div class="field"> <label for="valorDia" class="block">Valor Dia:</label> <input currencyMask type="text" name="valorDia" id="valorDia" class="p-inputtext p-float-label" style="height: 2.8rem; width: 100%;" formControlName="valorDia"/> <small id="valorDia-help" class="p-error block">{{getErrors('valorDia')}}</small> </div>
+
+        <div class="field">
+          <button pButton (click)="salvar()" type="button" class="m-1" label="{{labelSalvar}}"></button>
+          <button pButton pRipple type="reset" *ngIf="!edicao" label="Limpar" class="p-button-secondary m-1"></button>
+          <button pButton type="button" (click)="fecharDialogProfissao()" class=" p-button-danger m-1" label="Cancelar"></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</p-dialog>
+
+
