@@ -21,6 +21,7 @@ export class ProfissaoComponent extends FormBase implements OnInit {
   botaoLabel: string;
   botaoEstilo: string;
   profissaoDialog: boolean = false;
+  labelSalvar: String;
 
   @ViewChild('filter') filter!: ElementRef;
 
@@ -47,6 +48,7 @@ export class ProfissaoComponent extends FormBase implements OnInit {
       id: [''],
       descricao: ['', BasicValidators.obrigatorio('A Descrição é obrigatória.')],
       valorDia: ['', BasicValidators.obrigatorio('O Valor do Dia é obrigatório.')],
+      situacao: ['', null ],
 
     });
   }
@@ -94,7 +96,12 @@ export class ProfissaoComponent extends FormBase implements OnInit {
         this.profissaoService.editarSituacao(id, situacao).subscribe(profissao => {
           this.buscarProfissao();
           this.toast.success(mensagem);
-        })
+        },
+          (error) => {
+            this.msgError = [
+              { severity: 'error', summary: 'Erro', detail: error.error.message },
+            ];
+          })
       }
     });
   }
@@ -114,7 +121,9 @@ export class ProfissaoComponent extends FormBase implements OnInit {
   }
   abrirDialogProfissao() {
     this.form.reset();
+    this.edicao = false;
     this.setForm();
+    this.labelSalvar = 'Salvar';
 
     this.profissaoDialog = true;
   }
@@ -140,9 +149,49 @@ export class ProfissaoComponent extends FormBase implements OnInit {
   salvar() {
     this.validateForm();
     if (this.form.valid) {
-
+      if (this.edicao){
+        this.atualizarProfissao(this.form.value);
+      }  else {
         this.salvarProfissao(this.form.value);
       }
+
+
+      }
     }
+  editar(id: number) {
+    this.profissaoService.listProfissaoIdPro(id).subscribe(
+      (data) => {
+        this.edicao = true;
+        this.labelSalvar = 'Alterar';
+        this.setForm();
+        this.form.get('id').setValue(data['id']);
+        this.form.get('descricao').setValue(data['descricao']);
+        this.form.get('valorDia').setValue(data['valorDia'] );
+        this.form.get('situacao').setValue(data['situacao']);
+
+        this.profissaoDialog = true;
+      },
+      (error) => {
+        this.msgError = [
+          { severity: 'error', summary: 'Erro', detail: error.error.message },
+        ];
+      }
+    );
+  }
+  atualizarProfissao(profissao: any) {
+    this.profissaoService.atualizarProfissao(profissao).subscribe(
+      (profissao) => {
+        this.buscarProfissao();
+        this.toast.success('Profissão atualizada com sucesso!');
+        this.profissaoDialog = false;
+      },
+      (error) => {
+        this.profissaoDialog = false;
+        this.msgError = [
+          { severity: 'error', summary: 'Erro', detail: error.error.message },
+        ];
+      }
+    );
+  }
   }
 

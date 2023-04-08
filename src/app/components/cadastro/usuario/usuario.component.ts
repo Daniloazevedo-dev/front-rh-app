@@ -66,7 +66,6 @@ export class UsuarioComponent extends FormBase implements OnInit {
     this.validateForm();
     if (this.form.valid) {
       if(this.edicao) {
-        console.log(this.form.value.colaborador)
         this.atualizarUsuarios(this.form.value);
       } else {
         this.salvarUsuarios(this.form.value);

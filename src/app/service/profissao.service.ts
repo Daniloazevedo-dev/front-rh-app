@@ -28,5 +28,7 @@ export class ProfissaoService {
     return this.http.get(`${this.url}/${id}`);
 
   }
-
+  atualizarProfissao(profissao: any) {
+    return this.http.put(this.url, profissao);
+  }
   }
