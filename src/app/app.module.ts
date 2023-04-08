@@ -11,7 +11,7 @@ import {MenubarModule} from 'primeng/menubar';
 import {CardModule} from 'primeng/card';
 import {AvatarModule} from 'primeng/avatar';
 import {DividerModule} from 'primeng/divider';
-import {UsuarioComponent} from './components/cadastro/usuario/usuario.component';
+import {UsuarioComponent} from './components/cadastros/usuario/usuario.component';
 import {FieldsetModule} from 'primeng/fieldset';
 import {DropdownModule} from 'primeng/dropdown';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -28,7 +28,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {AuthInterceptor} from './interceptors/auth.interceptor';
 import {HomeComponent} from './components/home/home.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
-import {RelatorioComponent} from './components/pagamento/relatorio/relatorio.component';
+import {RelatorioComponent} from './components/movimentos/relatorio/relatorio.component';
 import {RelatorioColComponent} from './components/colaborador/relatorio/relatorio.component';
 import {LoginComponent} from './components/login/login.component';
 import {CalendarModule} from 'primeng/calendar';
@@ -54,18 +54,20 @@ import {SplitButtonModule} from "primeng/splitbutton";
 import {TabViewModule} from "primeng/tabview";
 import {MenuModule} from "primeng/menu";
 import {SplitterModule} from "primeng/splitter";
-import {LancamentoComponent} from './components/pagamento/lancamento/lancamento.component';
+import {LancamentoComponent} from './components/movimentos/lancamento/lancamento.component';
 import {LancamentoColComponent} from './components/colaborador/lancamento/lancamento.component';
 import {SortByPipe} from "./shared/pipe/sort-by.pipe";
-import {ProfissaoComponent} from './components/cadastro/profissao/profissao.component';
+import {ProfissaoComponent} from './components/cadastros/profissao/profissao.component';
 import {CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule} from "ng2-currency-mask";
 import {SelectButtonModule} from "primeng/selectbutton";
 import {
   ColaboradorTotalPagarColIdComponent
 } from './components/iframe/colaborador-total-pagar-col-id/colaborador-total-pagar-col-id.component';
 import {ChatComponent} from './components/chat/chat.component';
-import {AprovarComponent} from './components/pagamento/aprovar/aprovar.component';
+import {AprovarComponent} from './components/movimentos/aprovar/aprovar.component';
 import {TreeTableModule} from "primeng/treetable";
+import {PagamentoComponent} from "./components/movimentos/pagamento/pagamento.component";
+import {RatingModule} from "primeng/rating";
 
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
@@ -104,7 +106,8 @@ export declare function registerLocaleData(
     SortByPipe,
     ColaboradorTotalPagarColIdComponent,
     ChatComponent,
-    AprovarComponent
+    AprovarComponent,
+    PagamentoComponent,
   ],
   imports: [
     BrowserModule,
@@ -153,6 +156,7 @@ export declare function registerLocaleData(
     CurrencyMaskModule,
     SelectButtonModule,
     TreeTableModule,
+    RatingModule,
 
   ],
   providers: [

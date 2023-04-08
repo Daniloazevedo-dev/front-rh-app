@@ -83,18 +83,18 @@ export class MenuComponent {
       },
       {
         visible: this.isAdmin(),
-        label: 'Cadastro',
+        label: 'Cadastros',
         icon: 'pi pi-fw pi-plus',
         items: [
           {
             label: 'Usuário',
             icon: 'pi pi-user',
-            routerLink: '/cadastro/usuario',
+            routerLink: '/cadastros/usuario',
           },
           {
             label: 'Profissão',
             icon: 'pi pi-wallet',
-            routerLink: '/cadastro/profissao',
+            routerLink: '/cadastros/profissao',
           },
         ],
       },
@@ -117,23 +117,28 @@ export class MenuComponent {
       },
       {
         visible: this.isAdmin(),
-        label: 'Pagamento',
-        icon: 'pi pi-money-bill',
+        label: 'Movimentos',
+        icon: 'pi pi-list',
         items: [
           {
             label: 'Lançamento',
             icon: 'pi pi-calendar-plus',
-            routerLink: '/pagamento/lancamento',
-          },
-          {
-            label: 'Relatório',
-            icon: 'pi pi-book',
-            routerLink: '/pagamento/relatorio',
+            routerLink: '/movimentos/lancamento',
           },
           {
             label: 'Aprovar',
             icon: 'pi pi-check-square',
-            routerLink: '/pagamento/aprovar',
+            routerLink: '/movimentos/aprovar',
+          },
+          {
+            label: 'Relatório',
+            icon: 'pi pi-book',
+            routerLink: '/movimentos/relatorio',
+          },
+          {
+            label: 'Pagamento',
+            icon: 'pi pi-money-bill',
+            routerLink: '/movimentos/pagamento',
           },
         ],
       },
