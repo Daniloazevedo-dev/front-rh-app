@@ -11,7 +11,7 @@
         <ng-template pTemplate="header">
           Usuários
         </ng-template>
-            <p-table #dt [value]="usuarios" [rows]="5" [paginator]="true" [globalFilterFields]="['id','nome','colaborador','email']" responsiveLayout="scroll"
+        <p-table #dt [value]="usuarios" [rows]="5" [paginator]="true" [globalFilterFields]="['id','nome','colaborador','email']" responsiveLayout="scroll"
             [(selection)]="usuario" [rowHover]="true" dataKey="id"
             currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} " [showCurrentPageReport]="true">
             <ng-template pTemplate="caption">
@@ -20,25 +20,39 @@
             <ng-template pTemplate="header">
                 <tr>
                   <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
-                    <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon></th>
                     <th pSortableColumn="colaborador">Colaborador <p-sortIcon field="colaborador"></p-sortIcon></th>
-                    <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
                     <th pSortableColumn="roles">Role <p-sortIcon field="role"></p-sortIcon></th>
+                    <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon></th>
+                    <th pSortableColumn="situacao">Situacao <p-sortIcon field="situacao"></p-sortIcon></th>
+                    <th pSortableColumn="bairro">Email<p-sortIcon field="email"></p-sortIcon></th>
+                    <th pSortableColumn="bairro">Bairro<p-sortIcon field="bairro"></p-sortIcon></th>
+                    <th pSortableColumn="cep">CEP<p-sortIcon field="cep"></p-sortIcon></th>
+                    <th pSortableColumn="complemento">Complemento<p-sortIcon field="complemento"></p-sortIcon></th>
+                    <th pSortableColumn="localidade">Localidade<p-sortIcon field="localidade"></p-sortIcon></th>
+                    <th pSortableColumn="rua">Rua<p-sortIcon field="rua"></p-sortIcon></th>
+                    <th pSortableColumn="numero">Numero<p-sortIcon field="numero"></p-sortIcon></th>
+                    <th pSortableColumn="uf">UF<p-sortIcon field="uf"></p-sortIcon></th>
+                    
                     <th class="text-right">
                       <span class="p-input-icon-left">
                         <i class="pi pi-search"></i>
                         <input pInputText type="text"  (input)="dt.filterGlobal(getEventValue($event), 'contains')" placeholder="Pesquisar..." />
                       </span>
                     </th>
+                   
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-usuario>
                 <tr>
                   <td [style]="{'width': '20%'}">{{usuario.id}}</td>
-                    <td [style]="{'width': '20%'}">{{usuario.nome}}</td>
-                    <td [style]="{'width': '20%'}">{{trataColaborador(usuario.colaborador)}}</td>
-                    <td [style]="{'width': '20%'}">{{usuario.email}}</td>
-                    <td [style]="{'width': '20%'}">{{tratarRolesSepparaPorVirgula(usuario.roles)}}</td>
+                  <td [style]="{'width': '20%'}">{{trataColaborador(usuario.colaborador)}}</td>
+                  <td [style]="{'width': '20%'}">{{tratarRolesSepparaPorVirgula(usuario.roles)}}</td>
+                  <td [style]="{'width': '20%'}">{{usuario.nome }}</td>
+                  <td [style]="{'width': '20%'}">{{usuario.situacao}}</td>
+                  <td [style]="{'width': '20%'}">{{usuario.email}}</td>
+                  <td *ngFor="let usuarios of usuario.endereco | keyvalue">{{usuarios.value}}</td>              
+                  
+                                        
                     <td class="text-right" [style]="{'width': '10%'}">
                         <button pButton pRipple icon="pi pi-pencil"  (click)="editar(usuario.id)" class="p-button-rounded p-button-warning mr-2" ></button>
                         <button pButton pRipple icon="pi pi-trash" [disabled]="validaUsuarioLogado(usuario.email)" (click)="deletarUsuario(usuario.id)" class="p-button-rounded p-button-danger" ></button>
@@ -66,11 +80,57 @@
                 </div>
                 <small id="nome-help" class="p-error block">{{getErrors('id')}}</small>
               </div>
+              
               <div class="field">
                 <label for="nome" class="" >Nome:</label>
                 <input type="text" name="nome" id="nome" class="w-full ng-dirty" formControlName="nome" pInputText placeholder="Informe o nome" />
                 <small id="nome-help" class="p-error block">{{getErrors('nome')}}</small>
               </div>
+
+              <div class="field">
+                <label for="situacao" class="" >Situacao:</label>
+                <input type="text" name="situacao" id="situacao" class="w-full ng-dirty" formControlName="situacao" pInputText placeholder="Informe a Situacao" />
+                <small id="situacao-help" class="p-error block">{{getErrors('situacao')}}</small>
+              </div>
+
+              <div class="field">
+                <label for="cep" class="" >CEP:</label>
+                <input type="text" name="cep" id="cep"  maxlength="10" class="w-full ng-dirty" formControlName="cep" (blur)="consultaCep($event.target,form)" pInputText placeholder="Informe o CEP" />
+                <small id="cep-help" class="p-error block">{{getErrors('cep')}}</small>
+              </div>
+
+              <div class="field">
+                <label for="bairro" class="" >Bairro:</label>
+                <input type="text" name="bairro"   id="bairro" [readonly]="true" class="w-full ng-dirty" ng-model="endereco.bairo" formControlName="bairro"  pInputText>
+                <small id="bairro-help" class="p-error block">{{getErrors('bairro')}}</small>
+              </div>
+              <div class="field">
+                <label for="localidade" class="" >Localidade:</label>
+                <input type="text" name="localidade" id="localidade"[readonly]="true" class="w-full ng-dirty" formControlName="localidade" pInputText placeholder="Informe a localidade" />
+                <small id="localidade-help" class="p-error block">{{getErrors('localidade')}}</small>
+              </div>
+              <div class="field">
+                <label for="logradouro" class="" >Rua:</label>
+                <input type="text" name="logradouro" id="logradouro" [readonly]="true" class="w-full ng-dirty" formControlName="logradouro" pInputText />
+                <small id="logradouro-help" class="p-error block">{{getErrors('logradouro')}}</small>
+              </div>    
+              <div class="field">
+                <label for="numero" class="" >Número:</label>
+                <input type="number" name="numero" id="numero" class="w-full ng-dirty" formControlName="numero" pInputText />
+                <small id="numero-help" class="p-error block">{{getErrors('usuario.endereco.numero')}}</small>
+              </div>
+<div class="field">
+  <label for="complemento" class="" >Complemento:</label>
+  <input type="text" name="complemento" id="complemento" class="w-full ng-dirty" formControlName="complemento" pInputText/>
+  <small id="complemento-help" class="p-error block">{{getErrors('usuario.endereco.complemento')}}</small>
+</div>
+
+<div class="field">
+  <label for="uf" class="" >UF:</label>
+  <input type="text" name="uf" id="uf" [readonly]="true" class="w-full ng-dirty" formControlName="uf" pInputText/>
+  <small id="uf-help" class="p-error block">{{getErrors('uf')}}</small>
+</div>
+
               <div class="field">
                 <label for="nome" class="" >Colaborador:</label>
                 <div class="field-radiobutton">
@@ -101,7 +161,7 @@
                 <small id="role-help" class="p-error block">{{getErrors('roles')}}</small>
               </div>
               <div class="field">
-                <button pButton type="button" (click)="salvar()" class="m-1" label="{{labelSalvar}}"></button>
+                <button pButton type="button" (click)="salvar()" [disabled]="!form.valid"class="m-1" label="{{labelSalvar}}"></button>
                 <button pButton pRipple type="reset" *ngIf="!edicao" label="Limpar" class="p-button-secondary m-1"></button>
                 <button pButton type="button" (click)="fecharDialogUsuario()" class=" p-button-danger m-1" label="Cancelar"></button>
               </div>
@@ -109,5 +169,4 @@
           </div>
         </div>
   </p-dialog>
-
 </div>

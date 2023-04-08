@@ -8,6 +8,7 @@ import { UsuarioService } from 'src/app/service/usuario.service';
 import { ConfirmationService } from 'primeng/api';
 import { TokenService } from 'src/app/service/token.service';
 import { ToastrService } from 'ngx-toastr';
+import { CepServiceService } from 'src/app/service/cep-service.service';
 
 @Component({
   selector: 'app-usuario',
@@ -35,12 +36,32 @@ export class UsuarioComponent extends FormBase implements OnInit {
     private usuarioService: UsuarioService,
     private confirmationService: ConfirmationService,
     private tokentService: TokenService,
-    private toast: ToastrService
+    private toast: ToastrService,
+     private cepservice : CepServiceService,
   ) {
     super();
     this.usuarios = this.buscarUsuarios();
     this.buscarRoles();
   }
+
+    populaForm(dados, form){
+
+   this.form.patchValue({
+      bairro: dados.bairro,
+      localidade:dados.localidade,
+      logradouro: dados.logradouro,
+      numero: dados.numero, 
+      complemento: dados.complemento,
+      uf: dados.uf
+    })
+  }
+  consultaCep(valor, form){
+
+   
+   this.cepservice.buscar(valor.value)
+    .subscribe((dados) => this.populaForm(dados,form));
+
+  } 
 
   ngOnInit(): void {
     this.setForm();
@@ -51,12 +72,22 @@ export class UsuarioComponent extends FormBase implements OnInit {
       id: [''],
       nome: ['', BasicValidators.obrigatorio('O nome é obrigatório.')],
       colaborador: [null, BasicValidators.obrigatorio('O Colaborador é obrigatório.')],
-      email: [null, BasicValidators.obrigatorio('O email é obrigatório.')],
+      email: [null, BasicValidators.email],
+      cep: [null, BasicValidators.cep],
+      bairro: [null, BasicValidators.obrigatorio('O Bairro é obrigatório')],
+      localidade: [null, BasicValidators.obrigatorio('Localidade é Obrigatória')],
+      logradouro: [null, BasicValidators.obrigatorio('A Rua  é obrigatória')], 
+      numero: [null, BasicValidators.obrigatorio('Número é Obrigatório')],
+      complemento: [],
+      uf: [null, BasicValidators.obrigatorio('O Estado é Obrigatório')],
+      situacao: ['', BasicValidators.obrigatorio('A Situacao é obrigatória.')],
+      
+      
       password: [
         null,
         this.edicao
           ? ''
-          : BasicValidators.obrigatorio('A senha é obrigatório.'),
+          : BasicValidators.obrigatorio('A senha é obrigatória.'),
       ],
       roles: [null, BasicValidators.obrigatorio('A role é obrigatório.')],
     });
@@ -117,9 +148,25 @@ export class UsuarioComponent extends FormBase implements OnInit {
   }
 
   salvarUsuarios(usuario: any) {
+    let endereco =  {
+             cep: usuario.cep,
+             bairro:usuario.bairro,
+             localidade: usuario.localidade,
+             logradouro:usuario.logradouro,
+             numero:usuario.numero,
+             complemento:usuario.complemento,
+             uf:usuario.uf,   
+
+    }
+
+    
+
+    usuario.endereco = endereco;
+    
+
     this.usuarioService.salvarUsuario(usuario).subscribe(
       (usuario) => {
-        this.buscarUsuarios();
+        this.buscarUsuarios()
         this.toast.success('Usuário Salvo com sucesso!');
         this.usuariotDialog = false;
       },
@@ -133,7 +180,20 @@ export class UsuarioComponent extends FormBase implements OnInit {
   }
 
   atualizarUsuarios(usuario: any) {
-    console.log(usuario.colaborador)
+
+    let endereco =  {
+      cep: usuario.cep,
+      bairro:usuario.bairro,
+      localidade: usuario.localidade,
+      logradouro:usuario.logradouro,
+      numero:usuario.numero,
+      complemento:usuario.complemento,
+      uf:usuario.uf, 
+}
+
+usuario.endereco =endereco
+
+    console.log(usuario.numero)
     this.usuarioService.atualizarUsuario(usuario).subscribe(
       (usuario) => {
         this.buscarUsuarios();
@@ -147,29 +207,6 @@ export class UsuarioComponent extends FormBase implements OnInit {
         ];
       }
     );
-  }
-
-  deletarUsuario(id: Number) {
-    this.confirmationService.confirm({
-      message: 'Tem certeza que deseja excluir?',
-      accept: () => {
-        this.usuarioService.deleteUsuario(id).subscribe(
-          (res) => {
-            this.toast.success('Usuário deletado com sucesso!');
-            this.buscarUsuarios();
-          },
-          (error) => {
-            this.msgError = [
-              {
-                severity: 'error',
-                summary: 'Erro',
-                detail: error.error.message,
-              },
-            ];
-          }
-        );
-      },
-    });
   }
 
   editar(id: Number) {
