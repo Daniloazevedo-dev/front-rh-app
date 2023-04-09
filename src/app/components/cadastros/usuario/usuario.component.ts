@@ -209,6 +209,29 @@ usuario.endereco =endereco
     );
   }
 
+  deletarUsuario(id: Number) {
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir?',
+      accept: () => {
+        this.usuarioService.deleteUsuario(id).subscribe(
+          (res) => {
+            this.toast.success('Usuário deletado com sucesso!');
+            this.buscarUsuarios();
+          },
+          (error) => {
+            this.msgError = [
+              {
+                severity: 'error',
+                summary: 'Erro',
+                detail: error.error.message,
+              },
+            ];
+          }
+        );
+      },
+    });
+  }
+
   editar(id: Number) {
     this.usuarioService.buscaPorId(id).subscribe(
       (data) => {
@@ -231,6 +254,8 @@ usuario.endereco =endereco
     );
   }
 
+  
+
   tratarRolesSepparaPorVirgula(listRoles: any) {
     return listRoles.map((role: { roleName: any }) => role.roleName).join(', ');
   }
@@ -242,4 +267,6 @@ usuario.endereco =endereco
   trataColaborador(colaborador: String) {
     return colaborador === '1' ? 'Sim' : 'Não';
   }
+
+  
 }
