@@ -30,11 +30,15 @@ export class PagamentoService {
   }
 
   editarSituacao(id: number, situacao: string) {
-    return this.http.patch(`${this.url}/id/${id}/situacao/${situacao}`,null);
+    return this.http.patch(`${this.url}/id/${id}/situacao/${situacao}`, null);
   }
 
-  editarPagamento( pagamento: any) {
+  editarPagamento(pagamento: any) {
     return this.http.put(`${this.url}`, pagamento)
+  }
+
+  buscaColPagar(colaboradorId: Number, dataInicio: String, dataFim: String) {
+    return this.http.get(`${this.url}/lancamento/data?colaboradorId=${colaboradorId}&dataInicio=${dataInicio}&dataFim=${dataFim}`);
   }
 
 }

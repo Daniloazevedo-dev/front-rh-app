@@ -16,12 +16,13 @@ export class PagamentoComponent extends FormBase implements OnInit {
 
   dataMinima: Date;
   dataMaxima: Date;
-  dataInicio: any;
-  dataFim: any;
+  dataInicio: String;
+  dataFim: String;
   usuarios: any;
   msgError: any;
   pagamento: any;
   pagForm: FormGroup;
+  colaboradorId: number;
 
 
   @ViewChild('filter') filter!: ElementRef;
@@ -34,7 +35,7 @@ export class PagamentoComponent extends FormBase implements OnInit {
   ) {
     super();
     this.usuarios = this.buscarUsuarios();
-    this.pagamento = this.buscarPagamento();
+    // this.pagamento = this.buscarPagamento();
 
     var date = new Date();
     var dataMinima = new Date(date.getFullYear(), date.getMonth() - 1, 1);
@@ -43,14 +44,16 @@ export class PagamentoComponent extends FormBase implements OnInit {
     this.dataMinima = dataMinima;
     this.dataMaxima = dataMaxima;
 
-
     this.dataInicio = this.dataMinima.toLocaleDateString();
     this.dataFim = this.dataMaxima.toLocaleDateString();
+    this.colaboradorId = 5;
+    this.buscarPagamento(this.colaboradorId,this.dataInicio,this.dataFim);
 
   }
 
   ngOnInit(): void {
     this.setFormPagar();
+
   }
 
   private setFormPagar() {
@@ -90,8 +93,9 @@ export class PagamentoComponent extends FormBase implements OnInit {
     );
   }
 
-  buscarPagamento() {
-    this.pagamentoService.listPagamento().subscribe(
+  buscarPagamento(colaboradorId: number, dataInicio: String, dataFim: String) {
+
+    this.pagamentoService.buscaColPagar(colaboradorId, dataInicio, dataFim).subscribe(
       (pagamento) => {
         this.pagamento = pagamento;
         console.log(this.pagamento);
