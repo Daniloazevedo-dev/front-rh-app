@@ -21,23 +21,62 @@
 <div class="gridTab">
 
   <p-messages [(value)]="msgError" [enableService]="false"></p-messages>
-  <div>
-    <p-divider align="right" type="border-0">
-      <p-selectButton
-                      optionLabel="label"
-                      optionValue="value"></p-selectButton>
-    </p-divider>
+  <p-divider align="center"  type="border-0"> </p-divider>
+  <div style="background-color: rgb(246, 246 ,246);" class="shadow-4">
+    <form [formGroup]="pagForm">
+      <table style="width: 100%;margin-top: -1rem; margin-bottom: -2rem;">
+        <tr>
+          <td colspan="2">
+            <p-divider align="right" type="border-0">
+              <select class="p-inputtext p-float-label" style="height: 2.8rem; width: 100%; margin-right:6rem; margin-top: -1rem"
+                      formControlName="idPag">
+                <option [ngValue]="null" [disabled]="true">Selecione...</option>
+                <option [selected]="false" *ngFor="let usuario of usuarios |sortBy:'asc':'{{usuario.nome}}'"
+                        value="{{usuario.id}}"> {{usuario.matricula}} - {{usuario.nome}} </option>
+              </select>
+            </p-divider>
+          </td>
+        </tr>
+        <tr>
+          <div align="right" style="margin-top: -1rem;">
+            <td>
 
+              <p-calendar view="month" formControlName="mesPag" [showIcon]="false" dateFormat="MM" inputId="icon"
+                          placeholder="Mês" [touchUI]="true" [maxDate]="dataMaxima" [minDate]="dataMinima"
+                          [readonlyInput]="true" [required]>
+              </p-calendar>
+            </td>
+            <td>
+              <p-calendar view="year" formControlName="anoPag" [showIcon]="false" dateFormat="yy" inputId="icon"
+                          placeholder="Ano" [touchUI]="true" [maxDate]="dataMaxima" [minDate]="dataMinima"
+                          [readonlyInput]="true" [required]>
+              </p-calendar>
+
+            </td>
+          </div>
+        </tr>
+        <tr>
+          <td>
+            <p-divider align="right" type="border-0">
+              <button  style="margin-top: -1rem;" pButton pRipple label="Pagar" icon="pi pi-plus"
+                          class="p-button-success"></button>
+            </p-divider>
+
+          </td>
+        </tr>
+      </table>
+      <p-divider align="center"  type="border-0" > </p-divider>
+    </form>
   </div>
 
-
-  <p-table #dt styleClass="p-datatable-striped" [value]="pagamento" [paginator]="true" [rows]="10"
+ <div style="margin-top: -0.5rem">
+  <p-table  #dt styleClass="p-datatable-striped" [value]="pagamento" [paginator]="true" [rows]="10"
            [showCurrentPageReport]="true" responsiveLayout="scroll"
            [globalFilterFields]="['id','matriculaColaborador','nomeColaborador','data','valorDia']"
            [(selection)]="pagamento" [rowHover]="true"
            dataKey="id" currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} registros"
            [rowsPerPageOptions]="[10,25,50]">
-    <ng-template pTemplate="header">
+    <ng-template pTemplate="header" >
       <tr style="line-height: 0.3rem;">
         <th pSortableColumn="id">Código
           <p-sortIcon field="Código"></p-sortIcon>
@@ -56,17 +95,7 @@
         </th>
         <th>Situação</th>
         <th colspan="2">
-          <form [formGroup]="pagForm">
 
-          <select class="p-inputtext p-float-label" style="height: 2.8rem; width: 98%;"
-                  formControlName="idPag">
-            <option [ngValue]="null" [disabled]="true">Selecione...</option>
-            <option [selected]="false" *ngFor="let usuario of usuarios |sortBy:'asc':'{{usuario.nome}}'"
-                    value="{{usuario.id}}"> {{usuario.matricula}} - {{usuario.nome}} </option>
-          </select>
-          <button pButton pRipple label="Novo" icon="pi pi-plus"
-                  class="p-button-success"></button>
-          </form>
         </th>
       </tr>
     </ng-template>
@@ -83,4 +112,5 @@
       </tr>
     </ng-template>
   </p-table>
+ </div>
 </div>

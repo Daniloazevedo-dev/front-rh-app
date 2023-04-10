@@ -59,8 +59,8 @@ export class PagamentoComponent extends FormBase implements OnInit {
   private setFormPagar() {
     this.pagForm = this.formBuilderPag.group({
       idPag: [null, Validators.required],
-      inicioRelB: [null, Validators.required],
-      fimRelB: [null, Validators.required]
+      mesPag: [null, Validators.required],
+      anoPag: [null, Validators.required]
 
     });
   }
