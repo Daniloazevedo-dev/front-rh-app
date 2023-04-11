@@ -15,14 +15,13 @@ import {PagamentoService} from "../../../service/pagamento.service";
 export class AprovarComponent implements OnInit {
 
 
-
   @ViewChild('filter') filter!: ElementRef;
 
   pagamento: any;
   msgError: any;
   status: any;
   pagamentotDialog: boolean = false;
-  nomeStatus: any;
+  validaReprovado: any = '2';
   aprovado: any;
   reprovado: any;
   statusOptions: any[];
@@ -41,28 +40,29 @@ export class AprovarComponent implements OnInit {
     private aprovarService: AprovarService,
     private confirmationService: ConfirmationService,
     private pagamentoService: PagamentoService,
-
-  )
-  {
-     // super();
+  ) {
+    // super();
     // this.pagamento = this.buscarPagamentoStatus();
     this.pagamento = this.buscarPagamento();
     this.aprovado = '1';
     this.reprovado = '2';
     this.statusOptions = [{label: 'Aguardando', value: '0'}, {label: 'Reprovado', value: '2'}];
-     }
+
+  }
 
   ngOnInit(): void {
 
   }
+
   pagamentoFiltro(status) {
+    this.validaReprovado = status;
     if (status === '0') {
-      this.botaoLabel = 'Desativar';
+      this.botaoLabel = 'Aguardando';
       this.botaoEstilo = 'p-button-secondary';
       this.botaoStatus = true;
       this.pagamento = this.pagamentoAguardando
     } else {
-      this.botaoLabel = 'Ativar';
+      this.botaoLabel = 'Reprovado';
       this.botaoEstilo = 'p-button-info';
       this.botaoStatus = false;
       this.pagamento = this.pagamentoReprovado
@@ -87,17 +87,24 @@ export class AprovarComponent implements OnInit {
     return new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(preco);
   }
 
-  buscarPagamento(status: string = '2') {
-    const boleanStatus = status === '2' ? true : false
+  buscarPagamento(status: string = '0') {
+    const boleanStatus = status === '1' || status === '0' ? true : false
     this.pagamentoService.listPagamento().subscribe(
       (pagamento) => {
         this.pagamento = pagamento;
         this.pagamentoAguardando = this.pagamento.filter(p => p.status === '0')
         this.pagamentoReprovado = this.pagamento.filter(p => p.status === '2')
-        this.botaoLabel = boleanStatus === true ? 'Aguardando' : 'Reprovado';
-        this.botaoEstilo = boleanStatus === true ? 'p-button-secondary' : 'p-button-info';
+        this.botaoLabel = boleanStatus === true ? 'Reprovado' : 'Aguardando';
+        this.botaoEstilo = boleanStatus === true ? 'p-button-info' : 'p-button-secondary';
+        // console.log(this.value1)
+        if (this.value1 === '0' && status === '2') {
+          this.pagamento = this.pagamentoAguardando
+        } else if (this.value1 === '2' && status === '1') {
+          this.pagamento = this.pagamentoReprovado
+        } else {
+          this.pagamento = boleanStatus === true ? this.pagamentoAguardando : this.pagamentoReprovado;
+        }
 
-        this.pagamento = boleanStatus === true ? this.pagamentoAguardando : this.pagamentoReprovado;
         this.botaoStatus = boleanStatus;
 
       },
@@ -112,7 +119,13 @@ export class AprovarComponent implements OnInit {
   alterarStatus(id: number, status: string) {
     this.aprovarService.editarPagamentoStatus(id, status).subscribe(pagamento => {
       this.buscarPagamento(status);
-      this.toast.success('Situacao alterada com sucesso!');
+      // console.log(status)
+      if (status === '1') {
+        this.toast.success('Lançamento aprovado com sucesso!');
+      }
+      if (status === '2') {
+        this.toast.warning('Lançamento reprovado com sucesso!');
+      }
     }, (error) => {
       this.pagamentotDialog = false;
       if (error.status === 500) {
@@ -127,6 +140,7 @@ export class AprovarComponent implements OnInit {
     })
 
   }
+
   editaStatusAprovado(id: number, status: string) {
     this.confirmationService.confirm({
       message: 'Está certo em aprovar a diária?',
@@ -135,6 +149,7 @@ export class AprovarComponent implements OnInit {
       }
     });
   }
+
   editaStatusReprovado(id: number, status: string) {
     this.confirmationService.confirm({
       message: 'Está certo em reprovar a diária?',

@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoadingResults = true;
-
   }
 
   logout(): void {
@@ -26,10 +25,11 @@ export class HomeComponent implements OnInit {
   }
 
   frontEnd() {
-    window.open('https://github.com/Daniloazevedo-dev/front-rh-app.git');
+    window.open('https://github.com/Daniloazevedo-dev/front-rh-app');
   }
+
   backtEnd() {
-    window.open('https://github.com/gnetti/JavaPleno.git');
+    window.open('https://github.com/gnetti/JavaPleno');
   }
 
 
