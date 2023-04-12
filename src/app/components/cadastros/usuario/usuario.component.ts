@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBase } from 'src/app/shared/util/FormBase';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { FormBuilder } from '@angular/forms';
 import { BasicValidators } from 'src/app/shared/util/basic-validators';
 import { MessageService } from 'primeng/api';
@@ -71,6 +72,7 @@ export class UsuarioComponent extends FormBase implements OnInit {
     this.form = this.formBuilder.group({
       id: [''],
       nome: ['', BasicValidators.obrigatorio('O nome é obrigatório.')],
+      cpf: ['', BasicValidators.obrigatorio('O CPF é obrigatório.')],
       colaborador: [null, BasicValidators.obrigatorio('O Colaborador é obrigatório.')],
       email: [null, BasicValidators.email],
       cep: [null, BasicValidators.cep],
@@ -241,9 +243,17 @@ usuario.endereco =endereco
         this.setForm();
         this.form.get('id').setValue(data['id']);
         this.form.get('nome').setValue(data['nome']);
+        this.form.get('cpf').setValue(data['cpf']);
         this.form.get('colaborador').setValue(data['colaborador'] != '1' ? '0' : '1');
         this.form.get('email').setValue(data['email']);
         this.form.get('roles').setValue(data['roles']);
+        this.form.get('cep').setValue(data['endereco'].cep);
+        this.form.get('complemento').setValue(data['endereco'].complemento);
+        this.form.get('bairro').setValue(data['endereco'].bairro);
+        this.form.get('localidade').setValue(data['endereco'].localidade);
+        this.form.get('logradouro').setValue(data['endereco'].logradouro);
+        this.form.get('numero').setValue(data['endereco'].numero);
+        this.form.get('uf').setValue(data['endereco'].uf);
         this.usuariotDialog = true;
       },
       (error) => {
