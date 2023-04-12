@@ -19,60 +19,35 @@
 
 <div class="gridTab">
   <p-table #dt [value]="usuarios" [rows]="5" [paginator]="true"
-           [globalFilterFields]="['id','nome','matricula','roles','colaborador','email']" responsiveLayout="scroll"
+           [globalFilterFields]="['matricula','nome','roles','colaborador','situacao','email','telefone']" responsiveLayout="scroll"
            [(selection)]="usuario" [rowHover]="true" dataKey="id"
            currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} "
            [showCurrentPageReport]="true">
 
     <ng-template pTemplate="header">
       <tr style="line-height: 0.3rem;">
-        <th pSortableColumn="matricula">Matrícula
+        <th style="text-align: center" pSortableColumn="matricula">Matricula
           <p-sortIcon field="matricula"></p-sortIcon>
         </th>
-        <th pSortableColumn="nome">Nome
+        <th style="text-align: center" pSortableColumn="nome">Nome
           <p-sortIcon field="nome"></p-sortIcon>
         </th>
-        <th pSortableColumn="cpf">CPF
-          <p-sortIcon field="cpf"></p-sortIcon>
-        </th>
-        <th pSortableColumn="rg">RG
-          <p-sortIcon field="rg"></p-sortIcon>
-        </th>
-        <th pSortableColumn="colaborador">Colaborador
+        <th style="text-align: center" pSortableColumn="colaborador">Colaborador
           <p-sortIcon field="colaborador"></p-sortIcon>
         </th>
-        <th pSortableColumn="roles">Permissão
+        <th style="text-align: center" pSortableColumn="roles">Permissão
           <p-sortIcon field="role"></p-sortIcon>
         </th>
-        <th pSortableColumn="situacao">Situacao
+        <th style="text-align: center" pSortableColumn="situacao">Situacao
           <p-sortIcon field="situacao"></p-sortIcon>
         </th>
-        <th pSortableColumn="bairro">Email
+        <th style="text-align: center" pSortableColumn="email">Email
           <p-sortIcon field="email"></p-sortIcon>
         </th>
-        <th pSortableColumn="cep">CEP
-          <p-sortIcon field="cep"></p-sortIcon>
+        <th style="text-align: center" pSortableColumn="telefone">Telefone
+          <p-sortIcon field="telefone"></p-sortIcon>
         </th>
-        <th pSortableColumn="rua">Rua
-          <p-sortIcon field="rua"></p-sortIcon>
-        </th>
-        <th pSortableColumn="numero">Numero
-          <p-sortIcon field="numero"></p-sortIcon>
-        </th>
-        <th pSortableColumn="bairro">Bairro
-          <p-sortIcon field="bairro"></p-sortIcon>
-        </th>
-        <th pSortableColumn="complemento">Complemento
-          <p-sortIcon field="complemento"></p-sortIcon>
-        </th>
-        <th pSortableColumn="localidade">Cidade
-          <p-sortIcon field="localidade"></p-sortIcon>
-        </th>
-        <th pSortableColumn="uf">Estado
-          <p-sortIcon field="uf"></p-sortIcon>
-        </th>
-
-        <th colspan="2">
+        <th colspan="2" style="text-align: right">
           <button pButton pRipple label="Novo" (click)="abrirDialogUsuario()" icon="pi pi-plus"
                   class="p-button-success mr-2"></button>
         </th>
@@ -80,27 +55,67 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-usuario>
-      <tr style="line-height: 1rem">
-        <td>{{usuario.matricula }}</td>
-        <td>{{usuario.nome }}</td>
-        <td>{{usuario.cpf | cpf : true }}</td>
-        <td>{{usuario.rg }}</td>
-        <td>{{trataColaborador(usuario.colaborador)}}</td>
-        <td>{{tratarRolesSepparaPorVirgula(usuario.roles)}}</td>
-        <td>{{usuario.situacao}}</td>
-        <td>{{usuario.email}}</td>
+      <tr style="line-height: 1rem;" class="shadow-8">
+        <td style="text-align: center">{{usuario.matricula }}</td>
+        <td style="text-align: center">{{usuario.nome }}</td>
+        <td style="text-align: center">{{trataColaborador(usuario.colaborador)}}</td>
+        <td style="text-align: center">{{tratarRolesSepparaPorVirgula(usuario.roles)}}</td>
+        <td style="text-align: center">{{usuario.situacao}}</td>
+        <td style="text-align: center">{{usuario.email}}</td>
+        <td style="text-align: center">{{usuario.telefone | celular}}</td>
+        <td style="width: 0.2rem; text-align: center">
 
-          <td *ngFor="let usuarios of usuario.endereco | keyvalue">{{usuarios.value}}</td>
-
-
-        <td style="width: 0.2rem">
           <button pButton pRipple icon="pi pi-pencil" (click)="editar(usuario.id)"
                   class="p-button-rounded p-button-warning mr-2"></button>
         </td>
-        <td style="width: 0.2rem">
+        <td style="width: 0.2rem; text-align: center">
           <button pButton pRipple icon="pi pi-trash" [disabled]="validaUsuarioLogado(usuario.email)"
                   (click)="deletarUsuario(usuario.id)" class="p-button-rounded p-button-danger"></button>
         </td>
+
+
+      </tr>
+
+      <tr  style="line-height: 1rem;">
+
+        <td style="text-align: center">
+          <p-divider align="left" ><p style="font-weight: bold; margin-top: -1rem;">CPF</p></p-divider>
+          {{usuario.cpf | cpf : false }}
+        </td>
+        <td style="text-align: center">
+          <p-divider align="left"  ><p style="font-weight: bold; margin-top: -1rem;">RG</p></p-divider>
+          {{usuario.rg}}
+        </td>
+        <td style="text-align: center">
+          <p-divider align="left" ><p style="font-weight: bold; margin-top: -1rem;">CEP</p></p-divider>
+          {{usuario.endereco.cep | zipCode}}
+        </td>
+        <td style="text-align: center">
+          <p-divider align="left"  ><p style="font-weight: bold; margin-top: -1rem;">Endereço</p></p-divider>
+          {{usuario.endereco.logradouro}}
+        </td>
+        <td style="text-align: center">
+          <p-divider align="left"><p style="font-weight: bold; margin-top: -1rem;">Número</p></p-divider>
+          {{usuario.endereco.numero}}
+        </td>
+        <td style="text-align: center">
+          <p-divider align="left"><p style="font-weight: bold; margin-top: -1rem;">Bairro</p></p-divider>
+          {{usuario.endereco.bairro}}
+        </td>
+        <td style="text-align: center">
+          <p-divider align="left"><p style="font-weight: bold; margin-top: -1rem;">Complemento</p></p-divider>
+          {{usuario.endereco.complemento}}
+        </td>
+        <td style="text-align: center">
+          <p-divider align="left"><p style="font-weight: bold; margin-top: -1rem;">Cidade</p></p-divider>
+          {{usuario.endereco.localidade}}
+        </td>
+        <td style="text-align: center">
+          <p-divider align="left"><p style="font-weight: bold; margin-top: -1rem;">Estado</p></p-divider>
+          {{usuario.endereco.uf}}
+        </td>
+        <td style="text-align: center">
+          <p-divider align="left"><p style="font-weight: bold; margin-top: -1rem;">&nbsp;</p></p-divider>&nbsp;</td>
       </tr>
     </ng-template>
   </p-table>
@@ -212,6 +227,12 @@
           <input type="email" name="email" id="email" class="w-full ng-dirty" formControlName="email" pInputText
                  placeholder="Informe o seu email"/>
           <small id="email-help" class="p-error block">{{getErrors('email')}}</small>
+        </div>
+        <div class="field">
+          <label for="telefone" class="block">Celular:</label>
+          <input type="telefone" name="telefone" id="telefone" class="w-full ng-dirty" formControlName="telefone" pInputText
+                 placeholder="Informe o número do celular"/>
+          <small id="telefone-help" class="p-error block">{{getErrors('telefone')}}</small>
         </div>
         <div *ngIf="edicao" class="field">
           <label for="password" class="block">Senha:</label>

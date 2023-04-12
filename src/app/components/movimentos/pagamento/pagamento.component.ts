@@ -5,6 +5,7 @@ import {Table} from "primeng/table";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {FormBase} from "../../../shared/util/FormBase";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-pagamento',
@@ -14,15 +15,15 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 export class PagamentoComponent extends FormBase implements OnInit {
 
-  dataMinima: Date;
-  dataMaxima: Date;
-  dataInicio: String;
-  dataFim: String;
   usuarios: any;
   msgError: any;
   pagamento: any;
   pagForm: FormGroup;
   colaboradorId: number;
+  mes: Date;
+  colId: any;
+  total: any = 0.0;
+  status: any = 3;
 
 
   @ViewChild('filter') filter!: ElementRef;
@@ -32,22 +33,10 @@ export class PagamentoComponent extends FormBase implements OnInit {
     private usuarioService: UsuarioService,
     private pagamentoService: PagamentoService,
     private confirmationService: ConfirmationService,
+    private toast: ToastrService,
   ) {
     super();
-    this.usuarios = this.buscarUsuarios();
-    // this.pagamento = this.buscarPagamento();
-
-    var date = new Date();
-    var dataMinima = new Date(date.getFullYear(), date.getMonth() - 1, 1);
-    var dataMaxima = new Date(date.getFullYear(), date.getMonth(), 0);
-
-    this.dataMinima = dataMinima;
-    this.dataMaxima = dataMaxima;
-
-    this.dataInicio = this.dataMinima.toLocaleDateString();
-    this.dataFim = this.dataMaxima.toLocaleDateString();
-    this.colaboradorId = 5;
-    this.buscarPagamento(this.colaboradorId,this.dataInicio,this.dataFim);
+    this.buscarUsuarios();
 
   }
 
@@ -93,12 +82,15 @@ export class PagamentoComponent extends FormBase implements OnInit {
     );
   }
 
-  buscarPagamento(colaboradorId: number, dataInicio: String, dataFim: String) {
+  buscarPagamento(colaboradorId: number, dataInicio: String, dataFim: String, status: any) {
+    console.log(status);
 
-    this.pagamentoService.buscaColPagar(colaboradorId, dataInicio, dataFim).subscribe(
+    this.pagamentoService.buscaColPagar(colaboradorId, dataInicio, dataFim, status).subscribe(
       (pagamento) => {
         this.pagamento = pagamento;
-        console.log(this.pagamento);
+        this.total = 0.0;
+        this.pagamento.forEach(p => this.total += p.valorDia)
+
       },
       (error) => {
         this.msgError = [
@@ -107,5 +99,59 @@ export class PagamentoComponent extends FormBase implements OnInit {
       }
     );
   }
+
+  getColId(colId: any) {
+    this.colId = colId;
+    this.validaBusca();
+  }
+
+  getMes(mes: any) {
+    this.mes = mes;
+    this.validaBusca();
+  }
+
+  validaBusca() {
+    if (this.colId && this.mes) {
+      let dataInicio = new Date(this.mes.getFullYear(), this.mes.getMonth(), 1);
+      let dataFim = new Date(this.mes.getFullYear(), this.mes.getMonth() + 1, 0);
+      this.buscarPagamento(this.colId, dataInicio.toLocaleDateString(), dataFim.toLocaleDateString(),this.status);
+
+    }
+
+  }
+
+  pagarColaborador() {
+    if (this.colId && this.mes) {
+      let dataInicio = new Date(this.mes.getFullYear(), this.mes.getMonth(), 1);
+      let dataFim = new Date(this.mes.getFullYear(), this.mes.getMonth() + 1, 0);
+      this.confirmationService.confirm({
+        message: 'Realizar pagamento?',
+        accept: () => {
+          this.pagamentoService.pagarCololaborador(this.colId, dataInicio.toLocaleDateString(), dataFim.toLocaleDateString(),this.status).subscribe(
+            (pagamento) => {
+              this.buscarPagamento(this.colId, dataInicio.toLocaleDateString(), dataFim.toLocaleDateString(),this.status);
+              this.toast.success('Pagamento realizado com sucesso!');
+            },
+            (error) => {
+              this.msgError = [
+                {severity: 'error', summary: 'Erro', detail: error.error.message},
+              ];
+            }
+          )
+        }
+      });
+    }
+
+  }
+
+  validaLista() {
+    if (this.pagamento) {
+      return this.pagamento.length <= 0;
+    } else {
+      return true;
+    }
+  }
+
+
 
 }

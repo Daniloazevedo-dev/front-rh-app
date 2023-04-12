@@ -37,10 +37,12 @@ export class PagamentoService {
     return this.http.put(`${this.url}`, pagamento)
   }
 
-  buscaColPagar(colaboradorId: Number, dataInicio: String, dataFim: String) {
-    return this.http.get(`${this.url}/lancamento/data?colaboradorId=${colaboradorId}&dataInicio=${dataInicio}&dataFim=${dataFim}`);
+  buscaColPagar(colaboradorId: Number, dataInicio: String, dataFim: String, status: String) {
+    return this.http.get(`${this.url}/lancamento/data?colaboradorId=${colaboradorId}&status=${status}&dataInicio=${dataInicio}&dataFim=${dataFim}`);
+  }
+
+  pagarCololaborador(colaboradorId: Number, dataInicio: String, dataFim: String, status: String) {
+    return this.http.patch(`${this.url}/lancamento/pagar?colaboradorId=${colaboradorId}&status=${status}&dataInicio=${dataInicio}&dataFim=${dataFim}`, null);
   }
 
 }
-
-

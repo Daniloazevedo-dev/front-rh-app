@@ -92,6 +92,7 @@ export class UsuarioComponent extends FormBase implements OnInit {
       rg: ['', BasicValidators.obrigatorio('O RG é obrigatório.')],
       colaborador: [null, BasicValidators.obrigatorio('O Colaborador é obrigatório.')],
       email: [null, BasicValidators.email],
+      telefone: [null, BasicValidators.obrigatorio('O celular é obrigatório.')],
       cep: [null, BasicValidators.cep],
       bairro: [null, BasicValidators.obrigatorio('O Bairro é obrigatório')],
       localidade: [null, BasicValidators.obrigatorio('Localidade é Obrigatória')],
@@ -256,6 +257,7 @@ export class UsuarioComponent extends FormBase implements OnInit {
         this.form.get('situacao').setValue(data['situacao']);
         this.form.get('colaborador').setValue(data['colaborador'] != '1' ? '0' : '1');
         this.form.get('email').setValue(data['email']);
+        this.form.get('telefone').setValue(data['telefone']);
         this.form.get('roles').setValue(data['roles']);
         this.form.get('cep').setValue(data['endereco'].cep);
         this.form.get('logradouro').setValue(data['endereco'].logradouro);
@@ -290,4 +292,5 @@ export class UsuarioComponent extends FormBase implements OnInit {
   trataColaborador(colaborador: String) {
     return colaborador === '1' ? 'Sim' : 'Não';
   }
+
 }

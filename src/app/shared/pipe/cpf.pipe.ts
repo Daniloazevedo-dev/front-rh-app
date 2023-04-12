@@ -15,10 +15,10 @@ export class CpfPipe implements PipeTransform {
         '$1.$2.$3-$4'
       );
 
-    // if (ocultarAlgunsValores) {
-    //   valorFormatado =
-    //     'XXX.' + valorFormatado.substr(4, 7) + '-XX';
-    // }
+    if (ocultarAlgunsValores) {
+      valorFormatado =
+        'XXX.' + valorFormatado.substr(4, 7) + '-XX';
+    }
 
     return valorFormatado;
   }

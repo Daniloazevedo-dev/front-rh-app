@@ -28,7 +28,7 @@
         <tr>
           <td colspan="2">
             <p-divider align="right" type="border-0">
-              <select class="p-inputtext p-float-label"
+              <select (ngModelChange)="getColId($event)" class="p-inputtext p-float-label"
                       style="height: 2.8rem; width: 100%; margin-right:6rem; margin-top: -1rem"
                       formControlName="idPag">
                 <option [ngValue]="null" [disabled]="true">Selecione...</option>
@@ -42,24 +42,19 @@
           <div align="right" style="margin-top: -1rem;">
             <td>
 
-              <p-calendar view="month" formControlName="mesPag" [showIcon]="false" dateFormat="MM" inputId="icon"
-                          placeholder="Mês" [touchUI]="true" [maxDate]="dataMaxima" [minDate]="dataMinima"
+              <p-calendar (ngModelChange)="getMes($event)" view="month" formControlName="mesPag" [showIcon]="false"
+                          dateFormat="MM" inputId="icon"
+                          placeholder="Mês" [touchUI]="true"
                           [readonlyInput]="true" [required]>
               </p-calendar>
             </td>
-            <td>
-              <p-calendar view="year" formControlName="anoPag" [showIcon]="false" dateFormat="yy" inputId="icon"
-                          placeholder="Ano" [touchUI]="true" [maxDate]="dataMaxima" [minDate]="dataMinima"
-                          [readonlyInput]="true" [required]>
-              </p-calendar>
 
-            </td>
           </div>
         </tr>
         <tr>
           <td>
             <p-divider align="right" type="border-0">
-              <button style="margin-top: -1rem;" pButton pRipple label="Pagar" icon="pi pi-plus"
+              <button [disabled]="validaLista()"  (click)="pagarColaborador()" style="margin-top: -1rem;" pButton pRipple label="Pagar" icon="pi pi-plus"
                       class="p-button-success"></button>
             </p-divider>
 
@@ -71,12 +66,10 @@
   </div>
 
   <div style="margin-top: -0.5rem">
-    <p-table #dt styleClass="p-datatable-striped" [value]="pagamento" [paginator]="true" [rows]="10"
+    <p-table #dt styleClass="p-datatable-striped" [value]="pagamento"
              [showCurrentPageReport]="true" responsiveLayout="scroll"
              [globalFilterFields]="['id','matriculaColaborador','nomeColaborador','data','valorDia']"
-             [(selection)]="pagamento" [rowHover]="true"
-             dataKey="id" currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} registros"
-             [rowsPerPageOptions]="[10,25,50]">
+             [(selection)]="pagamento" [rowHover]="true" dataKey="id">
       <ng-template pTemplate="header">
         <tr style="line-height: 0.3rem;">
           <th pSortableColumn="id">Código
@@ -107,10 +100,13 @@
           <td>{{pagamento.nomeColaborador}}</td>
           <td>{{pagamento.data}}</td>
           <td>{{formatarPreco(pagamento.valorDia)}}</td>
-          <td style="width: 0.2rem">{{pagamento.status === '1' ? 'Aprovado' : 'Reprovado' }}</td>
+          <td style="width: 0.2rem">{{pagamento.status === '1' ? 'Aprovado' : 'Pago' }}</td>
           <td style="width: 0.2rem"></td>
           <td style="width: 0.2rem"></td>
         </tr>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <div *ngIf="total > 0">{{total}}</div>
       </ng-template>
     </p-table>
   </div>
