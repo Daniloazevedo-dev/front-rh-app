@@ -11,7 +11,7 @@
         <ng-template pTemplate="header">
           Usuários
         </ng-template>
-        <p-table #dt [value]="usuarios" [rows]="5" [paginator]="true" [globalFilterFields]="['id','nome','colaborador','email']" responsiveLayout="scroll"
+        <p-table #dt [value]="usuarios"  [rows]="5" [paginator]="true" [globalFilterFields]="['id','nome','colaborador','email']" responsiveLayout="scroll"
             [(selection)]="usuario" [rowHover]="true" dataKey="id"
             currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} " [showCurrentPageReport]="true">
             <ng-template pTemplate="caption">
@@ -19,7 +19,7 @@
           </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                  <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+                  <th pSortableColumn="id">Matrícula<p-sortIcon field="id"></p-sortIcon></th>
                     <th pSortableColumn="colaborador">Colaborador <p-sortIcon field="colaborador"></p-sortIcon></th>
                     <th pSortableColumn="roles">Role <p-sortIcon field="role"></p-sortIcon></th>
                     <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon></th>
@@ -44,7 +44,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-usuario>
                 <tr>
-                  <td [style]="{'width': '20%'}">{{usuario.id}}</td>
+                  <td [style]="{'width': '20%'}">{{usuario.matricula }}</td>
                   <td [style]="{'width': '20%'}">{{trataColaborador(usuario.colaborador)}}</td>
                   <td [style]="{'width': '20%'}">{{tratarRolesSepparaPorVirgula(usuario.roles)}}</td>
                   <td [style]="{'width': '20%'}">{{usuario.nome }}</td>
@@ -85,6 +85,11 @@
                 <label for="nome" class="" >Nome:</label>
                 <input type="text" name="nome" id="nome" class="w-full ng-dirty" formControlName="nome" pInputText placeholder="Informe o nome" />
                 <small id="nome-help" class="p-error block">{{getErrors('nome')}}</small>
+              </div>
+              <div class="field">
+                <label for="cpf" class="" >CPF:</label>
+                <input type="text" name="cpf" id="cpf" class="w-full ng-dirty" formControlName="cpf" pInputText placeholder="Informe o CPF" />
+                <small id="cpf-help" class="p-error block">{{getErrors('cpf')}}</small>
               </div>
 
               <div class="field">
