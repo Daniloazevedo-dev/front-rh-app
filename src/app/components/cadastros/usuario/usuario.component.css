@@ -1,10 +1,16 @@
-.gridPag{
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -0rem;
-  margin-left: 0rem;
-  margin-top: -0rem;
+.gridUser{
+  width: 100%;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 3rem;
+
+
 }
 
-
-
+.gridTab{
+  width: 100%;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-bottom: 1.8em;
+  margin-top: -0.5rem;
+}

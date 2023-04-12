@@ -68,6 +68,7 @@ import {AprovarComponent} from './components/movimentos/aprovar/aprovar.componen
 import {TreeTableModule} from "primeng/treetable";
 import {PagamentoComponent} from "./components/movimentos/pagamento/pagamento.component";
 import {RatingModule} from "primeng/rating";
+import {CpfPipe} from "./shared/pipe/cpf.pipe";
 
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
@@ -108,6 +109,7 @@ export declare function registerLocaleData(
     ChatComponent,
     AprovarComponent,
     PagamentoComponent,
+    CpfPipe,
   ],
   imports: [
     BrowserModule,
@@ -157,7 +159,6 @@ export declare function registerLocaleData(
     SelectButtonModule,
     TreeTableModule,
     RatingModule,
-
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt-br'},
