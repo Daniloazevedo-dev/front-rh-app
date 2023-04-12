@@ -19,25 +19,19 @@
 
 <div class="gridTab">
   <p-table #dt [value]="usuarios" [rows]="5" [paginator]="true"
-           [globalFilterFields]="['id','nome','matricula','roles','colaborador','email']" responsiveLayout="scroll"
+           [globalFilterFields]="['id','nome','roles','colaborador','situacao','email']" responsiveLayout="scroll"
            [(selection)]="usuario" [rowHover]="true" dataKey="id"
            currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} "
            [showCurrentPageReport]="true">
 
     <ng-template pTemplate="header">
       <tr style="line-height: 0.3rem;">
-        <th pSortableColumn="matricula">Matrícula
-          <p-sortIcon field="matricula"></p-sortIcon>
-        </th>
+        <th>Matrícula</th>
         <th pSortableColumn="nome">Nome
           <p-sortIcon field="nome"></p-sortIcon>
         </th>
-        <th pSortableColumn="cpf">CPF
-          <p-sortIcon field="cpf"></p-sortIcon>
-        </th>
-        <th pSortableColumn="rg">RG
-          <p-sortIcon field="rg"></p-sortIcon>
-        </th>
+        <th>CPF</th>
+        <th>RG</th>
         <th pSortableColumn="colaborador">Colaborador
           <p-sortIcon field="colaborador"></p-sortIcon>
         </th>
@@ -47,7 +41,7 @@
         <th pSortableColumn="situacao">Situacao
           <p-sortIcon field="situacao"></p-sortIcon>
         </th>
-        <th pSortableColumn="bairro">Email
+        <th pSortableColumn="email">Email
           <p-sortIcon field="email"></p-sortIcon>
         </th>
         <th pSortableColumn="cep">CEP
