@@ -30,6 +30,9 @@ export class UsuarioComponent extends FormBase implements OnInit {
   labelSalvar: String;
   colaborador: any;
   numero: any;
+  statusOptions: any[];
+  value1: string = "ATIVO";
+  value2: number;
 
 
   @ViewChild('filter') filter!: ElementRef;
@@ -47,7 +50,7 @@ export class UsuarioComponent extends FormBase implements OnInit {
     super();
     this.usuarios = this.buscarUsuarios();
     this.buscarRoles();
-
+    this.statusOptions = [{label: 'Ativo', value: 'ATIVO'}, {label: 'Inativo', value: 'INATIVO'}];
   }
 
   populaForm(dados, form) {

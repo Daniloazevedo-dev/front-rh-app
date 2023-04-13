@@ -18,6 +18,15 @@
 <p-messages [(value)]="msgError" [enableService]="false"></p-messages>
 
 <div class="gridTab">
+
+  <div>
+    <p-divider align="right" type="border-0">
+      <p-selectButton [options]="statusOptions" [(ngModel)]="value1"
+                      optionLabel="label"
+                      optionValue="value"></p-selectButton>
+    </p-divider>
+
+  </div>
   <p-table #dt [value]="usuarios" [rows]="5" [paginator]="true"
            [globalFilterFields]="['matricula','nome','roles','colaborador','situacao','email','telefone']"
            responsiveLayout="scroll"
