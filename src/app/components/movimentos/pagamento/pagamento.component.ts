@@ -23,7 +23,7 @@ export class PagamentoComponent extends FormBase implements OnInit {
   mes: Date;
   colId: any;
   total: any = 0.0;
-  status: any = 3;
+  status: any = 1;
 
   @ViewChild('filter') filter!: ElementRef;
 
