@@ -19,7 +19,8 @@
 
 <div class="gridTab">
   <p-table #dt [value]="usuarios" [rows]="5" [paginator]="true"
-           [globalFilterFields]="['matricula','nome','roles','colaborador','situacao','email','telefone']" responsiveLayout="scroll"
+           [globalFilterFields]="['matricula','nome','roles','colaborador','situacao','email','telefone']"
+           responsiveLayout="scroll"
            [(selection)]="usuario" [rowHover]="true" dataKey="id"
            currentPageReportTemplate="Mostrando {first} de {last} do total {totalRecords} "
            [showCurrentPageReport]="true">
@@ -73,25 +74,24 @@
                   (click)="deletarUsuario(usuario.id)" class="p-button-rounded p-button-danger"></button>
         </td>
 
-
       </tr>
 
-      <tr  style="line-height: 1rem;">
+      <tr style="line-height: 1rem;">
 
         <td style="text-align: center">
-          <p-divider align="left" ><p style="font-weight: bold; margin-top: -1rem;">CPF</p></p-divider>
+          <p-divider align="left"><p style="font-weight: bold; margin-top: -1rem;">CPF</p></p-divider>
           {{usuario.cpf | cpf : false }}
         </td>
         <td style="text-align: center">
-          <p-divider align="left"  ><p style="font-weight: bold; margin-top: -1rem;">RG</p></p-divider>
+          <p-divider align="left"><p style="font-weight: bold; margin-top: -1rem;">RG</p></p-divider>
           {{usuario.rg}}
         </td>
         <td style="text-align: center">
-          <p-divider align="left" ><p style="font-weight: bold; margin-top: -1rem;">CEP</p></p-divider>
+          <p-divider align="left"><p style="font-weight: bold; margin-top: -1rem;">CEP</p></p-divider>
           {{usuario.endereco.cep | zipCode}}
         </td>
         <td style="text-align: center">
-          <p-divider align="left"  ><p style="font-weight: bold; margin-top: -1rem;">Endereço</p></p-divider>
+          <p-divider align="left"><p style="font-weight: bold; margin-top: -1rem;">Endereço</p></p-divider>
           {{usuario.endereco.logradouro}}
         </td>
         <td style="text-align: center">
@@ -115,7 +115,8 @@
           {{usuario.endereco.uf}}
         </td>
         <td style="text-align: center">
-          <p-divider align="left"><p style="font-weight: bold; margin-top: -1rem;">&nbsp;</p></p-divider>&nbsp;</td>
+          <p-divider align="left"><p style="font-weight: bold; margin-top: -1rem;">&nbsp;</p></p-divider>&nbsp;
+        </td>
       </tr>
     </ng-template>
   </p-table>
@@ -230,7 +231,8 @@
         </div>
         <div class="field">
           <label for="telefone" class="block">Celular:</label>
-          <input type="telefone" name="telefone" id="telefone" class="w-full ng-dirty" formControlName="telefone" pInputText
+          <input type="telefone" name="telefone" id="telefone" class="w-full ng-dirty" formControlName="telefone"
+                 pInputText
                  placeholder="Informe o número do celular"/>
           <small id="telefone-help" class="p-error block">{{getErrors('telefone')}}</small>
         </div>

@@ -292,5 +292,4 @@ export class UsuarioComponent extends FormBase implements OnInit {
   trataColaborador(colaborador: String) {
     return colaborador === '1' ? 'Sim' : 'Não';
   }
-
 }

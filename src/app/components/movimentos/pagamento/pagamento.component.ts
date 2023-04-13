@@ -25,7 +25,6 @@ export class PagamentoComponent extends FormBase implements OnInit {
   total: any = 0.0;
   status: any = 3;
 
-
   @ViewChild('filter') filter!: ElementRef;
 
   constructor(
@@ -114,7 +113,7 @@ export class PagamentoComponent extends FormBase implements OnInit {
     if (this.colId && this.mes) {
       let dataInicio = new Date(this.mes.getFullYear(), this.mes.getMonth(), 1);
       let dataFim = new Date(this.mes.getFullYear(), this.mes.getMonth() + 1, 0);
-      this.buscarPagamento(this.colId, dataInicio.toLocaleDateString(), dataFim.toLocaleDateString(),this.status);
+      this.buscarPagamento(this.colId, dataInicio.toLocaleDateString(), dataFim.toLocaleDateString(), this.status);
 
     }
 
@@ -127,9 +126,9 @@ export class PagamentoComponent extends FormBase implements OnInit {
       this.confirmationService.confirm({
         message: 'Realizar pagamento?',
         accept: () => {
-          this.pagamentoService.pagarCololaborador(this.colId, dataInicio.toLocaleDateString(), dataFim.toLocaleDateString(),this.status).subscribe(
+          this.pagamentoService.pagarCololaborador(this.colId, dataInicio.toLocaleDateString(), dataFim.toLocaleDateString(), this.status).subscribe(
             (pagamento) => {
-              this.buscarPagamento(this.colId, dataInicio.toLocaleDateString(), dataFim.toLocaleDateString(),this.status);
+              this.buscarPagamento(this.colId, dataInicio.toLocaleDateString(), dataFim.toLocaleDateString(), this.status);
               this.toast.success('Pagamento realizado com sucesso!');
             },
             (error) => {
@@ -151,7 +150,6 @@ export class PagamentoComponent extends FormBase implements OnInit {
       return true;
     }
   }
-
 
 
 }
