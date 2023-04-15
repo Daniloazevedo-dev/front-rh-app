@@ -295,4 +295,52 @@ export class UsuarioComponent extends FormBase implements OnInit {
   trataColaborador(colaborador: String) {
     return colaborador === '1' ? 'Sim' : 'Não';
   }
+
+
+
+  
+  tratarSituacao(situacao: string) {
+    if (situacao === 'ATIVO') {
+      return 'DESATIVAR';
+
+    } else {
+      return 'ATIVAR';
+    }
+
+  }
+
+  tratarcorbutao(situacao: string) {
+    return situacao === 'ATIVO' ? 'p-button-secondary' : 'p-button-info';
+  }
+
+  editarSituacaoUsuario(id: number, situacao: string) {
+    let acao;
+    let mensagem;
+    if (situacao === 'ATIVO') {
+      mensagem = 'Desativado com Sucesso';
+      acao = 'desativar';
+      situacao = 'INATIVO'
+
+    } else {
+      acao = 'ativar';
+      mensagem = 'Ativado com Sucesso';
+      situacao = 'ATIVO'
+    }
+    this.confirmationService.confirm({
+      message: `Tem certeza que deseja ${acao}?`,
+      accept: () => {
+        
+
+        this.usuarioService.editarSituacao(id, situacao).subscribe(colaborador => {
+          this.buscarUsuarios();
+          this.toast.success(mensagem);
+        },
+          (error) => {
+            this.msgError = [
+              { severity: 'error', summary: 'Erro', detail: error.error.message },
+            ];
+          })
+      }
+    });
+  }
 }

@@ -45,5 +45,9 @@ export class UsuarioService {
     return this.http.get(`${this.url}/colaborador`);
   }
 
+  editarSituacao(id: Number, situacao: string) {
+    return this.http.patch(`${this.url}/id/${id}/situacao/${situacao}`,null);
+  }
+
 }
 

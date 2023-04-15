@@ -19,14 +19,6 @@
 
 <div class="gridTab">
 
-  <div>
-    <p-divider align="right" type="border-0">
-      <p-selectButton [options]="statusOptions" [(ngModel)]="value1"
-                      optionLabel="label"
-                      optionValue="value"></p-selectButton>
-    </p-divider>
-
-  </div>
   <p-table #dt [value]="usuarios" [rows]="5" [paginator]="true"
            [globalFilterFields]="['matricula','nome','roles','colaborador','situacao','email','telefone']"
            responsiveLayout="scroll"
@@ -79,8 +71,9 @@
                   class="p-button-rounded p-button-warning mr-2"></button>
         </td>
         <td style="width: 0.2rem; text-align: center">
-          <button pButton pRipple icon="pi pi-trash" [disabled]="validaUsuarioLogado(usuario.email)"
-                  (click)="deletarUsuario(usuario.id)" class="p-button-rounded p-button-danger"></button>
+          <button pButton pRipple icon="pi pi-pencil" [disabled]="validaUsuarioLogado(usuario.email)"
+  
+                  (click)="editarSituacaoUsuario(usuario.id,usuario.situacao)" pButton pRipple label= "{{tratarSituacao(usuario.situacao)}}" class="p-button-rounded p-button-sm {{tratarcorbutao(usuario.situacao)}}"></button>
         </td>
 
       </tr>
