@@ -2,10 +2,9 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBase} from 'src/app/shared/util/FormBase';
 import {FormBuilder} from '@angular/forms';
 import {BasicValidators} from 'src/app/shared/util/basic-validators';
-import {MessageService} from 'primeng/api';
+import {ConfirmationService, MessageService} from 'primeng/api';
 import {RoleService} from 'src/app/service/role.service';
 import {UsuarioService} from 'src/app/service/usuario.service';
-import {ConfirmationService} from 'primeng/api';
 import {TokenService} from 'src/app/service/token.service';
 import {ToastrService} from 'ngx-toastr';
 import {CepServiceService} from 'src/app/service/cep-service.service';
@@ -298,7 +297,7 @@ export class UsuarioComponent extends FormBase implements OnInit {
 
 
 
-  
+
   tratarSituacao(situacao: string) {
     if (situacao === 'ATIVO') {
       return 'DESATIVAR';
@@ -329,18 +328,21 @@ export class UsuarioComponent extends FormBase implements OnInit {
     this.confirmationService.confirm({
       message: `Tem certeza que deseja ${acao}?`,
       accept: () => {
-        
-
         this.usuarioService.editarSituacao(id, situacao).subscribe(colaborador => {
           this.buscarUsuarios();
           this.toast.success(mensagem);
+            // window.location.reload();
         },
           (error) => {
             this.msgError = [
               { severity: 'error', summary: 'Erro', detail: error.error.message },
             ];
           })
+      },
+      reject:() => {
+        window.location.reload();
       }
     });
+
   }
 }
