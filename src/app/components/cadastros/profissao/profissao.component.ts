@@ -80,13 +80,13 @@ export class ProfissaoComponent extends FormBase implements OnInit {
     let acao;
     let mensagem;
     if (situacao === 'ATIVO') {
-      mensagem = 'Ativado com Sucesso';
-      acao = 'ativar';
+      mensagem = 'Desativado com Sucesso';
+      acao = 'inativar';
       situacao = 'INATIVO'
 
     } else {
-      acao = 'desativar';
-      mensagem = 'Desativado com Sucesso';
+      acao = 'ativar';
+      mensagem = 'Ativado com Sucesso';
       situacao = 'ATIVO'
     }
     this.confirmationService.confirm({
