@@ -331,7 +331,7 @@ export class UsuarioComponent extends FormBase implements OnInit {
         this.usuarioService.editarSituacao(id, situacao).subscribe(colaborador => {
           this.buscarUsuarios();
           this.toast.success(mensagem);
-            // window.location.reload();
+          window.location.reload();
         },
           (error) => {
             this.msgError = [
