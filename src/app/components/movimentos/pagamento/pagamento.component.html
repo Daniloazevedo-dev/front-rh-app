@@ -19,8 +19,16 @@
 <div class="card"></div>
 
 <div class="gridTab">
-
   <p-messages [(value)]="msgError" [enableService]="false"></p-messages>
+
+  <div>
+    <p-divider align="right" type="border-0">
+      <p-selectButton  (click)="pagamentoFiltro(this.value1)" [options]="statusOptions" [(ngModel)]="value1"
+                       optionLabel="label" optionValue="value"></p-selectButton>
+    </p-divider>
+
+  </div>
+
   <p-divider align="center" type="border-0"></p-divider>
   <div style="background-color: rgb(246, 246 ,246);" class="shadow-3">
     <form [formGroup]="pagForm">

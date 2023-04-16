@@ -1,5 +1,7 @@
 <div class="col-12 md:col-6 gridUser">
+
   <p-confirmDialog class="w-full" [transitionOptions]="'0ms'" rejectLabel="Não" acceptLabel="Sim"></p-confirmDialog>
+
   <p-divider align="right">
     <span class="p-tag">Cadastro de usuário</span>
   </p-divider>
@@ -72,8 +74,9 @@
         </td>
         <td style="width: 0.2rem; text-align: center">
           <button pButton pRipple icon="pi pi-pencil" [disabled]="validaUsuarioLogado(usuario.email)"
-  
-                  (click)="editarSituacaoUsuario(usuario.id,usuario.situacao)" pButton pRipple label= "{{tratarSituacao(usuario.situacao)}}" class="p-button-rounded p-button-sm {{tratarcorbutao(usuario.situacao)}}"></button>
+                  (click)="editarSituacaoUsuario(usuario.id,usuario.situacao)"
+                  pButton pRipple label="{{tratarSituacao(usuario.situacao)}}"
+                  class="p-button-rounded p-button-sm {{tratarcorbutao(usuario.situacao)}}"></button>
         </td>
 
       </tr>

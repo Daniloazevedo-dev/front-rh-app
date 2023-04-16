@@ -23,7 +23,17 @@ export class PagamentoComponent extends FormBase implements OnInit {
   mes: Date;
   colId: any;
   total: any = 0.0;
-  status: any = 1;
+  status: any ;
+  pagamentoPagar: any;
+  pagamentoPago: any;
+  botaoStatus: boolean;
+  botaoLabel: string;
+  botaoEstilo: string;
+  statusOptions: any[];
+  value1: string = "0";
+  value2: number;
+  aprovado: any;
+  pago: any;
 
   @ViewChild('filter') filter!: ElementRef;
 
@@ -36,6 +46,9 @@ export class PagamentoComponent extends FormBase implements OnInit {
   ) {
     super();
     this.buscarUsuarios();
+    this.aprovado = '1';
+    this.pago = '2';
+    this.statusOptions = [{label: 'Pagar', value: '1'}, {label: 'Pago', value: '3'}];
 
   }
 
@@ -79,6 +92,20 @@ export class PagamentoComponent extends FormBase implements OnInit {
         ];
       }
     );
+  }
+
+  pagamentoFiltro(status) {
+       if (status === '0') {
+      this.botaoLabel = 'Pagar';
+      this.botaoEstilo = 'p-button-secondary';
+      this.botaoStatus = true;
+      this.pagamento = this.pagamentoPagar
+    } else {
+      this.botaoLabel = 'Pago';
+      this.botaoEstilo = 'p-button-info';
+      this.botaoStatus = false;
+      this.pagamento = this.pagamentoPago
+    }
   }
 
   buscarPagamento(colaboradorId: number, dataInicio: String, dataFim: String, status: any) {
