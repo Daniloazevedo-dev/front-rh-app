@@ -23,7 +23,7 @@
 
   <div>
     <p-divider align="right" type="border-0">
-      <p-selectButton  (click)="pagamentoFiltro(this.value1)" [options]="statusOptions" [(ngModel)]="value1"
+      <p-selectButton  (click)="pagamentoFiltro(this)" [options]="statusOptions" [(ngModel)]="value1"
                        optionLabel="label" optionValue="value"></p-selectButton>
     </p-divider>
 
@@ -62,9 +62,13 @@
         <tr>
           <td>
             <p-divider align="right" type="border-0">
-              <button [disabled]="validaLista()" (click)="pagarColaborador()" style="margin-top: -1rem;" pButton pRipple
-                      label="Pagar" icon="pi pi-plus"
+              <button *ngIf="status === '1'" [disabled]="validaLista()" (click)="pagarColaborador()" style="margin-top: -1rem;" pButton pRipple
+                      label="{{labelBotao}}" icon="pi pi-plus"
                       class="p-button-success"></button>
+
+              <button *ngIf="status === '3'"  [disabled]="validaLista()" (click)="pagarColaborador()" style="margin-top: -1rem;" pButton pRipple
+                      label="{{labelBotao}}" icon="pi pi-plus"
+                      class="p-button-warning"></button>
             </p-divider>
 
           </td>
@@ -74,7 +78,7 @@
     </form>
   </div>
 
-  <div style="margin-top: -0.5rem">
+  <div style="margin-bottom: 1rem">
     <p-table #dt styleClass="p-datatable-striped" [value]="pagamento"
              [showCurrentPageReport]="true" responsiveLayout="scroll"
              [globalFilterFields]="['id','matriculaColaborador','nomeColaborador','data','valorDia']"
@@ -112,9 +116,15 @@
           <td style="width: 0.2rem"></td>
           <td style="width: 0.2rem"></td>
         </tr>
+
       </ng-template>
       <ng-template pTemplate="footer">
-        <div *ngIf="total > 0">{{total}}</div>
+        <tr *ngIf="total > 0" style="background-color: rgb(246, 246 ,246);" class="shadow-3">
+          <td>Total:</td>
+          <td colspan="3"></td>
+          <td>{{formatarPreco(total)}}</td>
+          <td  colspan="3"></td>
+        </tr>
       </ng-template>
     </p-table>
   </div>

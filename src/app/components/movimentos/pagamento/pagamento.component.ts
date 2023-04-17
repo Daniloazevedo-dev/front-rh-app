@@ -23,17 +23,12 @@ export class PagamentoComponent extends FormBase implements OnInit {
   mes: Date;
   colId: any;
   total: any = 0.0;
-  status: any ;
-  pagamentoPagar: any;
-  pagamentoPago: any;
-  botaoStatus: boolean;
-  botaoLabel: string;
-  botaoEstilo: string;
+  status: any = '1';
   statusOptions: any[];
-  value1: string = "0";
+  value1: string = "1";
   value2: number;
-  aprovado: any;
-  pago: any;
+  labelBotao: String = 'Pagar';
+
 
   @ViewChild('filter') filter!: ElementRef;
 
@@ -46,8 +41,6 @@ export class PagamentoComponent extends FormBase implements OnInit {
   ) {
     super();
     this.buscarUsuarios();
-    this.aprovado = '1';
-    this.pago = '2';
     this.statusOptions = [{label: 'Pagar', value: '1'}, {label: 'Pago', value: '3'}];
 
   }
@@ -95,25 +88,32 @@ export class PagamentoComponent extends FormBase implements OnInit {
   }
 
   pagamentoFiltro(status) {
-       if (status === '0') {
-      this.botaoLabel = 'Pagar';
-      this.botaoEstilo = 'p-button-secondary';
-      this.botaoStatus = true;
-      this.pagamento = this.pagamentoPagar
+    if (status.value1 === '1') {
+      this.status = '1';
+      this.labelBotao = 'Pagar';
+
+
     } else {
-      this.botaoLabel = 'Pago';
-      this.botaoEstilo = 'p-button-info';
-      this.botaoStatus = false;
-      this.pagamento = this.pagamentoPago
+      this.status = '3';
+      this.labelBotao = 'Estornar'
+
     }
+    this.setFormPagar();
+    this.pagamento = [];
+    this.colId = '';
+    this.mes = null;
+    this.total = 0;
+
   }
 
-  buscarPagamento(colaboradorId: number, dataInicio: String, dataFim: String, status: any) {
-    console.log(status);
+
+  buscarPagamento(colaboradorId: number, dataInicio: String, dataFim: String, status: string) {
+
 
     this.pagamentoService.buscaColPagar(colaboradorId, dataInicio, dataFim, status).subscribe(
       (pagamento) => {
         this.pagamento = pagamento;
+
         this.total = 0.0;
         this.pagamento.forEach(p => this.total += p.valorDia)
 
@@ -138,6 +138,7 @@ export class PagamentoComponent extends FormBase implements OnInit {
 
   validaBusca() {
     if (this.colId && this.mes) {
+      console.log(this.status)
       let dataInicio = new Date(this.mes.getFullYear(), this.mes.getMonth(), 1);
       let dataFim = new Date(this.mes.getFullYear(), this.mes.getMonth() + 1, 0);
       this.buscarPagamento(this.colId, dataInicio.toLocaleDateString(), dataFim.toLocaleDateString(), this.status);
@@ -151,12 +152,22 @@ export class PagamentoComponent extends FormBase implements OnInit {
       let dataInicio = new Date(this.mes.getFullYear(), this.mes.getMonth(), 1);
       let dataFim = new Date(this.mes.getFullYear(), this.mes.getMonth() + 1, 0);
       this.confirmationService.confirm({
-        message: 'Realizar pagamento?',
+        message: this.status === '3' ? 'Realizar estorno?' : 'Realizar pagamento?',
         accept: () => {
+          this.status = this.status === '1' ? '3' : '1';
           this.pagamentoService.pagarCololaborador(this.colId, dataInicio.toLocaleDateString(), dataFim.toLocaleDateString(), this.status).subscribe(
             (pagamento) => {
-              this.buscarPagamento(this.colId, dataInicio.toLocaleDateString(), dataFim.toLocaleDateString(), this.status);
-              this.toast.success('Pagamento realizado com sucesso!');
+              this.setFormPagar();
+              this.pagamento = [];
+              this.colId = '';
+              this.mes = null;
+              this.total = 0;
+
+              if (this.status === 1) {
+                this.toast.success('Pagamento realizado com sucesso!')
+              } else {
+                this.toast.warning('Estorno realizado com sucesso!')
+              }
             },
             (error) => {
               this.msgError = [
@@ -177,6 +188,5 @@ export class PagamentoComponent extends FormBase implements OnInit {
       return true;
     }
   }
-
 
 }
