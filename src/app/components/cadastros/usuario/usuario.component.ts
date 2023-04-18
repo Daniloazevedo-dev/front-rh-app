@@ -2,9 +2,10 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBase} from 'src/app/shared/util/FormBase';
 import {FormBuilder} from '@angular/forms';
 import {BasicValidators} from 'src/app/shared/util/basic-validators';
-import {ConfirmationService, MessageService} from 'primeng/api';
+import {MessageService} from 'primeng/api';
 import {RoleService} from 'src/app/service/role.service';
 import {UsuarioService} from 'src/app/service/usuario.service';
+import {ConfirmationService} from 'primeng/api';
 import {TokenService} from 'src/app/service/token.service';
 import {ToastrService} from 'ngx-toastr';
 import {CepServiceService} from 'src/app/service/cep-service.service';
@@ -32,6 +33,12 @@ export class UsuarioComponent extends FormBase implements OnInit {
   statusOptions: any[];
   value1: string = "ATIVO";
   value2: number;
+  usuarioAtivo: any;
+  usuarioInativo: any;
+  botaoSituacao: boolean;
+  botaoLabel: string;
+  botaoEstilo: string;
+  status: any;
 
 
   @ViewChild('filter') filter!: ElementRef;
@@ -149,10 +156,17 @@ export class UsuarioComponent extends FormBase implements OnInit {
     );
   }
 
-  buscarUsuarios() {
+  buscarUsuarios(situacao: string = 'INATIVO') {
+    const boleanSituacao = situacao === 'INATIVO' ? true : false
     this.usuarioService.listUsuarios().subscribe(
       (usuarios) => {
         this.usuarios = usuarios;
+        this.usuarioAtivo = this.usuarios.filter(p => p.situacao === 'ATIVO')
+        this.usuarioInativo = this.usuarios.filter(p => p.situacao === 'INATIVO')
+        this.botaoLabel = boleanSituacao === true ? 'Desativar' : 'Ativar';
+        this.botaoEstilo = boleanSituacao === true ? 'p-button-secondary' : 'p-button-info';
+        this.usuarios = boleanSituacao === true ? this.usuarioAtivo : this.usuarioInativo;
+        this.botaoSituacao = boleanSituacao;
       },
       (error) => {
         this.msgError = [
@@ -222,27 +236,18 @@ export class UsuarioComponent extends FormBase implements OnInit {
     );
   }
 
-  deletarUsuario(id: Number) {
-    this.confirmationService.confirm({
-      message: 'Tem certeza que deseja excluir?',
-      accept: () => {
-        this.usuarioService.deleteUsuario(id).subscribe(
-          (res) => {
-            this.toast.success('Usuário deletado com sucesso!');
-            this.buscarUsuarios();
-          },
-          (error) => {
-            this.msgError = [
-              {
-                severity: 'error',
-                summary: 'Erro',
-                detail: error.error.message,
-              },
-            ];
-          }
-        );
-      },
-    });
+  usuarioFiltro(situacao) {
+    if (situacao === 'ATIVO') {
+      this.botaoLabel = 'Desativar';
+      this.botaoEstilo = 'p-button-secondary';
+      this.botaoSituacao = true;
+      this.usuarios = this.usuarioAtivo
+    } else {
+      this.botaoLabel = 'Ativar';
+      this.botaoEstilo = 'p-button-info';
+      this.botaoSituacao = false;
+      this.usuarios = this.usuarioInativo
+    }
   }
 
   editar(id: Number) {
@@ -295,54 +300,33 @@ export class UsuarioComponent extends FormBase implements OnInit {
     return colaborador === '1' ? 'Sim' : 'Não';
   }
 
-
-
-
-  tratarSituacao(situacao: string) {
-    if (situacao === 'ATIVO') {
-      return 'DESATIVAR';
-
-    } else {
-      return 'ATIVAR';
-    }
+  alterarSituacao(id: number, situacao: string) {
+    this.usuarioService.editarSituacao(id, situacao).subscribe(pagamento => {
+      this.buscarUsuarios(situacao);
+      this.toast.success('Situacao alterada com sucesso!');
+    }, (error) => {
+      this.usuariotDialog = false;
+      this.edicao = false;
+      if (error.status === 500) {
+        this.msgError = [
+          {severity: 'error', summary: 'Erro', detail: 'Entre em contato com seu administrador!'},
+        ];
+      } else {
+        this.msgError = [
+          {severity: 'error', summary: 'Erro', detail: error.error.message},
+        ];
+      }
+    })
 
   }
 
-  tratarcorbutao(situacao: string) {
-    return situacao === 'ATIVO' ? 'p-button-secondary' : 'p-button-info';
-  }
-
-  editarSituacaoUsuario(id: number, situacao: string) {
-    let acao;
-    let mensagem;
-    if (situacao === 'ATIVO') {
-      mensagem = 'Desativado com Sucesso';
-      acao = 'desativar';
-      situacao = 'INATIVO'
-
-    } else {
-      acao = 'ativar';
-      mensagem = 'Ativado com Sucesso';
-      situacao = 'ATIVO'
-    }
+  editaSituacao(id: number, situacao: string) {
     this.confirmationService.confirm({
-      message: `Tem certeza que deseja ${acao}?`,
+      message: 'Alterar a Situção?',
       accept: () => {
-        this.usuarioService.editarSituacao(id, situacao).subscribe(colaborador => {
-          this.buscarUsuarios();
-          window.location.reload();
-            this.toast.success(mensagem);
-        },
-          (error) => {
-            this.msgError = [
-              { severity: 'error', summary: 'Erro', detail: error.error.message },
-            ];
-          })
-      },
-      reject:() => {
-        window.location.reload();
+        this.alterarSituacao(id, situacao.toUpperCase())
+        window.close();
       }
     });
-
   }
 }

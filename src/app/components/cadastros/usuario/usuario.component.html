@@ -1,6 +1,8 @@
 <div class="col-12 md:col-6 gridUser">
 
+  <p-toast position="top-right" key="tr"></p-toast>
   <p-confirmDialog class="w-full" [transitionOptions]="'0ms'" rejectLabel="Não" acceptLabel="Sim"></p-confirmDialog>
+  <p-messages [(value)]="msgError" [enableService]="false"></p-messages>
 
   <p-divider align="right">
     <span class="p-tag">Cadastro de usuário</span>
@@ -13,14 +15,16 @@
   </div>
 </div>
 
-<p-toast position="top-right" key="tr"></p-toast>
-<p-confirmDialog class="w-full" [transitionOptions]="'0ms'" rejectLabel="Não" acceptLabel="Sim"></p-confirmDialog>
-
-
-<p-messages [(value)]="msgError" [enableService]="false"></p-messages>
-
 <div class="gridTab">
 
+  <div>
+    <p-divider align="right" type="border-0">
+      <p-selectButton  (click)="usuarioFiltro(this.value1)" [options]="statusOptions" [(ngModel)]="value1"
+                      optionLabel="label"
+                      optionValue="value"></p-selectButton>
+    </p-divider>
+
+  </div>
   <p-table #dt [value]="usuarios" [rows]="5" [paginator]="true"
            [globalFilterFields]="['matricula','nome','roles','colaborador','situacao','email','telefone']"
            responsiveLayout="scroll"
@@ -73,10 +77,8 @@
                   class="p-button-rounded p-button-warning mr-2"></button>
         </td>
         <td style="width: 0.2rem; text-align: center">
-          <button pButton pRipple icon="pi pi-pencil" [disabled]="validaUsuarioLogado(usuario.email)"
-                  (click)="editarSituacaoUsuario(usuario.id,usuario.situacao)"
-                  pButton pRipple label="{{tratarSituacao(usuario.situacao)}}"
-                  class="p-button-rounded p-button-sm {{tratarcorbutao(usuario.situacao)}}"></button>
+          <button (click)="editaSituacao(usuario.id,botaoLabel === 'Ativar'? 'ATIVO': 'INATIVO')" pButton pRipple
+                  label="{{botaoLabel}}" class="p-button-rounded p-button-sm {{botaoEstilo}}"></button>
         </td>
 
       </tr>
@@ -262,4 +264,3 @@
     </div>
   </div>
 </p-dialog>
-
