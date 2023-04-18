@@ -68,6 +68,9 @@ export class AuthInterceptor implements HttpInterceptor {
           } else {
             this.router.navigate(['login']).then(_ =>location.reload());
           }
+        } if (error.status === 403) {
+          this.router.navigate(['home']).then(_ => this.toast.error("Você não tem autorização!"));
+
         }
         return throwError(error);
       }));
