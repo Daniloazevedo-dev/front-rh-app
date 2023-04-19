@@ -33,7 +33,7 @@ export class RelatorioComponent extends FormBase implements OnInit {
     this.usuarioService.listColaboradorNome($event.query).subscribe(
       (usuarios) => {
         this.listColaborador = usuarios;
-        console.log(this.listColaborador);
+       
       },
       (error) => {
         this.msgError = [
@@ -44,7 +44,7 @@ export class RelatorioComponent extends FormBase implements OnInit {
   }
 
   selectID(value: any) {
-    console.log(value);
+    //console.log(value);
   }
 
   constructor(
@@ -72,7 +72,7 @@ export class RelatorioComponent extends FormBase implements OnInit {
     this.usuarioService.listColaborador().subscribe(
       (usuarios) => {
         this.usuarios = usuarios;
-        console.log(this.usuarios);
+        //console.log(this.usuarios);
       },
       (error) => {
         this.msgError = [

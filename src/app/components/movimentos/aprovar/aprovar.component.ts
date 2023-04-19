@@ -96,7 +96,7 @@ export class AprovarComponent implements OnInit {
         this.pagamentoReprovado = this.pagamento.filter(p => p.status === '2')
         this.botaoLabel = boleanStatus === true ? 'Reprovado' : 'Aguardando';
         this.botaoEstilo = boleanStatus === true ? 'p-button-info' : 'p-button-secondary';
-        // console.log(this.value1)
+       
         if (this.value1 === '0' && status === '2') {
           this.pagamento = this.pagamentoAguardando
         } else if (this.value1 === '2' && status === '1') {
@@ -119,7 +119,7 @@ export class AprovarComponent implements OnInit {
   alterarStatus(id: number, status: string) {
     this.aprovarService.editarPagamentoStatus(id, status).subscribe(pagamento => {
       this.buscarPagamento(status);
-      // console.log(status)
+      
       if (status === '1') {
         this.toast.success('Lançamento aprovado com sucesso!');
       }

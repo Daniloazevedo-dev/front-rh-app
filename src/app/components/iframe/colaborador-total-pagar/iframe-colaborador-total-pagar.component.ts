@@ -23,7 +23,7 @@ export class IframeColaboradorTotalPagarComponent implements OnInit {
   ngOnInit(): void {
 
     this.colaboradorTotalPagar(this.idRelB, this.inicioRelB, this.fimRelB)
-    // console.log(this.inicio)
+   
   }
 
   colaboradorTotalPagar(idRelB: string, inicioRelB: string, fimRelB: string) {
