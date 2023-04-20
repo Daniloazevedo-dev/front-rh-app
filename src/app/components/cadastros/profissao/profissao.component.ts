@@ -132,6 +132,7 @@ export class ProfissaoComponent extends FormBase implements OnInit {
     this.profissaoDialog = false;
   }
   salvarProfissao(profissao: any) {
+    profissao.situacao = 'ATIVO';
     this.profissaoService.salvarProfissao(profissao).subscribe(
       (profissao) => {
         this.buscarProfissao();
