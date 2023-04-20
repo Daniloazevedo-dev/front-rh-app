@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   private static log(message: string): any {
-    console.log(message);
+    //console.log(message);
   }
 
   constructor(private http: HttpClient, private tokenService: TokenService) {

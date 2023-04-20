@@ -22,7 +22,7 @@ export class IframeListaColaboradorTotalPagarComponent implements OnInit {
 
   ngOnInit(): void {
     this.listaColaboradorTotalPagar(this.inicioRelA, this.fimRelA)
-    // console.log(this.inicio)
+    
   }
 
   listaColaboradorTotalPagar(inicioRelA: string, fimRelA: string) {

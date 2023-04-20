@@ -138,7 +138,7 @@ export class PagamentoComponent extends FormBase implements OnInit {
 
   validaBusca() {
     if (this.colId && this.mes) {
-      console.log(this.status)
+      
       let dataInicio = new Date(this.mes.getFullYear(), this.mes.getMonth(), 1);
       let dataFim = new Date(this.mes.getFullYear(), this.mes.getMonth() + 1, 0);
       this.buscarPagamento(this.colId, dataInicio.toLocaleDateString(), dataFim.toLocaleDateString(), this.status);

@@ -22,7 +22,7 @@ export class ColaboradorTotalPagarColIdComponent implements OnInit {
 
   ngOnInit(): void {
     this.colaboradorTotalPagarColId(this.idRelC, this.inicioRelC, this.fimRelC)
-    // console.log(this.idRelC)
+    
   }
 
   colaboradorTotalPagarColId(idRelC: string, inicioRelC: string, fimRelC: string) {
