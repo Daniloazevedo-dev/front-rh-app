@@ -77,7 +77,7 @@
                   class="p-button-rounded p-button-warning mr-2"></button>
         </td>
         <td style="width: 0.2rem; text-align: center">
-          <button (click)="editaSituacao(usuario.id,botaoLabel === 'Ativar'? 'ATIVO': 'INATIVO')" pButton pRipple
+          <button [disabled]=" validaUsuarioLogado(usuario.email)" (click)="editaSituacao(usuario.id,botaoLabel === 'Ativar'? 'ATIVO': 'INATIVO')" pButton pRipple
                   label="{{botaoLabel}}" class="p-button-rounded p-button-sm {{botaoEstilo}}"></button>
         </td>
 
